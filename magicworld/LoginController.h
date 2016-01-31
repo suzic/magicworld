@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  LoginController.h
 //  magicworld
 //
 //  Created by 苏智 on 16/1/31.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface LoginController : UITableViewController
 
 @end
-

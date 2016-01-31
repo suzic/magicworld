@@ -9,11 +9,15 @@
 /* Begin PBXBuildFile section */
 		D05780C81C5DE41600E9195D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780C71C5DE41600E9195D /* main.m */; };
 		D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780CA1C5DE41600E9195D /* AppDelegate.m */; };
-		D05780CE1C5DE41600E9195D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780CD1C5DE41600E9195D /* ViewController.m */; };
 		D05780D11C5DE41600E9195D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05780CF1C5DE41600E9195D /* Main.storyboard */; };
 		D05780D41C5DE41600E9195D /* magicworld.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05780D21C5DE41600E9195D /* magicworld.xcdatamodeld */; };
 		D05780D61C5DE41600E9195D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05780D51C5DE41600E9195D /* Assets.xcassets */; };
 		D05780D91C5DE41600E9195D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05780D71C5DE41600E9195D /* LaunchScreen.storyboard */; };
+		D05780E21C5DEEC000E9195D /* FrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780E11C5DEEC000E9195D /* FrameController.m */; };
+		D05780E51C5DEECF00E9195D /* MapController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780E41C5DEECF00E9195D /* MapController.m */; };
+		D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780E71C5DEEFA00E9195D /* LoginController.m */; };
+		D05780EC1C5DF11F00E9195D /* LoginActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780EB1C5DF11F00E9195D /* LoginActionCell.m */; };
+		D05780EF1C5DF12C00E9195D /* LoginInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780EE1C5DF12C00E9195D /* LoginInputCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,13 +25,21 @@
 		D05780C71C5DE41600E9195D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D05780C91C5DE41600E9195D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D05780CA1C5DE41600E9195D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D05780CC1C5DE41600E9195D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D05780CD1C5DE41600E9195D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		D05780D01C5DE41600E9195D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D05780D31C5DE41600E9195D /* magicworld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = magicworld.xcdatamodel; sourceTree = "<group>"; };
 		D05780D51C5DE41600E9195D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D05780D81C5DE41600E9195D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D05780DA1C5DE41600E9195D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D05780E01C5DEEC000E9195D /* FrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameController.h; sourceTree = "<group>"; };
+		D05780E11C5DEEC000E9195D /* FrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameController.m; sourceTree = "<group>"; };
+		D05780E31C5DEECF00E9195D /* MapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapController.h; sourceTree = "<group>"; };
+		D05780E41C5DEECF00E9195D /* MapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapController.m; sourceTree = "<group>"; };
+		D05780E61C5DEEFA00E9195D /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
+		D05780E71C5DEEFA00E9195D /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
+		D05780EA1C5DF11F00E9195D /* LoginActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginActionCell.h; sourceTree = "<group>"; };
+		D05780EB1C5DF11F00E9195D /* LoginActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginActionCell.m; sourceTree = "<group>"; };
+		D05780ED1C5DF12C00E9195D /* LoginInputCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInputCell.h; sourceTree = "<group>"; };
+		D05780EE1C5DF12C00E9195D /* LoginInputCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInputCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,13 +74,15 @@
 			children = (
 				D05780C91C5DE41600E9195D /* AppDelegate.h */,
 				D05780CA1C5DE41600E9195D /* AppDelegate.m */,
-				D05780CC1C5DE41600E9195D /* ViewController.h */,
-				D05780CD1C5DE41600E9195D /* ViewController.m */,
 				D05780CF1C5DE41600E9195D /* Main.storyboard */,
-				D05780D51C5DE41600E9195D /* Assets.xcassets */,
 				D05780D71C5DE41600E9195D /* LaunchScreen.storyboard */,
-				D05780DA1C5DE41600E9195D /* Info.plist */,
-				D05780D21C5DE41600E9195D /* magicworld.xcdatamodeld */,
+				D05780D51C5DE41600E9195D /* Assets.xcassets */,
+				D05780E01C5DEEC000E9195D /* FrameController.h */,
+				D05780E11C5DEEC000E9195D /* FrameController.m */,
+				D05780E31C5DEECF00E9195D /* MapController.h */,
+				D05780E41C5DEECF00E9195D /* MapController.m */,
+				D05780F01C5DF13400E9195D /* Login */,
+				D05780E91C5DEF3B00E9195D /* Database */,
 				D05780C61C5DE41600E9195D /* Supporting Files */,
 			);
 			path = magicworld;
@@ -77,9 +91,31 @@
 		D05780C61C5DE41600E9195D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D05780DA1C5DE41600E9195D /* Info.plist */,
 				D05780C71C5DE41600E9195D /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D05780E91C5DEF3B00E9195D /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				D05780D21C5DE41600E9195D /* magicworld.xcdatamodeld */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
+		D05780F01C5DF13400E9195D /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				D05780E61C5DEEFA00E9195D /* LoginController.h */,
+				D05780E71C5DEEFA00E9195D /* LoginController.m */,
+				D05780EA1C5DF11F00E9195D /* LoginActionCell.h */,
+				D05780EB1C5DF11F00E9195D /* LoginActionCell.m */,
+				D05780ED1C5DF12C00E9195D /* LoginInputCell.h */,
+				D05780EE1C5DF12C00E9195D /* LoginInputCell.m */,
+			);
+			name = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,9 +189,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				D05780D41C5DE41600E9195D /* magicworld.xcdatamodeld in Sources */,
-				D05780CE1C5DE41600E9195D /* ViewController.m in Sources */,
+				D05780E21C5DEEC000E9195D /* FrameController.m in Sources */,
 				D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */,
+				D05780E51C5DEECF00E9195D /* MapController.m in Sources */,
+				D05780EC1C5DF11F00E9195D /* LoginActionCell.m in Sources */,
 				D05780C81C5DE41600E9195D /* main.m in Sources */,
+				D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */,
+				D05780EF1C5DF12C00E9195D /* LoginInputCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +344,7 @@
 				D05780DF1C5DE41600E9195D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
