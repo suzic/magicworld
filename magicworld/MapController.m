@@ -64,7 +64,7 @@
     else if (offset.y > MAP_ROWS * MAP_HEIGHT * 1.3 && yDirectionDown == YES)
     {
         self.autoChangedNeeded = YES;
-        newOffset.y = offset.y - MAP_ROWS * MAP_HEIGHT + 64;
+        newOffset.y = offset.y - MAP_ROWS * MAP_HEIGHT + self.mapCollection.contentInset.top;
     }
     
     if (self.autoChangedNeeded == YES)
@@ -73,7 +73,7 @@
                                                            self.mapCollection.frame.size.width,
                                                            self.mapCollection.frame.size.height)
                                        animated:NO];
-        NSLog(@"Auto Changed Occured....");
+        // NSLog(@"Auto Changed Occured....");
         self.autoChangedNeeded = NO;
     }
     self.lastOffset = newOffset;
@@ -92,7 +92,7 @@
     if (decelerate)
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            printf("STOP IT!!\n");
+            // NSLog(@"STOP ANIMATION...");
             [scrollView setContentOffset:scrollView.contentOffset animated:NO];
         });
     }
