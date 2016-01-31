@@ -7,8 +7,12 @@
 //
 
 #import "MapController.h"
+#import "MapDatasource.h"
 
-@interface MapController () <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface MapController () <UICollectionViewDelegate>
+
+@property (assign, nonatomic) CGPoint lastOffset;
+@property (assign, nonatomic) BOOL autoChangedNeeded;
 
 @end
 
@@ -17,7 +21,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning
@@ -26,21 +29,73 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - UICollectionView Datasource & Delegate
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+- (void)viewDidLayoutSubviews
 {
-    return 1;
+    [super viewDidLayoutSubviews];
+    
+    self.autoChangedNeeded = NO;
+    self.lastOffset = self.mapCollection.contentOffset;
+    [self recalculateSections:self.mapCollection.contentOffset];
 }
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (void)recalculateSections:(CGPoint)offset
 {
-    return 2;
+    BOOL xDirectionRight = self.lastOffset.x < offset.x;
+    BOOL yDirectionDown = self.lastOffset.y < offset.y;
+    CGPoint newOffset = CGPointMake(offset.x, offset.y);
+    self.autoChangedNeeded = NO;
+    
+    if (offset.x < MAP_COLS * MAP_WIDTH / 3 && xDirectionRight == NO)
+    {
+        self.autoChangedNeeded = YES;
+        newOffset.x = offset.x + MAP_COLS * MAP_WIDTH;
+    }
+    else if (offset.x > MAP_COLS * MAP_WIDTH * 1.3 && xDirectionRight == YES)
+    {
+        self.autoChangedNeeded = YES;
+        newOffset.x = offset.x - MAP_COLS * MAP_WIDTH;
+    }
+    
+    if (offset.y < MAP_ROWS * MAP_HEIGHT / 3 && yDirectionDown == NO)
+    {
+        self.autoChangedNeeded = YES;
+        newOffset.y = offset.y + MAP_ROWS * MAP_HEIGHT;
+    }
+    else if (offset.y > MAP_ROWS * MAP_HEIGHT * 1.3 && yDirectionDown == YES)
+    {
+        self.autoChangedNeeded = YES;
+        newOffset.y = offset.y - MAP_ROWS * MAP_HEIGHT + 64;
+    }
+    
+    if (self.autoChangedNeeded == YES)
+    {
+        [self.mapCollection scrollRectToVisible:CGRectMake(newOffset.x, newOffset.y,
+                                                           self.mapCollection.frame.size.width,
+                                                           self.mapCollection.frame.size.height)
+                                       animated:NO];
+        NSLog(@"Auto Changed Occured....");
+        self.autoChangedNeeded = NO;
+    }
+    self.lastOffset = newOffset;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - UICollectionView Delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    return [collectionView dequeueReusableCellWithReuseIdentifier:@"zoneCell" forIndexPath:indexPath];
+    if (self.autoChangedNeeded == NO)
+        [self recalculateSections:scrollView.contentOffset];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (decelerate)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            printf("STOP IT!!\n");
+            [scrollView setContentOffset:scrollView.contentOffset animated:NO];
+        });
+    }
 }
 
 /*

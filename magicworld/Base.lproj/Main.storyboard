@@ -177,25 +177,49 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PLc-wp-kIg">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PLc-wp-kIg">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Cam-Qm-mMi">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
+                                <collectionViewLayout key="collectionViewLayout" id="vMI-W6-oBf" customClass="MapCellLayout"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoneCell" id="wGF-KC-QCV">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoneCell" id="wGF-KC-QCV" customClass="MapCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1pB-vo-gK7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwA-ly-mp6">
+                                                    <rect key="frame" x="37" y="44" width="27" height="12"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="1pB-vo-gK7" firstAttribute="width" secondItem="wGF-KC-QCV" secondAttribute="width" id="5oT-BL-HeB"/>
+                                            <constraint firstItem="1pB-vo-gK7" firstAttribute="centerX" secondItem="wGF-KC-QCV" secondAttribute="centerX" id="FT5-Sf-P56"/>
+                                            <constraint firstItem="1pB-vo-gK7" firstAttribute="height" secondItem="wGF-KC-QCV" secondAttribute="height" id="IoK-4j-fhU"/>
+                                            <constraint firstItem="ZwA-ly-mp6" firstAttribute="centerX" secondItem="1pB-vo-gK7" secondAttribute="centerX" id="TwD-zP-daB"/>
+                                            <constraint firstItem="ZwA-ly-mp6" firstAttribute="centerY" secondItem="1pB-vo-gK7" secondAttribute="centerY" id="a1W-Vu-jvj"/>
+                                            <constraint firstItem="1pB-vo-gK7" firstAttribute="centerY" secondItem="wGF-KC-QCV" secondAttribute="centerY" id="hUL-2u-JKK"/>
+                                        </constraints>
+                                        <size key="customSize" width="100" height="100"/>
+                                        <connections>
+                                            <outlet property="cellBackground" destination="1pB-vo-gK7" id="bMe-iS-a5Z"/>
+                                            <outlet property="indexLabel" destination="ZwA-ly-mp6" id="6r9-p1-Mnl"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="SGD-BE-cun" id="dUt-jO-IWP"/>
+                                    <outlet property="delegate" destination="Nlz-1Q-4QL" id="3WX-93-t3i"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -206,8 +230,12 @@
                             <constraint firstItem="PLc-wp-kIg" firstAttribute="centerY" secondItem="qb5-KG-a2p" secondAttribute="centerY" id="efM-MJ-0Je"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapCollection" destination="PLc-wp-kIg" id="SGP-ws-inu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l7y-ya-9Ge" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="SGD-BE-cun" customClass="MapDatasource"/>
             </objects>
             <point key="canvasLocation" x="2181" y="1231"/>
         </scene>
