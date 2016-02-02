@@ -9,7 +9,7 @@
 #import "FrameController.h"
 #import "MapController.h"
 
-@interface FrameController () <MapControllerDelegate>
+@interface FrameController () <MapControllerDelegate, UIAlertViewDelegate>
 
 @property (retain, nonatomic) MapController *mapController;
 
@@ -41,7 +41,25 @@
     [self.mapController rotateMapToSize:size];
 }
 
-#pragma makr - MapController Delegate
+- (IBAction)logOut:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out"
+                                                    message:@"Do you really want to Log Out ?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"No"
+                                          otherButtonTitles:@"YES", nil];
+    [alert show];
+}
+
+#pragma mark - UIAlertView Delegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1)
+        [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+#pragma mark - MapController Delegate
 
 - (void)startDrag:(MapController *)controller
 {

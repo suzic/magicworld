@@ -34,7 +34,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Magic World" id="jBM-OM-enZ">
-                        <barButtonItem key="rightBarButtonItem" title="Settings" id="3Pd-NJ-aqe"/>
+                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="G9P-G9-aDL">
+                            <connections>
+                                <action selector="logOut:" destination="BYZ-38-t0r" id="pON-v6-fjY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="You" id="3Pd-NJ-aqe"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
