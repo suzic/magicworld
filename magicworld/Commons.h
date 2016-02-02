@@ -13,8 +13,8 @@
 #define kScreenHeight ([UIScreen mainScreen].bounds.size.height)
 #define kScreenHeightVisable (kScreenHeight - [UIScreen main)
 
-#define MAP_ROWS    200
-#define MAP_COLS    200
+#define MAP_ROWS    30
+#define MAP_COLS    30
 #define MAP_WIDTH   (kScreenWidth < kScreenHeight ? (int)(kScreenWidth / 5.0f) : (int)(kScreenWidth / 9.0f))
 #define MAP_HEIGHT  (kScreenWidth < kScreenHeight ? (int)(kScreenHeight / 9.0f) : (int)(kScreenHeight / 5.0f))
 

@@ -38,7 +38,8 @@
     
     self.lastOffset = self.mapCollection.contentOffset;
     self.dontRecalOffset = NO;
-
+    self.stopAutoMoveCenter = NO;
+    
     // 初始化infoPanel
     self.infoPanel.hidden = YES;
     NSLayoutConstraint *animateConstraint = (kScreenWidth < kScreenHeight) ? self.infoPanelBottom : self.infoPanelLeading;
@@ -77,12 +78,19 @@
     self.infoPanelWidth.constant = (kScreenWidth < kScreenHeight) ? kScreenWidth : kScreenWidth / 9 * 1.5;
     self.infoPanelHeight.constant = (kScreenWidth < kScreenHeight) ? kScreenHeight / 9 * 1.5: kScreenHeight;
     
-    self.dontRecalOffset = YES;
-    [self.mapCollection scrollToItemAtIndexPath:self.autoCenterIndexPath
-                               atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally | UICollectionViewScrollPositionCenteredVertically
-                                       animated:NO];
-    self.dontRecalOffset = NO;
+    if (self.stopAutoMoveCenter == YES)
+        self.stopAutoMoveCenter = NO;
+    else
+    {
+        self.dontRecalOffset = YES;
+        [self.mapCollection scrollToItemAtIndexPath:self.autoCenterIndexPath
+                                   atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally | UICollectionViewScrollPositionCenteredVertically
+                                           animated:NO];
+        self.dontRecalOffset = NO;
+    }
 }
+
+#pragma mark - Private functions
 
 - (IBAction)moveToSelected:(id)sender
 {
@@ -130,22 +138,26 @@
     {
         self.dontRecalOffset = YES;
         newOffset.x = offset.x + MAP_COLS * MAP_WIDTH;
+        NSLog(@">>>>>> Auto Moved Right....");
     }
-    else if (offset.x > MAP_COLS * MAP_WIDTH * 1.3 && xDirectionRight == YES)
+    else if (offset.x > MAP_COLS * MAP_WIDTH * 1.67 && xDirectionRight == YES)
     {
         self.dontRecalOffset = YES;
         newOffset.x = offset.x - MAP_COLS * MAP_WIDTH;
+        NSLog(@"<<<<<< Auto Moved Left....");
     }
     
     if (offset.y < MAP_ROWS * MAP_HEIGHT / 3 && yDirectionDown == NO)
     {
         self.dontRecalOffset = YES;
         newOffset.y = offset.y + MAP_ROWS * MAP_HEIGHT;
+        NSLog(@"vvvvvv Auto Moved Down....");
     }
-    else if (offset.y > MAP_ROWS * MAP_HEIGHT * 1.3 && yDirectionDown == YES)
+    else if (offset.y > MAP_ROWS * MAP_HEIGHT * 1.67 && yDirectionDown == YES)
     {
         self.dontRecalOffset = YES;
-        newOffset.y = offset.y - MAP_ROWS * MAP_HEIGHT + self.mapCollection.contentInset.top;
+        newOffset.y = offset.y - MAP_ROWS * MAP_HEIGHT;
+        NSLog(@"^^^^^^ Auto Moved Up....");
     }
     
     if (self.dontRecalOffset == YES)
@@ -198,6 +210,22 @@
         } completion:completion];
     }
 }
+
+- (void)calCenterIndexPath
+{
+    // 根据偏移量计算可能显示的所有格子的横竖索引的起始
+    NSInteger row_c = ((self.lastOffset.y + kScreenHeight / 2.0f) / MAP_HEIGHT);
+    NSInteger col_c = ((self.lastOffset.x + kScreenWidth / 2.0f) / MAP_WIDTH);
+    
+    NSInteger section = 0;
+    section += (col_c >= MAP_COLS) ? 1 : 0;
+    section += (row_c >= MAP_ROWS) ? 2 : 0;
+    
+    self.autoCenterIndexPath = [NSIndexPath indexPathForItem:(row_c % MAP_ROWS) * MAP_COLS + (col_c % MAP_COLS)
+                                                   inSection:section];
+}
+
+#pragma mark - Properties settings
 
 - (void)setLastOffset:(CGPoint)lastOffset
 {
@@ -263,20 +291,6 @@
     [self.mapCollection reloadData];
 }
 
-- (void)calCenterIndexPath
-{
-    // 根据偏移量计算可能显示的所有格子的横竖索引的起始
-    NSInteger row_c = ((self.lastOffset.y + kScreenHeight / 2.0f) / MAP_HEIGHT);
-    NSInteger col_c = ((self.lastOffset.x + kScreenWidth / 2.0f) / MAP_WIDTH);
-    
-    NSInteger section = 0;
-    section += (col_c >= MAP_COLS) ? 1 : 0;
-    section += (row_c >= MAP_ROWS) ? 2 : 0;
-    
-    self.autoCenterIndexPath = [NSIndexPath indexPathForItem:(row_c % MAP_ROWS) * MAP_COLS + (col_c % MAP_COLS)
-                                               inSection:section];
-}
-
 #pragma mark - UICollectionView / UIScrollView Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
@@ -324,14 +338,12 @@
     self.showPanelLight = YES;;
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
 
 @end

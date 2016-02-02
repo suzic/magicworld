@@ -23,7 +23,9 @@
 
 - (void)rotateMapToSize:(CGSize)size;
 
+@property (assign, nonatomic) BOOL stopAutoMoveCenter;
+
 @property (strong, nonatomic) IBOutlet UICollectionView *mapCollection;
-@property(nonatomic, assign) id<MapControllerDelegate> delegate;
+@property (assign, nonatomic) id<MapControllerDelegate> delegate;
 
 @end

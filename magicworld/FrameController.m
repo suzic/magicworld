@@ -39,11 +39,13 @@
 
 - (void)startDrag:(MapController *)controller
 {
+    controller.stopAutoMoveCenter = YES;
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)endDrag:(MapController *)controller
 {
+    controller.stopAutoMoveCenter = YES;
     [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight) animated:YES];
 }
 
