@@ -10,4 +10,6 @@
 
 @interface MapDatasource : NSObject
 
+@property (assign, nonatomic) NSInteger selectedRowIndex;
+
 @end

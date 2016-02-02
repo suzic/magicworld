@@ -18,7 +18,7 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-        self.visibleAttributes = [NSMutableArray arrayWithCapacity:4 * MAP_ROWS * MAP_COLS];
+        self.visibleAttributes = [NSMutableArray arrayWithCapacity:200];
     }
     return self;
 }
@@ -38,54 +38,57 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     [self.visibleAttributes removeAllObjects];
+
+    // 根据偏移量计算可能显示的所有格子的横竖索引的起始
+    NSInteger row_min = ((self.collectionView.contentOffset.y / MAP_HEIGHT)) - 1;
+    NSInteger col_min = ((self.collectionView.contentOffset.x / MAP_WIDTH)) - 1;
+    NSInteger row_max = ((self.collectionView.contentOffset.y + kScreenHeight) / MAP_HEIGHT) + 1;
+    NSInteger col_max = ((self.collectionView.contentOffset.x + kScreenWidth) / MAP_WIDTH) + 1;
     
-    [self layoutMapCells];
-    
+    // 不要越界
+    row_min = row_min < 0 ? 0 : row_min;
+    col_min = col_min < 0 ? 0 : col_min;
+    row_max = (row_max > MAP_ROWS * 2) ? (MAP_ROWS * 2) : row_max;
+    col_max = (col_max > MAP_COLS * 2) ? (MAP_COLS * 2) : col_max;
+
+    // 双层循环
+    for (NSInteger row = row_min; row < row_max; row++)
+    for (NSInteger col = col_min; col < col_max; col++)
+    {
+        // section是通过四个区域是否过半计算的
+        NSInteger section = 0;
+        section += (col >= MAP_COLS) ? 1 : 0;
+        section += (row >= MAP_ROWS) ? 2 : 0;
+        
+        // 转换到四个section的坐标体系并获取对应的属性值
+        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:(row % MAP_ROWS) * MAP_COLS + (col % MAP_COLS) inSection:section];
+        UICollectionViewLayoutAttributes *attr = [self layoutAttributesForItemAtIndexPath:indexPath];
+        
+        //加入可见属性列表
+        [self.visibleAttributes addObject:attr];
+    }
+
+    //NSLog(@"Render attributes: %d", self.visibleAttributes.count);
     return self.visibleAttributes;
 }
 
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
+    
+    NSInteger row = (indexPath.row / MAP_ROWS) + ((indexPath.section / 2) == 0 ? 0 : MAP_ROWS);
+    NSInteger col = (indexPath.row % MAP_COLS) + ((indexPath.section % 2) == 0 ? 0 : MAP_COLS);
+    
+    CGRect frame = CGRectMake(col * MAP_WIDTH, row * MAP_HEIGHT, MAP_WIDTH, MAP_HEIGHT);;
+    attr.frame = frame;
+    attr.zIndex = indexPath.section * MAP_ROWS * MAP_COLS + indexPath.row;
+    
     return attr;
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)newBounds
 {
     return YES;
-}
-
-#pragma mark - Private functions
-
-- (void)layoutMapCells
-{
-    CGFloat topInset = self.collectionView.contentInset.top;
-    CGPoint scrollPosition = CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + topInset);
-    CGFloat viewWidth = self.collectionView.frame.size.width;
-    CGFloat viewHeight = self.collectionView.frame.size.height;
-    CGFloat lastSectionOffsetX = scrollPosition.x + viewWidth;
-    CGFloat lastSectionOffsetY = scrollPosition.y + viewHeight - topInset;
-
-    // 数据区格式计算
-    for (int section = 0; section < [self.collectionView numberOfSections]; section++)
-    for (int row = 0; row < MAP_ROWS; row++)
-    for (int col = 0; col < MAP_COLS; col++)
-    {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForItem:row * MAP_COLS + col inSection:section];
-        UICollectionViewLayoutAttributes *attr = [self layoutAttributesForItemAtIndexPath:indexPath];
-        
-        // 判断是否需要提前结束
-        NSInteger irow = (section % 2 == 0) ? row : MAP_ROWS + row;
-        NSInteger icol = (section / 2 == 0) ? col : MAP_COLS + col;
-        if ((icol + 1) * MAP_WIDTH < scrollPosition.x || (icol - 1) * MAP_WIDTH > lastSectionOffsetX ||
-            (irow + 1) * MAP_HEIGHT < scrollPosition.y - topInset || (irow - 1) * MAP_HEIGHT > lastSectionOffsetY)
-            continue;
-
-        CGRect frame = CGRectMake(icol * MAP_WIDTH, irow * MAP_HEIGHT, MAP_WIDTH, MAP_HEIGHT);;
-        attr.frame = frame;
-        attr.zIndex = irow * MAP_COLS + icol;
-        [self.visibleAttributes addObject:attr];
-    }
 }
 
 @end

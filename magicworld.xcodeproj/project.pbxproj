@@ -24,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D00BC6B61C5F5DC40011E293 /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
 		D05780C31C5DE41600E9195D /* magicworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = magicworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05780C71C5DE41600E9195D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D05780C91C5DE41600E9195D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		D05780C61C5DE41600E9195D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D00BC6B61C5F5DC40011E293 /* Commons.h */,
 				D05780DA1C5DE41600E9195D /* Info.plist */,
 				D05780C71C5DE41600E9195D /* main.m */,
 			);
@@ -172,6 +174,7 @@
 				TargetAttributes = {
 					D05780C21C5DE41600E9195D = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = XEW439Z58D;
 					};
 				};
 			};
@@ -333,7 +336,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = magicworld/Commons.h;
 				INFOPLIST_FILE = magicworld/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.suzic.magicworld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -344,7 +351,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = magicworld/Commons.h;
 				INFOPLIST_FILE = magicworld/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.suzic.magicworld;
 				PRODUCT_NAME = "$(TARGET_NAME)";

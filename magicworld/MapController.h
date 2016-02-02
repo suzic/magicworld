@@ -6,16 +6,24 @@
 //  Copyright © 2016年 Suzic. All rights reserved.
 //
 
-#define MAP_ROWS    100
-#define MAP_COLS    100
-#define MAP_WIDTH   40.0f
-#define MAP_HEIGHT  40.0f
-
-
 #import <UIKit/UIKit.h>
+
+@class MapController;
+
+@protocol MapControllerDelegate <NSObject>
+
+@optional
+
+- (void)startDrag:(MapController *)controller;
+- (void)endDrag:(MapController *)controller;
+
+@end
 
 @interface MapController : UIViewController
 
+- (void)rotateMapToSize:(CGSize)size;
+
 @property (strong, nonatomic) IBOutlet UICollectionView *mapCollection;
+@property(nonatomic, assign) id<MapControllerDelegate> delegate;
 
 @end

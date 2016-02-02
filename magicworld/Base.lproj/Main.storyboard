@@ -9,7 +9,7 @@
         <!--Magic World-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="FrameController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="FrameController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -21,7 +21,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qe9-NE-Cl3">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="Nlz-1Q-4QL" kind="embed" id="SSv-CM-0uC"/>
+                                    <segue destination="Nlz-1Q-4QL" kind="embed" identifier="mapSegue" id="SSv-CM-0uC"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -168,7 +168,7 @@
         <!--Map Controller-->
         <scene sceneID="zV2-TE-Fwp">
             <objects>
-                <viewController id="Nlz-1Q-4QL" customClass="MapController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Nlz-1Q-4QL" customClass="MapController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="TFS-1P-IC9"/>
                         <viewControllerLayoutGuide type="bottom" id="Lwg-Uy-hua"/>
@@ -179,25 +179,32 @@
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" indicatorStyle="white" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="PLc-wp-kIg">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                 <collectionViewLayout key="collectionViewLayout" id="vMI-W6-oBf" customClass="MapCellLayout"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoneCell" id="wGF-KC-QCV" customClass="MapCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                        <rect key="frame" x="150" y="0.0" width="300" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1pB-vo-gK7">
-                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwA-ly-mp6">
+                                                            <rect key="frame" x="136" y="144" width="27" height="12"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstItem="ZwA-ly-mp6" firstAttribute="centerY" secondItem="1pB-vo-gK7" secondAttribute="centerY" id="NAG-AK-QTW"/>
+                                                        <constraint firstItem="ZwA-ly-mp6" firstAttribute="centerX" secondItem="1pB-vo-gK7" secondAttribute="centerX" id="syu-cW-isb"/>
+                                                    </constraints>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZwA-ly-mp6">
-                                                    <rect key="frame" x="37" y="44" width="27" height="12"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -205,11 +212,9 @@
                                             <constraint firstItem="1pB-vo-gK7" firstAttribute="width" secondItem="wGF-KC-QCV" secondAttribute="width" id="5oT-BL-HeB"/>
                                             <constraint firstItem="1pB-vo-gK7" firstAttribute="centerX" secondItem="wGF-KC-QCV" secondAttribute="centerX" id="FT5-Sf-P56"/>
                                             <constraint firstItem="1pB-vo-gK7" firstAttribute="height" secondItem="wGF-KC-QCV" secondAttribute="height" id="IoK-4j-fhU"/>
-                                            <constraint firstItem="ZwA-ly-mp6" firstAttribute="centerX" secondItem="1pB-vo-gK7" secondAttribute="centerX" id="TwD-zP-daB"/>
-                                            <constraint firstItem="ZwA-ly-mp6" firstAttribute="centerY" secondItem="1pB-vo-gK7" secondAttribute="centerY" id="a1W-Vu-jvj"/>
                                             <constraint firstItem="1pB-vo-gK7" firstAttribute="centerY" secondItem="wGF-KC-QCV" secondAttribute="centerY" id="hUL-2u-JKK"/>
                                         </constraints>
-                                        <size key="customSize" width="100" height="100"/>
+                                        <size key="customSize" width="300" height="300"/>
                                         <connections>
                                             <outlet property="cellBackground" destination="1pB-vo-gK7" id="bMe-iS-a5Z"/>
                                             <outlet property="indexLabel" destination="ZwA-ly-mp6" id="6r9-p1-Mnl"/>
@@ -221,16 +226,31 @@
                                     <outlet property="delegate" destination="Nlz-1Q-4QL" id="3WX-93-t3i"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcj-OH-4ao" userLabel="Info Panel">
+                                <rect key="frame" x="0.0" y="400" width="600" height="200"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="7cO-4b-1w7"/>
+                                    <constraint firstAttribute="width" constant="600" id="z1N-Hk-jMO"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PLc-wp-kIg" firstAttribute="width" secondItem="qb5-KG-a2p" secondAttribute="width" id="4Gq-Kl-QuZ"/>
                             <constraint firstItem="PLc-wp-kIg" firstAttribute="centerX" secondItem="qb5-KG-a2p" secondAttribute="centerX" id="4QF-fL-tU2"/>
+                            <constraint firstItem="Lwg-Uy-hua" firstAttribute="top" secondItem="wcj-OH-4ao" secondAttribute="bottom" id="FoN-ze-l4g"/>
                             <constraint firstItem="PLc-wp-kIg" firstAttribute="height" secondItem="qb5-KG-a2p" secondAttribute="height" id="HmR-qr-1BV"/>
+                            <constraint firstItem="wcj-OH-4ao" firstAttribute="leading" secondItem="qb5-KG-a2p" secondAttribute="leading" id="Iay-Gp-htC"/>
                             <constraint firstItem="PLc-wp-kIg" firstAttribute="centerY" secondItem="qb5-KG-a2p" secondAttribute="centerY" id="efM-MJ-0Je"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="infoPanel" destination="wcj-OH-4ao" id="Cd9-TT-HIX"/>
+                        <outlet property="infoPanelBottom" destination="FoN-ze-l4g" id="ZCE-WJ-bAj"/>
+                        <outlet property="infoPanelHeight" destination="7cO-4b-1w7" id="pmi-WB-cXV"/>
+                        <outlet property="infoPanelLeading" destination="Iay-Gp-htC" id="cuR-Am-hal"/>
+                        <outlet property="infoPanelWidth" destination="z1N-Hk-jMO" id="ZVe-DQ-fAe"/>
                         <outlet property="mapCollection" destination="PLc-wp-kIg" id="SGP-ws-inu"/>
                     </connections>
                 </viewController>

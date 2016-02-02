@@ -7,31 +7,55 @@
 //
 
 #import "FrameController.h"
+#import "MapController.h"
 
-@interface FrameController ()
+@interface FrameController () <MapControllerDelegate>
+
+@property (retain, nonatomic) MapController *mapController;
 
 @end
 
 @implementation FrameController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [self.navigationController setNavigationBarHidden:(size.width > size.height)];
+    [self.mapController rotateMapToSize:size];
+}
+
+#pragma makr - MapController Delegate
+
+- (void)startDrag:(MapController *)controller
+{
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+}
+
+- (void)endDrag:(MapController *)controller
+{
+    [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight) animated:YES];
+}
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"mapSegue"])
+    {
+        self.mapController = (MapController *)[segue destinationViewController];
+        self.mapController.delegate = self;
+    }
 }
-*/
 
 @end

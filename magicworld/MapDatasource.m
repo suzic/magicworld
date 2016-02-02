@@ -10,6 +10,10 @@
 #import "MapDatasource.h"
 #import "MapCell.h"
 
+@interface MapDatasource ()
+
+@end
+
 @implementation MapDatasource
 
 #pragma mark - UICollectionView Datasource
@@ -28,6 +32,7 @@
 {
     MapCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"zoneCell" forIndexPath:indexPath];
     [cell setIndexNumberIn:indexPath.row / MAP_COLS andCol:indexPath.row % MAP_COLS];
+    cell.cellBackground.backgroundColor = indexPath.row == self.selectedRowIndex ? [UIColor redColor] : [UIColor blackColor];
     return cell;
 }
 
