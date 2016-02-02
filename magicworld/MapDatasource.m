@@ -16,6 +16,13 @@
 
 @implementation MapDatasource
 
+- (void)setSelectedRowIndex:(NSInteger)selectedRowIndex
+{
+    if (_selectedRowIndex == selectedRowIndex)
+        return;
+    _selectedRowIndex = selectedRowIndex;
+}
+
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
