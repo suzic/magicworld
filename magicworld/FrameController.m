@@ -23,6 +23,12 @@
     // Do any additional setup after loading the view.
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight)];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

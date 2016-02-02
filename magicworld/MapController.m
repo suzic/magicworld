@@ -41,12 +41,9 @@
     self.stopAutoMoveCenter = NO;
     
     // 初始化infoPanel
-    self.infoPanel.hidden = YES;
-    NSLayoutConstraint *animateConstraint = (kScreenWidth < kScreenHeight) ? self.infoPanelBottom : self.infoPanelLeading;
-    CGFloat animateLength = (kScreenWidth < kScreenHeight) ? self.infoPanelHeight.constant : self.infoPanelWidth.constant;
-    animateConstraint.constant = -animateLength;
     self.showPanel = NO;
     self.showPanelLight = NO;
+    [self initPanelSize:CGSizeMake(kScreenWidth, kScreenHeight)];
 
     // 关联datasource对象
     self.datasource = (MapDatasource *)self.mapCollection.dataSource;
@@ -75,9 +72,6 @@
     
     [self recalculateSections:self.mapCollection.contentOffset];
 
-    self.infoPanelWidth.constant = (kScreenWidth < kScreenHeight) ? kScreenWidth : kScreenWidth / 9 * 1.5;
-    self.infoPanelHeight.constant = (kScreenWidth < kScreenHeight) ? kScreenHeight / 9 * 1.5: kScreenHeight;
-    
     if (self.stopAutoMoveCenter == YES)
         self.stopAutoMoveCenter = NO;
     else
@@ -88,6 +82,8 @@
                                            animated:NO];
         self.dontRecalOffset = NO;
     }
+    
+    //NSLog(@"Re layout....");
 }
 
 #pragma mark - Private functions
@@ -109,22 +105,32 @@
     [self.infoTitle setTitle:cell.indexLabel.text forState:UIControlStateNormal];
 }
 
-- (void)rotateMapToSize:(CGSize)size
+- (void)initPanelSize:(CGSize)size
 {
-    // 计算旋转后的面板尺寸和根据显隐调整控制方式
-    self.infoPanelWidth.constant = (size.width < size.height) ? size.width : size.width / 9 * 2;
-    self.infoPanelHeight.constant = (size.width < size.height) ? size.height / 9 * 2: size.height;
+    // 计算旋转后的面板尺寸
+    self.infoPanelWidth.constant = (size.width < size.height) ? size.width : 80.0f;
+    self.infoPanelHeight.constant = (size.width < size.height) ? 80.0f: size.height;
     
     if (size.width < size.height)
     {
-        self.infoPanelBottom.constant = self.showPanel ? 0 : -self.infoPanelHeight.constant;
+        [self.infoPanel setFrame:CGRectMake(0, size.height, size.width, self.infoPanelHeight.constant)];
+        self.infoPanelBottom.constant = -self.infoPanelHeight.constant;
         self.infoPanelLeading.constant = 0;
     }
     else
     {
+        [self.infoPanel setFrame:CGRectMake(-self.infoPanelWidth.constant, 0, self.infoPanelWidth.constant, size.height)];
         self.infoPanelBottom.constant = 0;
-        self.infoPanelLeading.constant = self.showPanel ? 0 : -self.infoPanelWidth.constant;
+        self.infoPanelLeading.constant = -self.infoPanelWidth.constant;
     }
+    self.infoPanel.hidden = YES;
+}
+
+- (void)rotateMapToSize:(CGSize)size
+{
+    [self initPanelSize:size];
+    if (self.showPanel)
+        [self infoPanelToShow:YES inSize:size completion:nil];
 }
 
 - (void)recalculateSections:(CGPoint)offset
@@ -138,26 +144,26 @@
     {
         self.dontRecalOffset = YES;
         newOffset.x = offset.x + MAP_COLS * MAP_WIDTH;
-        NSLog(@">>>>>> Auto Moved Right....");
+        //NSLog(@">>>>>> Auto Moved Right....");
     }
     else if (offset.x > MAP_COLS * MAP_WIDTH * 1.67 && xDirectionRight == YES)
     {
         self.dontRecalOffset = YES;
         newOffset.x = offset.x - MAP_COLS * MAP_WIDTH;
-        NSLog(@"<<<<<< Auto Moved Left....");
+        //NSLog(@"<<<<<< Auto Moved Left....");
     }
     
     if (offset.y < MAP_ROWS * MAP_HEIGHT / 3 && yDirectionDown == NO)
     {
         self.dontRecalOffset = YES;
         newOffset.y = offset.y + MAP_ROWS * MAP_HEIGHT;
-        NSLog(@"vvvvvv Auto Moved Down....");
+        //NSLog(@"vvvvvv Auto Moved Down....");
     }
     else if (offset.y > MAP_ROWS * MAP_HEIGHT * 1.67 && yDirectionDown == YES)
     {
         self.dontRecalOffset = YES;
         newOffset.y = offset.y - MAP_ROWS * MAP_HEIGHT;
-        NSLog(@"^^^^^^ Auto Moved Up....");
+        //NSLog(@"^^^^^^ Auto Moved Up....");
     }
     
     if (self.dontRecalOffset == YES)
@@ -172,43 +178,27 @@
     self.lastOffset = newOffset;
 }
 
-- (void)infoPanelToShow:(BOOL)show completion:(void (^ __nullable)(BOOL finished))completion
+- (void)infoPanelToShow:(BOOL)show inSize:(CGSize)size completion:(void (^ __nullable)(BOOL finished))completion
 {
     // 根据屏幕横竖状态来定义将要改变的constraint，动画距离以及显隐位置
-    NSLayoutConstraint *animateConstraint = (kScreenWidth < kScreenHeight) ? self.infoPanelBottom : self.infoPanelLeading;
-    CGFloat animateLength = (kScreenWidth < kScreenHeight) ? self.infoPanelHeight.constant : self.infoPanelWidth.constant;
-    CGRect showRect = (kScreenWidth < kScreenHeight) ?
-        CGRectMake(0, kScreenHeight - animateLength, kScreenWidth, animateLength) :
-        CGRectMake(0, 0, animateLength, kScreenHeight);
-    CGRect hideRect = (kScreenWidth < kScreenHeight) ?
-        CGRectMake(0, kScreenHeight, kScreenWidth, animateLength) :
-        CGRectMake(-animateLength, 0, animateLength, kScreenHeight);
+    CGRect targetRect;
+    if (size.width < size.height)
+        targetRect = show ? CGRectMake(0, size.height - self.infoPanelHeight.constant, size.width, self.infoPanelHeight.constant) : CGRectMake(0, size.height, size.width, self.infoPanelHeight.constant);
+    else
+        targetRect = show ? CGRectMake(0, 0, self.infoPanelWidth.constant, size.height) : CGRectMake(-self.infoPanelWidth.constant, 0, self.infoPanelWidth.constant, size.height);
     
     // 根据显隐要求初始化状态
-    self.infoPanel.hidden = NO;
-    [self.infoPanel setFrame:show ? hideRect : showRect];
     if (show) [self setupInfoPanelData];
-    if (completion == nil)
-    {
-        [UIView animateWithDuration:0.2f animations:^{
-            // 经过动画后达到的目的状态
-            [self.infoPanel setFrame:show ? showRect : hideRect];
-        } completion:^(BOOL finished) {
-            // 非动画达到的目的状态
-            if (finished)
-            {
-                animateConstraint.constant = show ? 0 : -animateLength;
-                self.infoPanel.hidden = !show;
-            }
-        }];
-    }
-    else
-    {
-        [UIView animateWithDuration:0.2f animations:^{
-            // 经过动画后达到的目的状态
-            [self.infoPanel setFrame:show ? showRect : hideRect];
-        } completion:completion];
-    }
+    
+    self.infoPanel.hidden = NO;
+    // 动画移动
+    [UIView animateWithDuration:0.2f animations:^{
+        [self.infoPanel setFrame:targetRect];
+        if (size.width < size.height)
+            self.infoPanelBottom.constant = show ? 0 : -self.infoPanelHeight.constant;
+        else
+            self.infoPanelLeading.constant = show ? 0 : -self.infoPanelWidth.constant;
+    } completion:completion];
 }
 
 - (void)calCenterIndexPath
@@ -241,7 +231,9 @@
         return;
     _showPanel = showPanel;
 
-    [self infoPanelToShow:showPanel completion:nil];
+    [self infoPanelToShow:showPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
+        self.infoPanel.hidden = !showPanel;
+    }];
 }
 
 - (void)setShowPanelLight:(BOOL)showPanelLight
@@ -281,9 +273,9 @@
         }
         else
         {
-            [self infoPanelToShow:NO completion:^(BOOL finished) {
+            [self infoPanelToShow:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
                 _selectedIndexPath = selectedIndexPath;
-                [self infoPanelToShow:YES completion:nil];
+                [self infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight)  completion:nil];
             }];
         }
         self.datasource.selectedRowIndex = selectedIndexPath.row;

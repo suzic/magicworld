@@ -227,7 +227,7 @@
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wcj-OH-4ao" userLabel="Info Panel">
-                                <rect key="frame" x="0.0" y="400" width="600" height="200"/>
+                                <rect key="frame" x="0.0" y="520" width="600" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpx-bw-VFI">
                                         <rect key="frame" x="10" y="10" width="46" height="30"/>
@@ -239,7 +239,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="0.90000000000000002" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="7cO-4b-1w7"/>
+                                    <constraint firstAttribute="height" constant="80" id="7cO-4b-1w7"/>
                                     <constraint firstItem="tpx-bw-VFI" firstAttribute="leading" secondItem="wcj-OH-4ao" secondAttribute="leading" constant="10" id="g80-GW-mVQ"/>
                                     <constraint firstItem="tpx-bw-VFI" firstAttribute="top" secondItem="wcj-OH-4ao" secondAttribute="top" constant="10" id="sp6-J9-zPF"/>
                                     <constraint firstAttribute="width" constant="600" id="z1N-Hk-jMO"/>

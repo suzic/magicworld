@@ -130,6 +130,12 @@
         return @"";
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1)
+        cell.backgroundColor = [UIColor clearColor];
+}
+
 #pragma mark - LoginActionCellDelegate
 
 - (void)actionExeicute:(LoginActionCell *)cell
