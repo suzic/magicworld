@@ -26,6 +26,7 @@
 @property (assign, nonatomic) BOOL stopAutoMoveCenter;
 
 @property (strong, nonatomic) IBOutlet UICollectionView *mapCollection;
+@property (strong, nonatomic) IBOutlet UICollectionView *operationCollection;
 @property (assign, nonatomic) id<MapControllerDelegate> delegate;
 
 @end

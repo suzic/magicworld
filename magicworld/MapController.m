@@ -10,7 +10,7 @@
 #import "MapDatasource.h"
 #import "MapCell.h"
 
-@interface MapController () <UICollectionViewDelegate>
+@interface MapController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @property (assign, nonatomic) CGPoint lastOffset;
 @property (assign, nonatomic) BOOL dontRecalOffset;
@@ -23,6 +23,8 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoPanelWidth;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoPanelHeight;
 @property (strong, nonatomic) IBOutlet UIButton *infoTitle;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *operationLeading;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *operationTop;
 
 @property (retain, nonatomic) MapDatasource *datasource;
 @property (retain, nonatomic) NSIndexPath *selectedIndexPath;
@@ -116,12 +118,20 @@
         [self.infoPanel setFrame:CGRectMake(0, size.height, size.width, self.infoPanelHeight.constant)];
         self.infoPanelBottom.constant = -self.infoPanelHeight.constant;
         self.infoPanelLeading.constant = 0;
+        self.operationLeading.constant = 75.0f;
+        self.operationTop.constant = 4.0f;
+        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
+        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
     }
     else
     {
         [self.infoPanel setFrame:CGRectMake(-self.infoPanelWidth.constant, 0, self.infoPanelWidth.constant, size.height)];
         self.infoPanelBottom.constant = 0;
         self.infoPanelLeading.constant = -self.infoPanelWidth.constant;
+        self.operationLeading.constant = 4.0f;
+        self.operationTop.constant = 75.0f;
+        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     }
     self.infoPanel.hidden = YES;
 }
@@ -130,7 +140,11 @@
 {
     [self initPanelSize:size];
     if (self.showPanel)
-        [self infoPanelToShow:YES inSize:size completion:nil];
+    {
+        [self infoPanelToShow:NO inSize:size completion:^(BOOL finished) {
+            [self infoPanelToShow:YES inSize:size completion:nil];
+        }];
+    }
 }
 
 - (void)recalculateSections:(CGPoint)offset
@@ -283,51 +297,91 @@
     [self.mapCollection reloadData];
 }
 
+#pragma mark - UICollectionView Datasource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 3;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    switch (indexPath.row)
+    {
+        case 0:
+            return [collectionView dequeueReusableCellWithReuseIdentifier:@"action1" forIndexPath:indexPath];
+        case 1:
+            return [collectionView dequeueReusableCellWithReuseIdentifier:@"action2" forIndexPath:indexPath];
+        case 2:
+            return [collectionView dequeueReusableCellWithReuseIdentifier:@"action3" forIndexPath:indexPath];
+        default:
+            return nil;
+    }
+}
+
 #pragma mark - UICollectionView / UIScrollView Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedIndexPath = indexPath;
+    if (collectionView == self.mapCollection)
+        self.selectedIndexPath = indexPath;
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    self.dontRecalOffset = NO;
-    [self recalculateSections:scrollView.contentOffset];
-    [self calCenterIndexPath];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (self.dontRecalOffset == NO)
+    if (scrollView == self.mapCollection)
     {
+        self.dontRecalOffset = NO;
         [self recalculateSections:scrollView.contentOffset];
         [self calCenterIndexPath];
     }
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (scrollView == self.mapCollection)
+    {
+        if (self.dontRecalOffset == NO)
+        {
+            [self recalculateSections:scrollView.contentOffset];
+            [self calCenterIndexPath];
+        }
+    }
+}
+
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if ([self.delegate respondsToSelector:@selector(endDrag:)])
-        [self.delegate endDrag:self];
-
-    self.showPanelLight = NO;;
-    
-    if (decelerate)
+    if (scrollView == self.mapCollection)
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            // NSLog(@"STOP ANIMATION...");
-            [scrollView setContentOffset:scrollView.contentOffset animated:NO];
-        });
+        if ([self.delegate respondsToSelector:@selector(endDrag:)])
+            [self.delegate endDrag:self];
+        
+        self.showPanelLight = NO;;
+        
+        if (decelerate)
+        {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                // NSLog(@"STOP ANIMATION...");
+                [scrollView setContentOffset:scrollView.contentOffset animated:NO];
+            });
+        }
     }
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    if ([self.delegate respondsToSelector:@selector(startDrag:)])
-        [self.delegate startDrag:self];
-   
-    self.showPanelLight = YES;;
+    if (scrollView == self.mapCollection)
+    {
+        if ([self.delegate respondsToSelector:@selector(startDrag:)])
+            [self.delegate startDrag:self];
+        
+        self.showPanelLight = YES;
+    }
 }
 
 #pragma mark - Navigation
