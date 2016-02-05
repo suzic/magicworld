@@ -25,7 +25,7 @@
 - (IBAction)actionButtonPressed:(id)sender
 {
     if ([self.delegate respondsToSelector:@selector(actionExeicute:)])
-        [self.delegate actionExeicute:sender];
+        [self.delegate actionExeicute:self];
 }
 
 @end

@@ -12,15 +12,34 @@
 
 @interface MapDatasource ()
 
+@property (retain, nonatomic) NSMutableArray *zoneArray;
+
 @end
 
 @implementation MapDatasource
+
+- (instancetype)init
+{
+    if (self = [super init])
+    {
+        DataManager *dataManager = [DataManager defaultInstance];
+        [dataManager insertIntoCoreData:@"Zone"];
+    }
+    return self;
+}
 
 - (void)setSelectedRowIndex:(NSInteger)selectedRowIndex
 {
     if (_selectedRowIndex == selectedRowIndex)
         return;
     _selectedRowIndex = selectedRowIndex;
+}
+
+- (NSMutableArray *)zoneArray
+{
+    if (_zoneArray == nil)
+        _zoneArray = [NSMutableArray arrayWithCapacity:MAP_ROWS * MAP_COLS];
+    return _zoneArray;
 }
 
 #pragma mark - UICollectionView Datasource

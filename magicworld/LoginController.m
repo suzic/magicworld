@@ -77,6 +77,7 @@
         else
         {
             LoginActionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"actionCell"];
+            cell.tag = 0;
             cell.delegate = self;
             cell.actionButton.layer.cornerRadius = 4.0f;
             [cell.actionButton setTitle:@"LOGIN" forState:UIControlStateNormal];
@@ -114,6 +115,7 @@
         else
         {
             LoginActionCell *cell = [tableView dequeueReusableCellWithIdentifier:@"actionCell"];
+            cell.tag = 1;
             cell.delegate = self;
             cell.actionButton.layer.cornerRadius = 4.0f;
             [cell.actionButton setTitle:@"REGISTRATION" forState:UIControlStateNormal];
@@ -140,7 +142,13 @@
 
 - (void)actionExeicute:(LoginActionCell *)cell
 {
-    [self performSegueWithIdentifier:@"loginSuccess" sender:cell];
+    if (cell.tag == 0)
+        [self performSegueWithIdentifier:@"loginSuccess" sender:cell];
+    else if (cell.tag == 1)
+    {
+        [self.loginSegment setSelectedSegmentIndex:0];
+        [self.tableView reloadData];
+    }
 }
 
 /*

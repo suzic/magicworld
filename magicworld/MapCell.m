@@ -18,7 +18,7 @@
 
 - (void)setIndexNumberIn:(NSInteger)row andCol:(NSInteger)col
 {
-    self.indexLabel.text = [NSString stringWithFormat:@"%ld - %ld", (long)row, (long)col];
+    self.indexLabel.text = [NSString stringWithFormat:@"%02ld - %02ld", (long)row, (long)col];
 }
 
 @end

@@ -103,8 +103,9 @@
 
 - (void)setupInfoPanelData
 {
-    MapCell *cell = (MapCell*)[self.mapCollection cellForItemAtIndexPath:self.selectedIndexPath];
-    [self.infoTitle setTitle:cell.indexLabel.text forState:UIControlStateNormal];
+    // MapCell *cell = (MapCell*)[self.mapCollection cellForItemAtIndexPath:self.selectedIndexPath];
+    [self.infoTitle setTitle:[NSString stringWithFormat:@"%02ld - %02ld", (long)(self.selectedIndexPath.row / MAP_COLS), (long)(self.selectedIndexPath.row % MAP_COLS)]
+                    forState:UIControlStateNormal];
 }
 
 - (void)initPanelSize:(CGSize)size
@@ -118,7 +119,7 @@
         [self.infoPanel setFrame:CGRectMake(0, size.height, size.width, self.infoPanelHeight.constant)];
         self.infoPanelBottom.constant = -self.infoPanelHeight.constant;
         self.infoPanelLeading.constant = 0;
-        self.operationLeading.constant = 75.0f;
+        self.operationLeading.constant = 80.0f;
         self.operationTop.constant = 4.0f;
         UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
@@ -129,7 +130,7 @@
         self.infoPanelBottom.constant = 0;
         self.infoPanelLeading.constant = -self.infoPanelWidth.constant;
         self.operationLeading.constant = 4.0f;
-        self.operationTop.constant = 75.0f;
+        self.operationTop.constant = 80.0f;
         UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     }
@@ -158,26 +159,50 @@
     {
         self.dontRecalOffset = YES;
         newOffset.x = offset.x + MAP_COLS * MAP_WIDTH;
-        //NSLog(@">>>>>> Auto Moved Right....");
+//        if (_selectedIndexPath != nil)
+//        {
+//            NSLog(@"ORG r = %ld, section = %ld", (long)_selectedIndexPath.row, (long)_selectedIndexPath.section);
+//            _selectedIndexPath = [NSIndexPath indexPathForRow:_selectedIndexPath.row inSection:(_selectedIndexPath.section - 1)];
+//            NSLog(@"NEW r = %ld, section = %ld", (long)_selectedIndexPath.row, (long)_selectedIndexPath.section);
+//        }
+//        NSLog(@">>>>>> Auto Moved Right....");
     }
     else if (offset.x > MAP_COLS * MAP_WIDTH * 1.67 && xDirectionRight == YES)
     {
         self.dontRecalOffset = YES;
         newOffset.x = offset.x - MAP_COLS * MAP_WIDTH;
-        //NSLog(@"<<<<<< Auto Moved Left....");
+//        if (_selectedIndexPath != nil)
+//        {
+//            NSLog(@"ORG r = %ld, section = %ld", (long)_selectedIndexPath.row, (long)_selectedIndexPath.section);
+//            _selectedIndexPath = [NSIndexPath indexPathForRow:_selectedIndexPath.row inSection:(_selectedIndexPath.section + 1)];
+//            NSLog(@"NEW r = %ld, section = %ld", (long)_selectedIndexPath.row, (long)_selectedIndexPath.section);
+//        }
+//        NSLog(@"<<<<<< Auto Moved Left....");
     }
     
     if (offset.y < MAP_ROWS * MAP_HEIGHT / 3 && yDirectionDown == NO)
     {
         self.dontRecalOffset = YES;
         newOffset.y = offset.y + MAP_ROWS * MAP_HEIGHT;
-        //NSLog(@"vvvvvv Auto Moved Down....");
+//        if (_selectedIndexPath != nil)
+//        {
+//            NSLog(@"ORG r = %ld, section = %ld", (long)_selectedIndexPath.row, (long)_selectedIndexPath.section);
+//            _selectedIndexPath = [NSIndexPath indexPathForRow:_selectedIndexPath.row inSection:(_selectedIndexPath.section - 2)];
+//            NSLog(@"NEW r = %ld, section = %ld", (long)_selectedIndexPath.row, (long)_selectedIndexPath.section);
+//        }
+//        NSLog(@"vvvvvv Auto Moved Down....");
     }
     else if (offset.y > MAP_ROWS * MAP_HEIGHT * 1.67 && yDirectionDown == YES)
     {
         self.dontRecalOffset = YES;
         newOffset.y = offset.y - MAP_ROWS * MAP_HEIGHT;
-        //NSLog(@"^^^^^^ Auto Moved Up....");
+//        if (_selectedIndexPath != nil)
+//        {
+//            NSLog(@"ORG r = %ld, section = %ld", (long)_selectedIndexPath.row, (long)_selectedIndexPath.section);
+//            _selectedIndexPath = [NSIndexPath indexPathForRow:_selectedIndexPath.row inSection:(_selectedIndexPath.section + 2)];
+//            NSLog(@"NEW r = %ld, section = %ld", (long)_selectedIndexPath.row, (long)_selectedIndexPath.section);
+//        }
+//        NSLog(@"^^^^^^ Auto Moved Up....");
     }
     
     if (self.dontRecalOffset == YES)
@@ -311,17 +336,23 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    UICollectionViewCell *cell = nil;
     switch (indexPath.row)
     {
         case 0:
-            return [collectionView dequeueReusableCellWithReuseIdentifier:@"action1" forIndexPath:indexPath];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action1" forIndexPath:indexPath];
+            //cell.backgroundColor = [UIColor lightGrayColor];
+            break;
         case 1:
-            return [collectionView dequeueReusableCellWithReuseIdentifier:@"action2" forIndexPath:indexPath];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action2" forIndexPath:indexPath];
+            //cell.backgroundColor = [UIColor lightGrayColor];
+            break;
         case 2:
-            return [collectionView dequeueReusableCellWithReuseIdentifier:@"action3" forIndexPath:indexPath];
-        default:
-            return nil;
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action3" forIndexPath:indexPath];
+            //cell.backgroundColor = [UIColor lightGrayColor];
+            break;
     }
+    return cell;
 }
 
 #pragma mark - UICollectionView / UIScrollView Delegate

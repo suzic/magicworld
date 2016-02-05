@@ -39,17 +39,22 @@
 {
     [self.visibleAttributes removeAllObjects];
 
+    NSLog(@"x = %f, y = %f, w = %f, h = %f",rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     // 根据偏移量计算可能显示的所有格子的横竖索引的起始
     NSInteger row_min = ((self.collectionView.contentOffset.y / MAP_HEIGHT)) - 1;
     NSInteger col_min = ((self.collectionView.contentOffset.x / MAP_WIDTH)) - 1;
     NSInteger row_max = ((self.collectionView.contentOffset.y + kScreenHeight) / MAP_HEIGHT) + 1;
     NSInteger col_max = ((self.collectionView.contentOffset.x + kScreenWidth) / MAP_WIDTH) + 1;
-    
+//    NSInteger row_min = (rect.origin.y / MAP_HEIGHT) - 1;
+//    NSInteger col_min = (rect.origin.x / MAP_WIDTH) - 1;
+//    NSInteger row_max = (rect.origin.y + rect.size.height / MAP_HEIGHT) + 1;
+//    NSInteger col_max = (rect.origin.x + rect.size.width / MAP_WIDTH) + 1;
     // 不要越界
     row_min = row_min < 0 ? 0 : row_min;
     col_min = col_min < 0 ? 0 : col_min;
     row_max = (row_max > MAP_ROWS * 2) ? (MAP_ROWS * 2) : row_max;
     col_max = (col_max > MAP_COLS * 2) ? (MAP_COLS * 2) : col_max;
+    
 
     // 双层循环
     for (NSInteger row = row_min; row < row_max; row++)

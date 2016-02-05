@@ -10,7 +10,6 @@
 		D05780C81C5DE41600E9195D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780C71C5DE41600E9195D /* main.m */; };
 		D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780CA1C5DE41600E9195D /* AppDelegate.m */; };
 		D05780D11C5DE41600E9195D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05780CF1C5DE41600E9195D /* Main.storyboard */; };
-		D05780D41C5DE41600E9195D /* magicworld.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D05780D21C5DE41600E9195D /* magicworld.xcdatamodeld */; };
 		D05780D61C5DE41600E9195D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05780D51C5DE41600E9195D /* Assets.xcassets */; };
 		D05780D91C5DE41600E9195D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05780D71C5DE41600E9195D /* LaunchScreen.storyboard */; };
 		D05780E21C5DEEC000E9195D /* FrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780E11C5DEEC000E9195D /* FrameController.m */; };
@@ -21,6 +20,10 @@
 		D0940BFA1C5DFD2F00B9C5C7 /* MapCellLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0940BF91C5DFD2F00B9C5C7 /* MapCellLayout.m */; };
 		D0940BFE1C5DFD5000B9C5C7 /* MapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0940BFD1C5DFD5000B9C5C7 /* MapCell.m */; };
 		D0940C011C5DFD6900B9C5C7 /* MapDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0940C001C5DFD6900B9C5C7 /* MapDatasource.m */; };
+		D0CB13FA1C61DDE00028D552 /* Zone+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13F71C61DDE00028D552 /* Zone+CoreDataProperties.m */; };
+		D0CB13FB1C61DDE00028D552 /* Zone.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13F91C61DDE00028D552 /* Zone.m */; };
+		D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */; };
+		D0CB14011C61E7330028D552 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB14001C61E7330028D552 /* DataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,7 +33,6 @@
 		D05780C91C5DE41600E9195D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D05780CA1C5DE41600E9195D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D05780D01C5DE41600E9195D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D05780D31C5DE41600E9195D /* magicworld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = magicworld.xcdatamodel; sourceTree = "<group>"; };
 		D05780D51C5DE41600E9195D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D05780D81C5DE41600E9195D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D05780DA1C5DE41600E9195D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +52,14 @@
 		D0940BFD1C5DFD5000B9C5C7 /* MapCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapCell.m; sourceTree = "<group>"; };
 		D0940BFF1C5DFD6900B9C5C7 /* MapDatasource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapDatasource.h; sourceTree = "<group>"; };
 		D0940C001C5DFD6900B9C5C7 /* MapDatasource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapDatasource.m; sourceTree = "<group>"; };
+		D0B99DEA1C6211A3002A03DF /* MW100.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MW100.xcdatamodel; sourceTree = "<group>"; };
+		D0CB13F61C61DDE00028D552 /* Zone+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Zone+CoreDataProperties.h"; path = "Database/Zone+CoreDataProperties.h"; sourceTree = "<group>"; };
+		D0CB13F71C61DDE00028D552 /* Zone+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Zone+CoreDataProperties.m"; path = "Database/Zone+CoreDataProperties.m"; sourceTree = "<group>"; };
+		D0CB13F81C61DDE00028D552 /* Zone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Zone.h; path = Database/Zone.h; sourceTree = "<group>"; };
+		D0CB13F91C61DDE00028D552 /* Zone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Zone.m; path = Database/Zone.m; sourceTree = "<group>"; };
+		D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = magicworld.xcdatamodel; sourceTree = "<group>"; };
+		D0CB13FF1C61E7330028D552 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
+		D0CB14001C61E7330028D552 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,7 +120,13 @@
 		D05780E91C5DEF3B00E9195D /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				D05780D21C5DE41600E9195D /* magicworld.xcdatamodeld */,
+				D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */,
+				D0CB13FF1C61E7330028D552 /* DataManager.h */,
+				D0CB14001C61E7330028D552 /* DataManager.m */,
+				D0CB13F61C61DDE00028D552 /* Zone+CoreDataProperties.h */,
+				D0CB13F71C61DDE00028D552 /* Zone+CoreDataProperties.m */,
+				D0CB13F81C61DDE00028D552 /* Zone.h */,
+				D0CB13F91C61DDE00028D552 /* Zone.m */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -214,17 +230,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D05780D41C5DE41600E9195D /* magicworld.xcdatamodeld in Sources */,
+				D0CB13FB1C61DDE00028D552 /* Zone.m in Sources */,
 				D0940C011C5DFD6900B9C5C7 /* MapDatasource.m in Sources */,
 				D05780E21C5DEEC000E9195D /* FrameController.m in Sources */,
 				D0940BFA1C5DFD2F00B9C5C7 /* MapCellLayout.m in Sources */,
 				D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */,
 				D05780E51C5DEECF00E9195D /* MapController.m in Sources */,
 				D05780EC1C5DF11F00E9195D /* LoginActionCell.m in Sources */,
+				D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */,
 				D05780C81C5DE41600E9195D /* main.m in Sources */,
+				D0CB14011C61E7330028D552 /* DataManager.m in Sources */,
 				D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */,
 				D0940BFE1C5DFD5000B9C5C7 /* MapCell.m in Sources */,
 				D05780EF1C5DF12C00E9195D /* LoginInputCell.m in Sources */,
+				D0CB13FA1C61DDE00028D552 /* Zone+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,13 +405,15 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		D05780D21C5DE41600E9195D /* magicworld.xcdatamodeld */ = {
+		D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				D05780D31C5DE41600E9195D /* magicworld.xcdatamodel */,
+				D0B99DEA1C6211A3002A03DF /* MW100.xcdatamodel */,
+				D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */,
 			);
-			currentVersion = D05780D31C5DE41600E9195D /* magicworld.xcdatamodel */;
-			path = magicworld.xcdatamodeld;
+			currentVersion = D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */;
+			name = database.xcdatamodeld;
+			path = Database/database.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
