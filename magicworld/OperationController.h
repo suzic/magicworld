@@ -10,4 +10,9 @@
 
 @interface OperationController : UIViewController
 
+@property (strong, nonatomic) NSMutableArray *operationArray;
+@property (assign, nonatomic) NSInteger selectedIndex;
+
+- (void)scrollToIndex:(NSInteger)index;
+
 @end

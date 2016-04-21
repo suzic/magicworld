@@ -11,5 +11,6 @@
 @interface OperationCell : UITableViewCell
 
 @property (strong, nonatomic) IBOutlet UIView *cardBorder;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *cardWidth;
 
 @end

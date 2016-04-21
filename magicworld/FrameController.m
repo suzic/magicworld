@@ -98,6 +98,8 @@
     self.operationLayer.hidden = NO;
     [UIView animateWithDuration:0.5f animations:^{
         self.operationLayer.alpha = 1.0f;
+    } completion:^(BOOL finished) {
+        [self.opearationController scrollToIndex:9];
     }];
 }
 

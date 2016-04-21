@@ -9,6 +9,9 @@
 #import "OperationCell.h"
 
 @implementation OperationCell
+{
+    BOOL lastSelectedState;
+}
 
 - (void)awakeFromNib
 {
@@ -17,13 +20,18 @@
 //    self.cardBorder.layer.cornerRadius = 4.0f;
 //    self.cardBorder.layer.borderColor = [UIColor darkGrayColor].CGColor;
 //    self.cardBorder.layer.borderWidth = 0.5f;
+    
+//    self.cardWidth.constant = lastSelectedState ? self.frame.size.width : self.frame.size.width * 7 / 8;
+//    [UIView animateWithDuration:1.0f animations:^{
+//    }];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+    
+    lastSelectedState = selected;
+    self.cardWidth.constant = selected ? self.frame.size.width : self.frame.size.width * 7 / 8;
 }
 
 @end

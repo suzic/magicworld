@@ -12,6 +12,10 @@
 
 @interface OperationController () <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) IBOutlet UITableView *operationTable;
+@property (assign, nonatomic) BOOL autoScroll;
+@property (assign, nonatomic) NSInteger delaySelectedIndex;
+
 @end
 
 @implementation OperationController
@@ -19,13 +23,80 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
+    self.autoScroll = NO;
+    self.delaySelectedIndex = NSNotFound;
+    
+    [self setupTestData];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (NSMutableArray *)operationArray
+{
+    if (_operationArray == nil)
+        _operationArray = [NSMutableArray arrayWithCapacity:10];
+    return _operationArray;
+}
+
+- (void)setupTestData
+{
+    [self.operationArray addObject:@"Op1"];
+    [self.operationArray addObject:@"Op2"];
+    [self.operationArray addObject:@"Op3"];
+    [self.operationArray addObject:@"Op4"];
+    [self.operationArray addObject:@"Op5"];
+    [self.operationArray addObject:@"Op6"];
+    [self.operationArray addObject:@"Op7"];
+    [self.operationArray addObject:@"Op8"];
+    _selectedIndex = NSNotFound;
+    self.selectedIndex = 0;
+}
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex
+{
+    // 超出索引范围，或者索引未曾改变的情况下不予处理
+    if (selectedIndex < 0 || selectedIndex >= self.operationArray.count || _selectedIndex == selectedIndex)
+        return;
+    NSMutableArray *updateIndexes = [NSMutableArray arrayWithCapacity:2];
+
+    // 处理旧索引
+    if (_selectedIndex != NSNotFound)
+    {
+        NSIndexPath *indexUnsel = [NSIndexPath indexPathForRow:_selectedIndex + 2 inSection:0];
+        [updateIndexes addObject:indexUnsel];
+        [self.operationTable cellForRowAtIndexPath:indexUnsel].selected = NO;
+    }
+    
+    _selectedIndex = selectedIndex;
+    
+    // 处理新索引
+    NSIndexPath *indexTosel = [NSIndexPath indexPathForRow:_selectedIndex + 2 inSection:0];
+    [updateIndexes addObject:indexTosel];
+    
+    // 执行动画切换
+    [self.operationTable reloadRowsAtIndexPaths:updateIndexes withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.operationTable cellForRowAtIndexPath:indexTosel].selected = YES;
+}
+
+- (void)scrollToIndex:(NSInteger)index
+{
+    if (index >= 0 && index < self.operationArray.count)
+    {
+        self.delaySelectedIndex = index;
+        self.autoScroll = YES; // 提示下面将进入自动滚动模式，滚动后需更新delaySelectedIndex到真正的selectedIndex里面
+        [self.operationTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0]
+                                   atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
 }
 
 /*
@@ -47,32 +118,95 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 6;
+    return 2 + self.operationArray.count + 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0)
-    {
-        PaddingCell *cell = [tableView dequeueReusableCellWithIdentifier:@"paddingCell"];
-        return cell;
-    }
-    else
-    {
-        OperationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"operationCell"];
-        return cell;
-    }
+    if (indexPath.row < 2 || indexPath.row >= self.operationArray.count + 2)
+        return [tableView dequeueReusableCellWithIdentifier:@"paddingCell"];
+
+    OperationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"operationCell"];
+    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    switch (indexPath.row)
+    return (indexPath.row >= 2 && self.selectedIndex == (indexPath.row - 2) && indexPath.row < self.operationArray.count + 2) ?
+        self.operationTable.frame.size.height / 2 : self.operationTable.frame.size.height / 8;
+}
+
+// 点选操作会计算选择索引
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row < 2 || indexPath.row >= self.operationArray.count + 2)
+        return;
+    
+    // OperationCell * cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex inSection:0]];
+    [self scrollToIndex:indexPath.row - 2];
+}
+
+// 当滚动将要进入减速效果的时候强制执行滚动到索引的功能以中断不可控减速
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    if (self.autoScroll == YES) return;
+    [self.operationTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex inSection:0]
+                               atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+// 当滚动减速结束的时候强制执行滚动到索引的功能以中断不可控减速
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (self.autoScroll == YES) return;
+    [self.operationTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex inSection:0]
+                               atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+// 当拖动结束的时候强制执行滚动到索引的功能以中断不可控减速
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (self.autoScroll == YES) return;
+    if (!decelerate)
+        [self.operationTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex inSection:0]
+                                   atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+// 滚动动画结束后重置自动滚动标记（无论是什么原因结束了滚动）
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    if (self.autoScroll == YES)
     {
-        case 0:
-            return 80;
-            
-        default:
-            return 200;
+        self.autoScroll = NO;
+        if (self.delaySelectedIndex != NSNotFound)
+        {
+            self.selectedIndex = self.delaySelectedIndex;
+            self.delaySelectedIndex = NSNotFound;
+        }
+    }
+}
+
+// 滚动的过程中不断的计算当前自动选择的索引数值
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.autoScroll == YES) return;
+    
+    NSInteger firstRow = ((scrollView.contentOffset.y + 1) * 8 / self.operationTable.frame.size.height);
+    if (firstRow < 0) firstRow = 0;
+    if (self.operationArray.count > 0)
+    {
+        NSLog(@"First Row is - %ld", firstRow);
+
+//        OperationCell * cell = [self.operationTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:self.selectedIndex inSection:0]];
+//        cell.taskContent.hidden = YES;
+//        cell.taskAddress.hidden = YES;
+//        cell.taskTime.hidden = YES;
+        if (firstRow >= self.operationArray.count)
+            firstRow = self.operationArray.count - 1;
+//        OperationCell * newCell = [self.operationTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:firstRow + 2 inSection:0]];
+//        newCell.taskContent.hidden = NO;
+//        newCell.taskAddress.hidden = NO;
+//        newCell.taskTime.hidden = NO;
+        self.selectedIndex = firstRow;
     }
 }
 
