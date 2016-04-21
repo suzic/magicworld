@@ -322,7 +322,7 @@
     [self.mapCollection reloadData];
 }
 
-#pragma mark - UICollectionView Datasource
+#pragma mark - UICollectionView Datasource (For operator only)
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -361,6 +361,11 @@
 {
     if (collectionView == self.mapCollection)
         self.selectedIndexPath = indexPath;
+    else if (collectionView == self.operationCollection)
+    {
+        if ([self.delegate respondsToSelector:@selector(showOperator:withType:)])
+            [self.delegate showOperator:self withType:0];
+    }
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView

@@ -16,6 +16,7 @@
 
 - (void)startDrag:(MapController *)controller;
 - (void)endDrag:(MapController *)controller;
+- (void)showOperator:(MapController *)controller withType:(NSInteger)opType;
 
 @end
 

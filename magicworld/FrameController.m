@@ -8,10 +8,16 @@
 
 #import "FrameController.h"
 #import "MapController.h"
+#import "OperationController.h"
 
 @interface FrameController () <MapControllerDelegate, UIAlertViewDelegate>
 
+@property (strong, nonatomic) IBOutlet UIView *mapLayer;
+@property (strong, nonatomic) IBOutlet UIView *playerLayer;
+@property (strong, nonatomic) IBOutlet UIView *operationLayer;
+
 @property (retain, nonatomic) MapController *mapController;
+@property (retain, nonatomic) OperationController *opearationController;
 
 @end
 
@@ -20,7 +26,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.operationLayer.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -51,6 +58,18 @@
     [alert show];
 }
 
+- (IBAction)rightPress:(id)sender
+{
+    if (self.operationLayer.hidden == NO)
+    {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.operationLayer.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            self.operationLayer.hidden = YES;
+        }];
+    }
+}
+
 #pragma mark - UIAlertView Delegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -73,6 +92,15 @@
     [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight) animated:YES];
 }
 
+- (void)showOperator:(MapController *)controller withType:(NSInteger)opType
+{
+    self.operationLayer.alpha = 0.0f;
+    self.operationLayer.hidden = NO;
+    [UIView animateWithDuration:0.5f animations:^{
+        self.operationLayer.alpha = 1.0f;
+    }];
+}
+
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -81,6 +109,11 @@
     {
         self.mapController = (MapController *)[segue destinationViewController];
         self.mapController.delegate = self;
+    }
+    else if ([segue.identifier isEqualToString:@"operationSegue"])
+    {
+        self.opearationController = (OperationController *)[segue destinationViewController];
+        //self.opearationController.delegate = self;
     }
 }
 

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D05095D01CC804B00027F45D /* OperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095CF1CC804B00027F45D /* OperationController.m */; };
+		D05095D31CC805CD0027F45D /* OperationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095D21CC805CD0027F45D /* OperationCell.m */; };
+		D05095D61CC80FC30027F45D /* PaddingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095D51CC80FC30027F45D /* PaddingCell.m */; };
 		D05780C81C5DE41600E9195D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780C71C5DE41600E9195D /* main.m */; };
 		D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780CA1C5DE41600E9195D /* AppDelegate.m */; };
 		D05780D11C5DE41600E9195D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05780CF1C5DE41600E9195D /* Main.storyboard */; };
@@ -28,11 +31,17 @@
 
 /* Begin PBXFileReference section */
 		D00BC6B61C5F5DC40011E293 /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
+		D05095CE1CC804B00027F45D /* OperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationController.h; sourceTree = "<group>"; };
+		D05095CF1CC804B00027F45D /* OperationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationController.m; sourceTree = "<group>"; };
+		D05095D11CC805CD0027F45D /* OperationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationCell.h; sourceTree = "<group>"; };
+		D05095D21CC805CD0027F45D /* OperationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationCell.m; sourceTree = "<group>"; };
+		D05095D41CC80FC30027F45D /* PaddingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddingCell.h; sourceTree = "<group>"; };
+		D05095D51CC80FC30027F45D /* PaddingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddingCell.m; sourceTree = "<group>"; };
 		D05780C31C5DE41600E9195D /* magicworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = magicworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05780C71C5DE41600E9195D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D05780C91C5DE41600E9195D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D05780CA1C5DE41600E9195D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D05780D01C5DE41600E9195D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D05780D01C5DE41600E9195D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.xml; };
 		D05780D51C5DE41600E9195D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D05780D81C5DE41600E9195D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D05780DA1C5DE41600E9195D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -73,6 +82,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D05095CD1CC804630027F45D /* Operation */ = {
+			isa = PBXGroup;
+			children = (
+				D05095CE1CC804B00027F45D /* OperationController.h */,
+				D05095CF1CC804B00027F45D /* OperationController.m */,
+				D05095D11CC805CD0027F45D /* OperationCell.h */,
+				D05095D21CC805CD0027F45D /* OperationCell.m */,
+				D05095D41CC80FC30027F45D /* PaddingCell.h */,
+				D05095D51CC80FC30027F45D /* PaddingCell.m */,
+			);
+			name = Operation;
+			sourceTree = "<group>";
+		};
 		D05780BA1C5DE41600E9195D = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +122,7 @@
 				D05780E01C5DEEC000E9195D /* FrameController.h */,
 				D05780E11C5DEEC000E9195D /* FrameController.m */,
 				D0940BFB1C5DFD3500B9C5C7 /* Map */,
+				D05095CD1CC804630027F45D /* Operation */,
 				D05780F01C5DF13400E9195D /* Login */,
 				D05780E91C5DEF3B00E9195D /* Database */,
 				D05780C61C5DE41600E9195D /* Supporting Files */,
@@ -239,7 +262,10 @@
 				D05780EC1C5DF11F00E9195D /* LoginActionCell.m in Sources */,
 				D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */,
 				D05780C81C5DE41600E9195D /* main.m in Sources */,
+				D05095D61CC80FC30027F45D /* PaddingCell.m in Sources */,
 				D0CB14011C61E7330028D552 /* DataManager.m in Sources */,
+				D05095D01CC804B00027F45D /* OperationController.m in Sources */,
+				D05095D31CC805CD0027F45D /* OperationCell.m in Sources */,
 				D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */,
 				D0940BFE1C5DFD5000B9C5C7 /* MapCell.m in Sources */,
 				D05780EF1C5DF12C00E9195D /* LoginInputCell.m in Sources */,
