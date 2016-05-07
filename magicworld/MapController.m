@@ -282,7 +282,7 @@
     _showPanelLight = showPanelLight;
     
     [UIView animateWithDuration:0.2f animations:^{
-        self.infoPanel.alpha = showPanelLight ? 0.3f : 1.0f;
+        self.infoPanel.alpha = showPanelLight ? 0.5f : 1.0f;
     }];
 }
 

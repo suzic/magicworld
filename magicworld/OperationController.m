@@ -26,13 +26,19 @@
 
     self.autoScroll = NO;
     self.delaySelectedIndex = NSNotFound;
-    
+        
     [self setupTestData];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self.operationTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]].selected = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,16 +56,21 @@
 
 - (void)setupTestData
 {
-    [self.operationArray addObject:@"Op1"];
-    [self.operationArray addObject:@"Op2"];
-    [self.operationArray addObject:@"Op3"];
-    [self.operationArray addObject:@"Op4"];
-    [self.operationArray addObject:@"Op5"];
-    [self.operationArray addObject:@"Op6"];
-    [self.operationArray addObject:@"Op7"];
-    [self.operationArray addObject:@"Op8"];
+    for (int i = 0; i < 20; i++)
+        [self.operationArray addObject:[self getRamdomImageName]];
     _selectedIndex = NSNotFound;
     self.selectedIndex = 0;
+}
+
+- (NSString *)getRamdomImageName
+{
+    NSArray *imageNameArray = @[@"C_001_0001", @"C_001_0002", @"C_001_0003", @"C_001_0004",
+                                @"C_001_0005", @"C_001_0006", @"C_001_0007", @"C_001_0008",
+                                @"C_001_0009", @"C_001_0010", @"C_001_0011", @"C_001_0012",
+                                @"C_001_0013", @"C_001_0014", @"C_001_0015", @"C_001_0016",
+                                @"C_001_0017"];
+    int index = arc4random() % 17;
+    return imageNameArray[index];
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
@@ -127,6 +138,7 @@
         return [tableView dequeueReusableCellWithIdentifier:@"paddingCell"];
 
     OperationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"operationCell"];
+    cell.cardImage.image = [UIImage imageNamed:self.operationArray[indexPath.row - 2]];
     return cell;
 }
 

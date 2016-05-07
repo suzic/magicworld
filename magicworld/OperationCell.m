@@ -8,30 +8,50 @@
 
 #import "OperationCell.h"
 
+@interface OperationCell ()
+
+@property (strong, nonatomic) IBOutlet UIView *gradientView;
+@property (strong, nonatomic) CAGradientLayer *gradientLayer;
+
+@end
+
 @implementation OperationCell
-{
-    BOOL lastSelectedState;
-}
 
 - (void)awakeFromNib
 {
     [super awakeFromNib];
 
-//    self.cardBorder.layer.cornerRadius = 4.0f;
-//    self.cardBorder.layer.borderColor = [UIColor darkGrayColor].CGColor;
-//    self.cardBorder.layer.borderWidth = 0.5f;
+    // 对表格进行尾部渐变消隐处理
+    self.gradientLayer = [CAGradientLayer layer];
+    self.gradientLayer.frame = self.gradientView.frame;
+    [self.gradientView.layer addSublayer:self.gradientLayer];
+    self.gradientLayer.startPoint = CGPointMake(0, 0);
+    self.gradientLayer.endPoint = CGPointMake(0, 0.9);
+    self.gradientLayer.colors = @[(__bridge id)[UIColor whiteColor].CGColor,
+                                  (__bridge id)[UIColor colorWithWhite:1.0 alpha:0.0].CGColor];
+    self.gradientLayer.locations = @[@(0.0f) ,@(0.9f)];
     
-//    self.cardWidth.constant = lastSelectedState ? self.frame.size.width : self.frame.size.width * 7 / 8;
-//    [UIView animateWithDuration:1.0f animations:^{
-//    }];
+    // 状态标签旋转90度
+    self.cardTypeString.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI/2);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    
-    lastSelectedState = selected;
-    self.cardWidth.constant = selected ? self.frame.size.width : self.frame.size.width * 7 / 8;
+
+    self.cardType.transform = selected ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, -36, 0);
+
+    self.blur.alpha = selected ? 1 : 0;
+    self.gradientLayer.hidden = NO;
+    self.gradientView.alpha = selected ? 0 : 1;
+    [UIView animateWithDuration:1.0f animations:^{
+        self.cardType.transform = selected ? CGAffineTransformTranslate(CGAffineTransformIdentity, -36, 0) : CGAffineTransformIdentity;
+        self.blur.alpha = selected ? 0 : 1;
+        self.gradientView.alpha = selected ? 1 : 0;
+    } completion:^(BOOL finished) {
+        self.blur.hidden = selected ? YES : NO;
+        self.gradientLayer.hidden = selected ? NO : YES;
+    }];
 }
 
 @end

@@ -127,7 +127,7 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0)
-        return @"Welcome to Magic World!";
+        return @"Welcome to Magicard!";
     else
         return @"";
 }

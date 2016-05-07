@@ -65,6 +65,7 @@
         [UIView animateWithDuration:0.5f animations:^{
             self.operationLayer.alpha = 0.0f;
         } completion:^(BOOL finished) {
+            [self.opearationController scrollToIndex:0];
             self.operationLayer.hidden = YES;
         }];
     }
@@ -99,7 +100,7 @@
     [UIView animateWithDuration:0.5f animations:^{
         self.operationLayer.alpha = 1.0f;
     } completion:^(BOOL finished) {
-        [self.opearationController scrollToIndex:9];
+        [self.opearationController scrollToIndex:19];
     }];
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D03C86601CDC7A9900337090 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D03C865F1CDC7A9900337090 /* Media.xcassets */; };
 		D05095D01CC804B00027F45D /* OperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095CF1CC804B00027F45D /* OperationController.m */; };
 		D05095D31CC805CD0027F45D /* OperationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095D21CC805CD0027F45D /* OperationCell.m */; };
 		D05095D61CC80FC30027F45D /* PaddingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095D51CC80FC30027F45D /* PaddingCell.m */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		D00BC6B61C5F5DC40011E293 /* Commons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Commons.h; sourceTree = "<group>"; };
+		D03C865F1CDC7A9900337090 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		D05095CE1CC804B00027F45D /* OperationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationController.h; sourceTree = "<group>"; };
 		D05095CF1CC804B00027F45D /* OperationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationController.m; sourceTree = "<group>"; };
 		D05095D11CC805CD0027F45D /* OperationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OperationCell.h; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				D05780CF1C5DE41600E9195D /* Main.storyboard */,
 				D05780D71C5DE41600E9195D /* LaunchScreen.storyboard */,
 				D05780D51C5DE41600E9195D /* Assets.xcassets */,
+				D03C865F1CDC7A9900337090 /* Media.xcassets */,
 				D05780E01C5DEEC000E9195D /* FrameController.h */,
 				D05780E11C5DEEC000E9195D /* FrameController.m */,
 				D0940BFB1C5DFD3500B9C5C7 /* Map */,
@@ -242,6 +245,7 @@
 			files = (
 				D05780D91C5DE41600E9195D /* LaunchScreen.storyboard in Resources */,
 				D05780D61C5DE41600E9195D /* Assets.xcassets in Resources */,
+				D03C86601CDC7A9900337090 /* Media.xcassets in Resources */,
 				D05780D11C5DE41600E9195D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

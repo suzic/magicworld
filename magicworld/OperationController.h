@@ -13,6 +13,11 @@
 @property (strong, nonatomic) NSMutableArray *operationArray;
 @property (assign, nonatomic) NSInteger selectedIndex;
 
+/**
+ * @abstract 滚动到指定的索引位置
+ * @param index - 1
+ * @param something - 2
+ */
 - (void)scrollToIndex:(NSInteger)index;
 
 @end
