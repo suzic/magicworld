@@ -595,11 +595,28 @@
                                     <action selector="closeOperation:" destination="a6p-to-UE6" eventType="touchUpInside" id="c4r-ah-2y9"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNj-j8-OaM">
+                                <rect key="frame" x="535" y="119" width="50" height="50"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Ydl-7s-v8I"/>
+                                    <constraint firstAttribute="width" constant="50" id="tb5-bv-4dX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="BAG">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeOperation:" destination="a6p-to-UE6" eventType="touchUpInside" id="M55-Us-UB6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="xTt-AH-6Do" firstAttribute="top" secondItem="spC-4g-bnb" secondAttribute="bottom" constant="55" id="56L-2b-YgK"/>
+                            <constraint firstItem="bNj-j8-OaM" firstAttribute="top" secondItem="spC-4g-bnb" secondAttribute="bottom" constant="55" id="FaU-Uz-l27"/>
                             <constraint firstItem="xTt-AH-6Do" firstAttribute="leading" secondItem="8Uo-L4-296" secondAttribute="leading" constant="15" id="Yom-81-FPJ"/>
+                            <constraint firstAttribute="trailing" secondItem="bNj-j8-OaM" secondAttribute="trailing" constant="15" id="g09-D0-Ddo"/>
                             <constraint firstItem="r7P-ND-KYN" firstAttribute="centerX" secondItem="8Uo-L4-296" secondAttribute="centerX" id="y97-SU-4Cr"/>
                             <constraint firstItem="r7P-ND-KYN" firstAttribute="centerY" secondItem="8Uo-L4-296" secondAttribute="centerY" id="yBt-qp-jgw"/>
                         </constraints>
@@ -614,6 +631,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backFloatButton" destination="xTt-AH-6Do" id="5A6-1v-9Pr"/>
+                        <outlet property="bagFloatButton" destination="bNj-j8-OaM" id="zlu-1b-ge6"/>
                         <outlet property="operationTable" destination="r7P-ND-KYN" id="nGM-Rq-INy"/>
                         <outlet property="tableHeight" destination="LOj-fZ-s9j" id="hQK-6g-FHe"/>
                         <outlet property="tableWidth" destination="m92-Cs-pdy" id="5rw-Mr-Dii"/>

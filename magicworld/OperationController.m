@@ -13,6 +13,7 @@
 @interface OperationController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UIButton *backFloatButton;
+@property (strong, nonatomic) IBOutlet UIButton *bagFloatButton;
 @property (strong, nonatomic) IBOutlet UITableView *operationTable;
 @property (assign, nonatomic) NSInteger lastSelectedIndexBeforeDrag;
 @property (assign, nonatomic) BOOL autoSelectMode;
@@ -33,14 +34,18 @@
     self.tableWidth.constant = kScreenWidth;
     self.tableHeight.constant = kScreenHeight;
     self.operationTable.transform = CGAffineTransformIdentity;
+
     self.backFloatButton.hidden = YES;
     self.backFloatButton.layer.cornerRadius = 25.0f;
     self.backFloatButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.backFloatButton.layer.borderWidth = 1.0f;
+    
+    self.bagFloatButton.hidden = YES;
+    self.bagFloatButton.layer.cornerRadius = 25.0f;
+    self.bagFloatButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.bagFloatButton.layer.borderWidth = 1.0f;
 
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
-//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
 
     [self setupTestData];
 }
@@ -103,6 +108,7 @@
         self.tableHeight.constant = kScreenWidth;
         self.operationTable.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI_2);
         self.backFloatButton.hidden = NO;
+        self.bagFloatButton.hidden = NO;
     }
     else
     {
@@ -110,6 +116,7 @@
         self.tableHeight.constant = kScreenHeight;
         self.operationTable.transform = CGAffineTransformIdentity;
         self.backFloatButton.hidden = YES;
+        self.bagFloatButton.hidden = YES;
     }
     self.selectedCell.inLandMode = inLandMode;
 }
@@ -300,6 +307,7 @@
     {
         [UIView animateWithDuration:0.5f animations:^{
             self.backFloatButton.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -60, 0);
+            self.bagFloatButton.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
         }];
     }
     else
@@ -351,6 +359,7 @@
     {
         [UIView animateWithDuration:0.5f animations:^{
             self.backFloatButton.transform = CGAffineTransformIdentity;
+            self.bagFloatButton.transform = CGAffineTransformIdentity;
         }];
     }
     
