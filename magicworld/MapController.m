@@ -55,6 +55,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -365,6 +367,8 @@
     {
         if ([self.delegate respondsToSelector:@selector(showOperator:withType:)])
             [self.delegate showOperator:self withType:0];
+        if ([self.delegate respondsToSelector:@selector(showZoneInformation:withX:withY:)])
+            [self.delegate showZoneInformation:self withX:0 withY:0];
     }
 }
 

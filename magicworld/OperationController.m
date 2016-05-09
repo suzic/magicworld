@@ -13,7 +13,13 @@
 @interface OperationController () <UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UITableView *operationTable;
+@property (assign, nonatomic) NSInteger lastSelectedIndexBeforeDrag;
 @property (assign, nonatomic) BOOL autoSelectMode;
+@property (retain, nonatomic) OperationCell *selectedCell;
+
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableWidth;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableHeight;
+@property (assign, nonatomic) BOOL inLandMode;
 
 @end
 
@@ -23,12 +29,21 @@
 {
     [super viewDidLoad];
     
+    self.tableWidth.constant = kScreenWidth;
+    self.tableHeight.constant = kScreenHeight;
+    self.operationTable.transform = CGAffineTransformIdentity;
+
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+//    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+//    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+
     [self setupTestData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.inLandMode = kScreenWidth > kScreenHeight;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -46,6 +61,50 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewWillLayoutSubviews
+{
+    [super viewWillLayoutSubviews];
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    if (size.width < size.height)
+    {
+        self.inLandMode = NO;
+        self.tableWidth.constant = size.width;
+        self.tableHeight.constant = size.height;
+    }
+    else
+    {
+        self.inLandMode = YES;
+        self.tableWidth.constant = size.height;
+        self.tableHeight.constant = size.width;
+    }
+}
+
+- (void)setInLandMode:(BOOL)inLandMode
+{
+    if (_inLandMode == inLandMode)
+        return;
+    _inLandMode = inLandMode;
+    [[UIApplication sharedApplication] setStatusBarHidden:inLandMode];
+    [self.navigationController setNavigationBarHidden:inLandMode];
+
+    if (inLandMode)
+    {
+        self.tableWidth.constant = kScreenHeight;
+        self.tableHeight.constant = kScreenWidth;
+        self.operationTable.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI_2);
+    }
+    else
+    {
+        self.tableWidth.constant = kScreenWidth;
+        self.tableHeight.constant = kScreenHeight;
+        self.operationTable.transform = CGAffineTransformIdentity;
+    }
+    self.selectedCell.inLandMode = inLandMode;
 }
 
 - (NSMutableArray *)operationArray
@@ -85,7 +144,8 @@
     {
         NSIndexPath *indexUnsel = [NSIndexPath indexPathForRow:_selectedIndex inSection:1];
         [updateIndexes addObject:indexUnsel];
-        [self.operationTable cellForRowAtIndexPath:indexUnsel].selected = NO;
+        if (self.selectedCell != nil)
+            self.selectedCell.selected = NO;
     }
     
     _selectedIndex = selectedIndex;
@@ -98,10 +158,12 @@
 
         // 执行动画切换
         [self.operationTable reloadRowsAtIndexPaths:updateIndexes withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.operationTable cellForRowAtIndexPath:indexTosel].selected = YES;
+        self.selectedCell = [self.operationTable cellForRowAtIndexPath:indexTosel];
+        self.selectedCell.selected = YES;
     }
     else
     {
+        self.selectedCell = nil;
         // 执行动画切换
         [self.operationTable reloadRowsAtIndexPaths:updateIndexes withRowAnimation:UITableViewRowAnimationAutomatic];
     }
@@ -122,6 +184,15 @@
     NSInteger row = selectedRow < 2 ? selectedRow : selectedRow - 2;
     [self.operationTable scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:section]
                                atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+#pragma mark - Operation
+
+- (IBAction)closeOperation:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:^{
+        ;
+    }];
 }
 
 /*
@@ -158,17 +229,19 @@
 
     OperationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"operationCell"];
     cell.cardImage.image = [UIImage imageNamed:self.operationArray[indexPath.row]];
+    cell.inLandMode = self.inLandMode;
     return cell;
 }
 
 // 行高计算
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 || indexPath.section == 2)
-        return self.operationTable.frame.size.height / 8;
+    CGFloat referLength = (self.inLandMode ? kScreenWidth : kScreenHeight);
     
-    return (self.selectedIndex == indexPath.row) ?
-        self.operationTable.frame.size.height / 2 : self.operationTable.frame.size.height / 8;
+    if (indexPath.section == 0 || indexPath.section == 2)
+        return referLength / 8;
+    
+    return (self.selectedIndex == indexPath.row) ? referLength / 2 : referLength / 8;
 }
 
 // 区间隔头高度
@@ -183,6 +256,20 @@
     return 0.1f;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
+
 // 点选操作会计算选择索引
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -193,6 +280,18 @@
         self.selectedIndex = indexPath.row;
         [self scrollTableAtRow:indexPath.row];
     }
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor clearColor];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    self.lastSelectedIndexBeforeDrag = self.selectedIndex;
 }
 
 // 当滚动将要进入减速效果的时候强制执行滚动到索引的功能以中断不可控减速
@@ -223,6 +322,13 @@
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     NSLog(@"in Did End Animation");
+    // 如果当前选择索引在最前，或者在手动选择模式下向前滚动了3行以上数据，视为想要看导航栏
+    if (self.selectedIndex < 2 || ((self.lastSelectedIndexBeforeDrag > self.selectedIndex + 3) && self.autoSelectMode == YES))
+    {
+        [[UIApplication sharedApplication] setStatusBarHidden:_inLandMode];
+        [self.navigationController setNavigationBarHidden:(_inLandMode) animated:YES];
+    }
+    
     if (self.autoSelectMode == NO)
         self.autoSelectMode = YES;
 }
@@ -232,17 +338,17 @@
 {
     if (self.autoSelectMode == YES)
     {
-        CGFloat rowHeight = self.operationTable.frame.size.height / 8;
+        CGFloat referLength = (self.inLandMode ? kScreenWidth : kScreenHeight);
+        CGFloat rowHeight = referLength / 8;
         NSInteger autoSelectRow = (scrollView.contentOffset.y + rowHeight / 2) / rowHeight;
         
         if (autoSelectRow < 0) autoSelectRow = 0;
         if (self.operationArray.count > 0 && autoSelectRow >= self.operationArray.count)
             autoSelectRow = self.operationArray.count - 1;
         
-        NSLog(@"Y偏移 %f, 选中行 %ld", scrollView.contentOffset.y, (long)autoSelectRow);
+        // NSLog(@"Y偏移 %f, 选中行 %ld", scrollView.contentOffset.y, (long)autoSelectRow);
         self.selectedIndex = autoSelectRow;
     }
 }
-
 
 @end

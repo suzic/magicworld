@@ -16,4 +16,6 @@
 @property (strong, nonatomic) IBOutlet UIImageView *cardImage;
 @property (strong, nonatomic) IBOutlet UIVisualEffectView *blur;
 
+@property (assign, nonatomic) BOOL inLandMode;
+
 @end

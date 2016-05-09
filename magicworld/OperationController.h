@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FrameController.h"
 
 @interface OperationController : UIViewController
+
+@property (retain, nonatomic) FrameController *frameController;
 
 @property (strong, nonatomic) NSMutableArray *operationArray;
 @property (assign, nonatomic) NSInteger selectedIndex;

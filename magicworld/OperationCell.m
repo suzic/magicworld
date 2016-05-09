@@ -12,6 +12,9 @@
 
 @property (strong, nonatomic) IBOutlet UIView *gradientView;
 //@property (strong, nonatomic) CAGradientLayer *gradientLayer;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *boarderWidth;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *boarderHeight;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *typeHeight;
 
 @end
 
@@ -31,22 +34,40 @@
     //                                  (__bridge id)[UIColor colorWithWhite:1.0 alpha:0.0].CGColor];
     //    self.gradientLayer.locations = @[@(0.0f) ,@(0.9f)];
     
-    // 状态标签旋转90度
-    self.cardTypeString.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI/2);
+    // 默认按横屏初始化数据
+    _inLandMode = NO;
+    self.cardBorder.transform = CGAffineTransformIdentity;
+    self.cardTypeString.transform = CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2);
+    self.boarderWidth.constant = self.frame.size.width;
+    self.boarderHeight.constant = self.frame.size.height - 1;
+    self.typeHeight.constant = self.frame.size.height - 1;
+}
+
+- (void)setInLandMode:(BOOL)inLandMode
+{
+    if (_inLandMode == inLandMode)
+        return;
+    _inLandMode = inLandMode;
+
+    self.boarderWidth.constant = (_inLandMode && self.selected) ? self.frame.size.height : self.frame.size.width;
+    self.boarderHeight.constant = (_inLandMode && self.selected) ? self.frame.size.width : self.frame.size.height - 1;
+    self.cardBorder.transform = (_inLandMode && self.selected) ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformIdentity;
+    self.cardTypeString.transform =  _inLandMode ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
+    
+    // 横屏选择模式下进行旋转调整
+    self.boarderWidth.constant = (_inLandMode && selected) ? self.frame.size.height : self.frame.size.width;
+    self.boarderHeight.constant = (_inLandMode && selected) ? self.frame.size.width : self.frame.size.height - 1;
+    self.cardBorder.transform = (_inLandMode && selected) ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformIdentity;
 
-    self.cardType.transform = selected ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, -36, 0);
-
-    self.blur.alpha = selected ? 1 : 0;
-    self.gradientView.backgroundColor = selected ? [UIColor clearColor] : [UIColor colorWithWhite:0.5f alpha:0.6f];
-    [UIView animateWithDuration:1.0f animations:^{
+    [UIView animateWithDuration:selected ? 1.0f : 0.0f animations:^{
+        self.gradientView.backgroundColor = !selected ? [UIColor clearColor] :[UIColor colorWithWhite:0.5f alpha:0.6f];
         self.cardType.transform = selected ? CGAffineTransformTranslate(CGAffineTransformIdentity, -36, 0) : CGAffineTransformIdentity;
         self.blur.alpha = selected ? 0 : 1;
-        self.gradientView.backgroundColor = !selected ? [UIColor clearColor] :[UIColor colorWithWhite:0.5f alpha:0.6f];
     } completion:^(BOOL finished) {
         self.blur.hidden = selected ? YES : NO;
     }];

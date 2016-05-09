@@ -13,11 +13,10 @@
 @interface FrameController () <MapControllerDelegate, UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UIView *mapLayer;
-@property (strong, nonatomic) IBOutlet UIView *playerLayer;
-@property (strong, nonatomic) IBOutlet UIView *operationLayer;
+//@property (strong, nonatomic) IBOutlet UIView *playerLayer;
+//@property (strong, nonatomic) IBOutlet UIView *operationLayer;
 
 @property (retain, nonatomic) MapController *mapController;
-@property (retain, nonatomic) OperationController *opearationController;
 
 @end
 
@@ -27,7 +26,7 @@
 {
     [super viewDidLoad];
     
-    self.operationLayer.hidden = YES;
+    //self.operationLayer.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -60,15 +59,6 @@
 
 - (IBAction)rightPress:(id)sender
 {
-    if (self.operationLayer.hidden == NO)
-    {
-        [UIView animateWithDuration:0.5f animations:^{
-            self.operationLayer.alpha = 0.0f;
-        } completion:^(BOOL finished) {
-            [self.opearationController scrollToIndex:0];
-            self.operationLayer.hidden = YES;
-        }];
-    }
 }
 
 #pragma mark - UIAlertView Delegate
@@ -84,24 +74,31 @@
 - (void)startDrag:(MapController *)controller
 {
     controller.stopAutoMoveCenter = YES;
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)endDrag:(MapController *)controller
 {
     controller.stopAutoMoveCenter = YES;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight) animated:YES];
 }
 
-- (void)showOperator:(MapController *)controller withType:(NSInteger)opType
+//- (void)showOperator:(MapController *)controller withType:(NSInteger)opType
+//{
+//    self.operationLayer.alpha = 0.0f;
+//    self.operationLayer.hidden = NO;
+//    [UIView animateWithDuration:0.5f animations:^{
+//        self.operationLayer.alpha = 1.0f;
+//    } completion:^(BOOL finished) {
+//        [self.opearationController scrollToIndex:19];
+//    }];
+//}
+
+- (void)showZoneInformation:(MapController *)controller withX:(NSInteger)x withY:(NSInteger)y
 {
-    self.operationLayer.alpha = 0.0f;
-    self.operationLayer.hidden = NO;
-    [UIView animateWithDuration:0.5f animations:^{
-        self.operationLayer.alpha = 1.0f;
-    } completion:^(BOOL finished) {
-        [self.opearationController scrollToIndex:19];
-    }];
+    [self performSegueWithIdentifier:@"showZone" sender:controller];
 }
 
 #pragma mark - Navigation
@@ -113,10 +110,11 @@
         self.mapController = (MapController *)[segue destinationViewController];
         self.mapController.delegate = self;
     }
-    else if ([segue.identifier isEqualToString:@"operationSegue"])
+    else if ([segue.identifier isEqualToString:@"showZone"])
     {
-        self.opearationController = (OperationController *)[segue destinationViewController];
-        //self.opearationController.delegate = self;
+        UINavigationController *nc = [segue destinationViewController];
+        OperationController *opearationController = (OperationController *)[nc topViewController];
+        opearationController.frameController = self;
     }
 }
 
