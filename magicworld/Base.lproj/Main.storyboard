@@ -153,12 +153,29 @@
                                     <segue destination="Nlz-1Q-4QL" kind="embed" identifier="mapSegue" id="SSv-CM-0uC"/>
                                 </connections>
                             </containerView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b33-nL-MgM">
+                                <rect key="frame" x="535" y="55" width="50" height="50"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="eKn-S1-UN8"/>
+                                    <constraint firstAttribute="width" constant="50" id="fRq-Py-3g6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="ENTER">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="rightPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X7C-dg-n9b"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Qe9-NE-Cl3" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="962-R3-TKR"/>
                             <constraint firstItem="Qe9-NE-Cl3" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="QGY-Eg-1M9"/>
+                            <constraint firstAttribute="trailing" secondItem="b33-nL-MgM" secondAttribute="trailing" constant="15" id="Zj1-Vl-bEn"/>
                             <constraint firstItem="Qe9-NE-Cl3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bS5-28-qiQ"/>
+                            <constraint firstItem="b33-nL-MgM" firstAttribute="top" secondItem="Qe9-NE-Cl3" secondAttribute="top" constant="55" id="n1B-Kh-uk8"/>
                             <constraint firstItem="Qe9-NE-Cl3" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zwV-EG-kfl"/>
                         </constraints>
                     </view>
@@ -168,13 +185,14 @@
                                 <action selector="logOut:" destination="BYZ-38-t0r" id="pON-v6-fjY"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="You" id="3Pd-NJ-aqe">
+                        <barButtonItem key="rightBarButtonItem" title="Enter" id="3Pd-NJ-aqe">
                             <connections>
                                 <action selector="rightPress:" destination="BYZ-38-t0r" id="yjt-A8-mOR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="enterFloatButton" destination="b33-nL-MgM" id="jXo-ob-ley"/>
                         <outlet property="mapLayer" destination="Qe9-NE-Cl3" id="iGf-XZ-nsU"/>
                         <segue destination="n4l-wQ-0aQ" kind="presentation" identifier="showZone" modalTransitionStyle="flipHorizontal" id="WTT-dr-lCx"/>
                     </connections>
@@ -450,7 +468,7 @@
             </objects>
             <point key="canvasLocation" x="3004" y="1231"/>
         </scene>
-        <!--探索列表-->
+        <!--Legend-->
         <scene sceneID="sJA-Rb-miN">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="a6p-to-UE6" customClass="OperationController" sceneMemberID="viewController">
@@ -589,7 +607,7 @@
                                     <constraint firstAttribute="width" constant="50" id="rHN-lz-blJ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="BACK">
+                                <state key="normal" title="EXIT">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -622,8 +640,8 @@
                             <constraint firstItem="r7P-ND-KYN" firstAttribute="centerY" secondItem="8Uo-L4-296" secondAttribute="centerY" id="yBt-qp-jgw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="探索列表" id="bEe-da-IMI">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="yFd-1c-tA2">
+                    <navigationItem key="navigationItem" title="Legend" id="bEe-da-IMI">
+                        <barButtonItem key="leftBarButtonItem" title="Exit" id="yFd-1c-tA2">
                             <connections>
                                 <action selector="closeOperation:" destination="a6p-to-UE6" id="079-13-9lg"/>
                             </connections>

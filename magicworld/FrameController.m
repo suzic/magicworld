@@ -15,6 +15,7 @@
 @property (strong, nonatomic) IBOutlet UIView *mapLayer;
 //@property (strong, nonatomic) IBOutlet UIView *playerLayer;
 //@property (strong, nonatomic) IBOutlet UIView *operationLayer;
+@property (strong, nonatomic) IBOutlet UIButton *enterFloatButton;
 
 @property (retain, nonatomic) MapController *mapController;
 
@@ -26,6 +27,10 @@
 {
     [super viewDidLoad];
     
+    self.enterFloatButton.hidden = YES;
+    self.enterFloatButton.layer.cornerRadius = 25.0f;
+    self.enterFloatButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.enterFloatButton.layer.borderWidth = 1.0f;
     //self.operationLayer.hidden = YES;
 }
 
@@ -34,6 +39,7 @@
     [super viewDidAppear:animated];
     [[UIApplication sharedApplication] setStatusBarHidden:(kScreenWidth > kScreenHeight)];
     [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight)];
+    self.enterFloatButton.hidden = (kScreenWidth < kScreenHeight);
 }
 
 - (void)didReceiveMemoryWarning
@@ -46,6 +52,7 @@
 {
     [[UIApplication sharedApplication] setStatusBarHidden:(size.width > size.height)];
     [self.navigationController setNavigationBarHidden:(size.width > size.height)];
+    self.enterFloatButton.hidden = (size.width < size.height);
     [self.mapController rotateMapToSize:size];
 }
 
@@ -61,6 +68,7 @@
 
 - (IBAction)rightPress:(id)sender
 {
+    [self performSegueWithIdentifier:@"showZone" sender:sender];
 }
 
 #pragma mark - UIAlertView Delegate
@@ -78,6 +86,9 @@
     controller.stopAutoMoveCenter = YES;
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [UIView animateWithDuration:0.5f animations:^{
+        self.enterFloatButton.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
+    }];
 }
 
 - (void)endDrag:(MapController *)controller
@@ -85,6 +96,9 @@
     controller.stopAutoMoveCenter = YES;
     [[UIApplication sharedApplication] setStatusBarHidden:(kScreenWidth > kScreenHeight)];
     [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight) animated:YES];
+    [UIView animateWithDuration:0.5f animations:^{
+        self.enterFloatButton.transform = CGAffineTransformIdentity;
+    }];
 }
 
 //- (void)showOperator:(MapController *)controller withType:(NSInteger)opType
