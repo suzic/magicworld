@@ -32,6 +32,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarHidden:(kScreenWidth > kScreenHeight)];
     [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight)];
 }
 
@@ -43,6 +44,7 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+    [[UIApplication sharedApplication] setStatusBarHidden:(size.width > size.height)];
     [self.navigationController setNavigationBarHidden:(size.width > size.height)];
     [self.mapController rotateMapToSize:size];
 }
@@ -81,7 +83,7 @@
 - (void)endDrag:(MapController *)controller
 {
     controller.stopAutoMoveCenter = YES;
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+    [[UIApplication sharedApplication] setStatusBarHidden:(kScreenWidth > kScreenHeight)];
     [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight) animated:YES];
 }
 

@@ -12,6 +12,7 @@
 
 @interface OperationController () <UITableViewDelegate, UITableViewDataSource>
 
+@property (strong, nonatomic) IBOutlet UIButton *backFloatButton;
 @property (strong, nonatomic) IBOutlet UITableView *operationTable;
 @property (assign, nonatomic) NSInteger lastSelectedIndexBeforeDrag;
 @property (assign, nonatomic) BOOL autoSelectMode;
@@ -32,6 +33,10 @@
     self.tableWidth.constant = kScreenWidth;
     self.tableHeight.constant = kScreenHeight;
     self.operationTable.transform = CGAffineTransformIdentity;
+    self.backFloatButton.hidden = YES;
+    self.backFloatButton.layer.cornerRadius = 25.0f;
+    self.backFloatButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.backFloatButton.layer.borderWidth = 1.0f;
 
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
 //    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -97,12 +102,14 @@
         self.tableWidth.constant = kScreenHeight;
         self.tableHeight.constant = kScreenWidth;
         self.operationTable.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI_2);
+        self.backFloatButton.hidden = NO;
     }
     else
     {
         self.tableWidth.constant = kScreenWidth;
         self.tableHeight.constant = kScreenHeight;
         self.operationTable.transform = CGAffineTransformIdentity;
+        self.backFloatButton.hidden = YES;
     }
     self.selectedCell.inLandMode = inLandMode;
 }
@@ -289,8 +296,17 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    if (_inLandMode)
+    {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.backFloatButton.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -60, 0);
+        }];
+    }
+    else
+    {
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
     self.lastSelectedIndexBeforeDrag = self.selectedIndex;
 }
 
@@ -327,6 +343,15 @@
     {
         [[UIApplication sharedApplication] setStatusBarHidden:_inLandMode];
         [self.navigationController setNavigationBarHidden:(_inLandMode) animated:YES];
+    }
+    
+    if (_inLandMode && (self.selectedIndex < 2 || self.selectedIndex > self.operationArray.count - 3
+        || ((self.lastSelectedIndexBeforeDrag > self.selectedIndex + 3
+             || self.lastSelectedIndexBeforeDrag < self.selectedIndex - 3) && self.autoSelectMode == YES)))
+    {
+        [UIView animateWithDuration:0.5f animations:^{
+            self.backFloatButton.transform = CGAffineTransformIdentity;
+        }];
     }
     
     if (self.autoSelectMode == NO)

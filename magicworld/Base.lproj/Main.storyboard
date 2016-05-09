@@ -503,7 +503,7 @@
                                                             <rect key="frame" x="0.0" y="5" width="600" height="36"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="魔法山麓神秘洞穴" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x07-dx-Bim">
-                                                                    <rect key="frame" x="20" y="6" width="560" height="24"/>
+                                                                    <rect key="frame" x="20" y="4" width="560" height="28"/>
                                                                     <fontDescription key="fontDescription" name="STLibian-SC-Regular" family="Libian SC" pointSize="20"/>
                                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                     <nil key="highlightedColor"/>
@@ -580,9 +580,26 @@
                                     <outlet property="delegate" destination="a6p-to-UE6" id="VTJ-7f-Psh"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xTt-AH-6Do">
+                                <rect key="frame" x="15" y="119" width="50" height="50"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="nWN-Fo-1RJ"/>
+                                    <constraint firstAttribute="width" constant="50" id="rHN-lz-blJ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="BACK">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="closeOperation:" destination="a6p-to-UE6" eventType="touchUpInside" id="c4r-ah-2y9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="xTt-AH-6Do" firstAttribute="top" secondItem="spC-4g-bnb" secondAttribute="bottom" constant="55" id="56L-2b-YgK"/>
+                            <constraint firstItem="xTt-AH-6Do" firstAttribute="leading" secondItem="8Uo-L4-296" secondAttribute="leading" constant="15" id="Yom-81-FPJ"/>
                             <constraint firstItem="r7P-ND-KYN" firstAttribute="centerX" secondItem="8Uo-L4-296" secondAttribute="centerX" id="y97-SU-4Cr"/>
                             <constraint firstItem="r7P-ND-KYN" firstAttribute="centerY" secondItem="8Uo-L4-296" secondAttribute="centerY" id="yBt-qp-jgw"/>
                         </constraints>
@@ -596,6 +613,7 @@
                         <barButtonItem key="rightBarButtonItem" title="Bag" id="Waf-ez-IOg"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="backFloatButton" destination="xTt-AH-6Do" id="5A6-1v-9Pr"/>
                         <outlet property="operationTable" destination="r7P-ND-KYN" id="nGM-Rq-INy"/>
                         <outlet property="tableHeight" destination="LOj-fZ-s9j" id="hQK-6g-FHe"/>
                         <outlet property="tableWidth" destination="m92-Cs-pdy" id="5rw-Mr-Dii"/>
