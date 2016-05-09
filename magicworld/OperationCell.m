@@ -49,9 +49,9 @@
         return;
     _inLandMode = inLandMode;
 
-    self.typeHeight.constant = self.frame.size.height - 1;
-    self.boarderWidth.constant = (_inLandMode && self.selected) ? self.frame.size.height : self.frame.size.width;
-    self.boarderHeight.constant = (_inLandMode && self.selected) ? self.frame.size.width : self.frame.size.height - 1;
+    self.typeHeight.constant = self.frame.size.height - (self.selected ? 4 : 1);
+    self.boarderWidth.constant = (_inLandMode && self.selected) ? self.frame.size.height - (self.selected ? 4 : 1): self.frame.size.width;
+    self.boarderHeight.constant = (_inLandMode && self.selected) ? self.frame.size.width : self.frame.size.height - (self.selected ? 4 : 1);
     self.cardBorder.transform = (_inLandMode && self.selected) ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformIdentity;
     self.cardTypeString.transform =  _inLandMode ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2);
 }
@@ -61,9 +61,9 @@
     [super setSelected:selected animated:animated];
     
     // 横屏选择模式下进行旋转调整
-    self.typeHeight.constant = self.frame.size.height - 1;
-    self.boarderWidth.constant = (_inLandMode && selected) ? self.frame.size.height : self.frame.size.width;
-    self.boarderHeight.constant = (_inLandMode && selected) ? self.frame.size.width : self.frame.size.height - 1;
+    self.typeHeight.constant = self.frame.size.height - (selected ? 4 : 1);
+    self.boarderWidth.constant = (_inLandMode && selected) ? self.frame.size.height - (selected ? 4 : 1) : self.frame.size.width;
+    self.boarderHeight.constant = (_inLandMode && selected) ? self.frame.size.width : self.frame.size.height - (selected ? 4 : 1);
     self.cardBorder.transform = (_inLandMode && selected) ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformIdentity;
 
     if (selected)
@@ -75,6 +75,7 @@
         } completion:^(BOOL finished) {
             self.blur.hidden = finished ? YES : NO;
         }];
+        self.backgroundColor = [UIColor whiteColor];
     }
     else
     {
@@ -82,6 +83,7 @@
         self.gradientView.backgroundColor = [UIColor clearColor];
         self.blur.alpha = 1.0f;
         self.blur.hidden = NO;
+        self.backgroundColor = [UIColor clearColor];
     }
 }
 

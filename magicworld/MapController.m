@@ -38,6 +38,8 @@
 {
     [super viewDidLoad];
     
+    self.mapCollection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MAPBG"]];
+    
     self.lastOffset = self.mapCollection.contentOffset;
     self.dontRecalOffset = NO;
     self.stopAutoMoveCenter = NO;
