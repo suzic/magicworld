@@ -28,6 +28,7 @@
 		D0CB13FB1C61DDE00028D552 /* Zone.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13F91C61DDE00028D552 /* Zone.m */; };
 		D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */; };
 		D0CB14011C61E7330028D552 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB14001C61E7330028D552 /* DataManager.m */; };
+		D0D0A9ED1CE08E8E008E4D68 /* Libian.ttc in Resources */ = {isa = PBXBuildFile; fileRef = D0D0A9EC1CE08D47008E4D68 /* Libian.ttc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = magicworld.xcdatamodel; sourceTree = "<group>"; };
 		D0CB13FF1C61E7330028D552 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		D0CB14001C61E7330028D552 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
+		D0D0A9EC1CE08D47008E4D68 /* Libian.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Libian.ttc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 		D05780C61C5DE41600E9195D /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D0D0A9EC1CE08D47008E4D68 /* Libian.ttc */,
 				D00BC6B61C5F5DC40011E293 /* Commons.h */,
 				D05780DA1C5DE41600E9195D /* Info.plist */,
 				D05780C71C5DE41600E9195D /* main.m */,
@@ -247,6 +250,7 @@
 				D05780D61C5DE41600E9195D /* Assets.xcassets in Resources */,
 				D03C86601CDC7A9900337090 /* Media.xcassets in Resources */,
 				D05780D11C5DE41600E9195D /* Main.storyboard in Resources */,
+				D0D0A9ED1CE08E8E008E4D68 /* Libian.ttc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

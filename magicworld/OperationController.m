@@ -122,12 +122,12 @@
 
 - (NSString *)getRamdomImageName
 {
-    NSArray *imageNameArray = @[@"C_001_0001", @"C_001_0002", @"C_001_0003", @"C_001_0004",
-                                @"C_001_0005", @"C_001_0006", @"C_001_0007", @"C_001_0008",
-                                @"C_001_0009", @"C_001_0010", @"C_001_0011", @"C_001_0012",
+    NSArray *imageNameArray = @[@"C_001_0001", @"C_001_0002", @"C_001_0003", @"C_001_0003",
+                                @"C_001_0005", @"C_001_0006", @"C_001_0007", @"C_001_0017",
+                                @"C_001_0018", @"C_001_0019", @"C_001_0020", @"C_001_0016",
                                 @"C_001_0013", @"C_001_0014", @"C_001_0015", @"C_001_0016",
-                                @"C_001_0017"];
-    int index = arc4random() % 17;
+                                @"C_001_0017", @"C_001_0018", @"C_001_0019", @"C_001_0020"];
+    int index = arc4random() % 20;
     return imageNameArray[index];
 }
 
@@ -239,9 +239,9 @@
     CGFloat referLength = (self.inLandMode ? kScreenWidth : kScreenHeight);
     
     if (indexPath.section == 0 || indexPath.section == 2)
-        return referLength / 8;
+        return referLength / 10;
     
-    return (self.selectedIndex == indexPath.row) ? referLength / 2 : referLength / 8;
+    return (self.selectedIndex == indexPath.row) ? referLength * 6 / 10 : referLength / 10;
 }
 
 // 区间隔头高度
@@ -339,7 +339,7 @@
     if (self.autoSelectMode == YES)
     {
         CGFloat referLength = (self.inLandMode ? kScreenWidth : kScreenHeight);
-        CGFloat rowHeight = referLength / 8;
+        CGFloat rowHeight = referLength / 10;
         NSInteger autoSelectRow = (scrollView.contentOffset.y + rowHeight / 2) / rowHeight;
         
         if (autoSelectRow < 0) autoSelectRow = 0;

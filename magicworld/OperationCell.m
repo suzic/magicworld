@@ -49,6 +49,7 @@
         return;
     _inLandMode = inLandMode;
 
+    self.typeHeight.constant = self.frame.size.height - 1;
     self.boarderWidth.constant = (_inLandMode && self.selected) ? self.frame.size.height : self.frame.size.width;
     self.boarderHeight.constant = (_inLandMode && self.selected) ? self.frame.size.width : self.frame.size.height - 1;
     self.cardBorder.transform = (_inLandMode && self.selected) ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformIdentity;
@@ -60,17 +61,28 @@
     [super setSelected:selected animated:animated];
     
     // 横屏选择模式下进行旋转调整
+    self.typeHeight.constant = self.frame.size.height - 1;
     self.boarderWidth.constant = (_inLandMode && selected) ? self.frame.size.height : self.frame.size.width;
     self.boarderHeight.constant = (_inLandMode && selected) ? self.frame.size.width : self.frame.size.height - 1;
     self.cardBorder.transform = (_inLandMode && selected) ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformIdentity;
 
-    [UIView animateWithDuration:selected ? 1.0f : 0.0f animations:^{
-        self.gradientView.backgroundColor = !selected ? [UIColor clearColor] :[UIColor colorWithWhite:0.5f alpha:0.6f];
-        self.cardType.transform = selected ? CGAffineTransformTranslate(CGAffineTransformIdentity, -36, 0) : CGAffineTransformIdentity;
-        self.blur.alpha = selected ? 0 : 1;
-    } completion:^(BOOL finished) {
-        self.blur.hidden = selected ? YES : NO;
-    }];
+    if (selected)
+    {
+        [UIView animateWithDuration:1.0f animations:^{
+            self.cardType.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -36, 0);
+            self.gradientView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.6f];
+            self.blur.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.blur.hidden = finished ? YES : NO;
+        }];
+    }
+    else
+    {
+        self.cardType.transform = CGAffineTransformIdentity;
+        self.gradientView.backgroundColor = [UIColor clearColor];
+        self.blur.alpha = 1.0f;
+        self.blur.hidden = NO;
+    }
 }
 
 @end
