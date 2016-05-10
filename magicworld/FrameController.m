@@ -12,50 +12,68 @@
 
 @interface FrameController () <MapControllerDelegate, UIAlertViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIView *mapLayer;
-//@property (strong, nonatomic) IBOutlet UIView *playerLayer;
-//@property (strong, nonatomic) IBOutlet UIView *operationLayer;
-@property (strong, nonatomic) IBOutlet UIButton *enterFloatButton;
+@property (strong, nonatomic) IBOutlet UIView *mapLayer;            // 主地图层对象
+@property (strong, nonatomic) IBOutlet UIButton *enterFloatButton;  // 前景浮动功能按钮
 
-@property (retain, nonatomic) MapController *mapController;
+@property (retain, nonatomic) MapController *mapController;         // 主地图控制器引用
 
 @end
 
 @implementation FrameController
 
+// 视图内容初始化
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
+    // 订制前景浮动功能按钮外观
     self.enterFloatButton.hidden = YES;
     self.enterFloatButton.layer.cornerRadius = 25.0f;
     self.enterFloatButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.enterFloatButton.layer.borderWidth = 1.0f;
-    //self.operationLayer.hidden = YES;
 }
 
+// 视图将要显示
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarHidden:(kScreenWidth > kScreenHeight)];
-    [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight)];
-    self.enterFloatButton.hidden = (kScreenWidth < kScreenHeight);
+    
+    // 初始化的时候显示功能层
+    [self showFunctions:YES animated:NO inLandMode:(kScreenWidth > kScreenHeight)];
 }
 
+// 内存警告
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+// 视图尺寸变化（包括发生在旋转屏时）
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:(size.width > size.height)];
-    [self.navigationController setNavigationBarHidden:(size.width > size.height)];
-    self.enterFloatButton.hidden = (size.width < size.height);
+    // 根据横竖屏尺寸信息决定初始化的时候是否显示功能层
+    [self showFunctions:YES animated:NO inLandMode:(size.width > size.height)];
+
+    // 地图旋转处理
     [self.mapController rotateMapToSize:size];
 }
 
+// 显示或隐藏功能层
+- (void)showFunctions:(BOOL)show animated:(BOOL)animated inLandMode:(BOOL)inLandMode
+{
+    // 系统状态栏和导航在横屏时不显示，竖屏时根据show来决定显隐，并套用是否动画演示效果
+    [[UIApplication sharedApplication] setStatusBarHidden:(inLandMode || !show)];
+    [self.navigationController setNavigationBarHidden:(inLandMode || !show) animated:animated];
+    
+    // 浮动工具栏在竖屏时不显示，横屏总是显示（但会以动画方式进入／离开屏幕区域）
+    self.enterFloatButton.hidden = !inLandMode;
+    [UIView animateWithDuration:(animated ? 0.5f : 0.0f) animations:^{
+        self.enterFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
+    }];
+}
+
+// 登出功能
 - (IBAction)logOut:(id)sender
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Confirm Log Out"
@@ -66,6 +84,7 @@
     [alert show];
 }
 
+// 进入功能
 - (IBAction)rightPress:(id)sender
 {
     [self performSegueWithIdentifier:@"showZone" sender:sender];
@@ -84,33 +103,27 @@
 - (void)startDrag:(MapController *)controller
 {
     controller.stopAutoMoveCenter = YES;
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [UIView animateWithDuration:0.5f animations:^{
-        self.enterFloatButton.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
-    }];
+    
+    [self showFunctions:NO animated:YES inLandMode:(kScreenWidth > kScreenHeight)];
 }
 
 - (void)endDrag:(MapController *)controller
 {
     controller.stopAutoMoveCenter = YES;
-    [[UIApplication sharedApplication] setStatusBarHidden:(kScreenWidth > kScreenHeight)];
-    [self.navigationController setNavigationBarHidden:(kScreenWidth > kScreenHeight) animated:YES];
-    [UIView animateWithDuration:0.5f animations:^{
-        self.enterFloatButton.transform = CGAffineTransformIdentity;
-    }];
+    
+    [self showFunctions:YES animated:YES inLandMode:(kScreenWidth > kScreenHeight)];
 }
 
-//- (void)showOperator:(MapController *)controller withType:(NSInteger)opType
-//{
-//    self.operationLayer.alpha = 0.0f;
-//    self.operationLayer.hidden = NO;
-//    [UIView animateWithDuration:0.5f animations:^{
-//        self.operationLayer.alpha = 1.0f;
-//    } completion:^(BOOL finished) {
-//        [self.opearationController scrollToIndex:19];
-//    }];
-//}
+- (void)showOperator:(MapController *)controller withType:(NSInteger)opType
+{
+    //    self.operationLayer.alpha = 0.0f;
+    //    self.operationLayer.hidden = NO;
+    //    [UIView animateWithDuration:0.5f animations:^{
+    //        self.operationLayer.alpha = 1.0f;
+    //    } completion:^(BOOL finished) {
+    //        [self.opearationController scrollToIndex:19];
+    //    }];
+}
 
 - (void)showZoneInformation:(MapController *)controller withX:(NSInteger)x withY:(NSInteger)y
 {
@@ -119,13 +132,16 @@
 
 #pragma mark - Navigation
 
+// 导航时处理
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    // 嵌入的地图控制器
     if ([segue.identifier isEqualToString:@"mapSegue"])
     {
         self.mapController = (MapController *)[segue destinationViewController];
         self.mapController.delegate = self;
     }
+    // 行进到区域内部控制器
     else if ([segue.identifier isEqualToString:@"showZone"])
     {
         UINavigationController *nc = [segue destinationViewController];

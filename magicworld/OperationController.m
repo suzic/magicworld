@@ -12,13 +12,17 @@
 
 @interface OperationController () <UITableViewDelegate, UITableViewDataSource>
 
+// 操作用控件
 @property (strong, nonatomic) IBOutlet UIButton *backFloatButton;
 @property (strong, nonatomic) IBOutlet UIButton *bagFloatButton;
 @property (strong, nonatomic) IBOutlet UITableView *operationTable;
+
+// 记录选择
 @property (assign, nonatomic) NSInteger lastSelectedIndexBeforeDrag;
 @property (assign, nonatomic) BOOL autoSelectMode;
 @property (retain, nonatomic) OperationCell *selectedCell;
 
+// 布局相关属性
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableWidth;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *tableHeight;
 @property (assign, nonatomic) BOOL inLandMode;
@@ -31,6 +35,7 @@
 {
     [super viewDidLoad];
     
+    // 初始化布局
     self.tableWidth.constant = kScreenWidth;
     self.tableHeight.constant = kScreenHeight;
     self.operationTable.transform = CGAffineTransformIdentity;
@@ -45,14 +50,14 @@
     self.bagFloatButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.bagFloatButton.layer.borderWidth = 1.0f;
 
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-
+    // 创建测试用数据
     [self setupTestData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     self.inLandMode = kScreenWidth > kScreenHeight;
 }
 
@@ -60,11 +65,14 @@
 {
     [super viewDidAppear:animated];
     
-    self.autoSelectMode = YES;
-
+    // 初始化选择索引
     _selectedIndex = NSNotFound;
     self.selectedIndex = 0;
-    [self.operationTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].selected = YES;
+    
+    // 自动选择模式初始化时选择第一条
+    self.autoSelectMode = YES;
+    self.selectedCell = [self.operationTable cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]];
+    self.selectedCell.selected = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,39 +102,7 @@
     }
 }
 
-- (void)setInLandMode:(BOOL)inLandMode
-{
-    if (_inLandMode == inLandMode)
-        return;
-    _inLandMode = inLandMode;
-    [[UIApplication sharedApplication] setStatusBarHidden:inLandMode];
-    [self.navigationController setNavigationBarHidden:inLandMode];
-
-    if (inLandMode)
-    {
-        self.tableWidth.constant = kScreenHeight;
-        self.tableHeight.constant = kScreenWidth;
-        self.operationTable.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI_2);
-        self.backFloatButton.hidden = NO;
-        self.bagFloatButton.hidden = NO;
-    }
-    else
-    {
-        self.tableWidth.constant = kScreenWidth;
-        self.tableHeight.constant = kScreenHeight;
-        self.operationTable.transform = CGAffineTransformIdentity;
-        self.backFloatButton.hidden = YES;
-        self.bagFloatButton.hidden = YES;
-    }
-    self.selectedCell.inLandMode = inLandMode;
-}
-
-- (NSMutableArray *)operationArray
-{
-    if (_operationArray == nil)
-        _operationArray = [NSMutableArray arrayWithCapacity:20];
-    return _operationArray;
-}
+#pragma mark - Test Data Setup
 
 - (void)setupTestData
 {
@@ -143,6 +119,54 @@
                                 @"C_001_0017", @"C_001_0018", @"C_001_0019", @"C_001_0020"];
     int index = arc4random() % 20;
     return imageNameArray[index];
+}
+
+#pragma mark - Properties process
+
+// 显示或隐藏功能层
+- (void)showFunctions:(BOOL)show animated:(BOOL)animated inLandMode:(BOOL)inLandMode
+{
+    // 系统状态栏和导航在横屏时不显示，竖屏时根据show来决定显隐，并套用是否动画演示效果
+    [[UIApplication sharedApplication] setStatusBarHidden:(inLandMode || !show)];
+    [self.navigationController setNavigationBarHidden:(inLandMode || !show) animated:animated];
+    
+    // 浮动工具栏在竖屏时不显示，横屏总是显示（但会以动画方式进入／离开屏幕区域）
+    self.backFloatButton.hidden = !inLandMode;
+    self.bagFloatButton.hidden = !inLandMode;
+    [UIView animateWithDuration:(animated ? 0.5f : 0.0f) animations:^{
+        self.backFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, -60, 0);
+        self.bagFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
+    }];
+}
+
+- (void)setInLandMode:(BOOL)inLandMode
+{
+    if (_inLandMode == inLandMode)
+        return;
+    _inLandMode = inLandMode;
+
+    [self showFunctions:YES animated:NO inLandMode:inLandMode];
+    
+    if (inLandMode)
+    {
+        self.tableWidth.constant = kScreenHeight;
+        self.tableHeight.constant = kScreenWidth;
+        self.operationTable.transform = CGAffineTransformRotate(CGAffineTransformIdentity, M_PI_2);
+    }
+    else
+    {
+        self.tableWidth.constant = kScreenWidth;
+        self.tableHeight.constant = kScreenHeight;
+        self.operationTable.transform = CGAffineTransformIdentity;
+    }
+    self.selectedCell.inLandMode = inLandMode;
+}
+
+- (NSMutableArray *)operationArray
+{
+    if (_operationArray == nil)
+        _operationArray = [NSMutableArray arrayWithCapacity:20];
+    return _operationArray;
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex
@@ -183,15 +207,6 @@
     }
 }
 
-- (void)scrollToIndex:(NSInteger)index
-{
-    if (index >= 0 && index < self.operationArray.count)
-    {
-        self.selectedIndex = index;
-        [self scrollTableAtRow:index];
-    }
-}
-
 - (void)scrollTableAtRow:(NSInteger)selectedRow
 {
     NSInteger section = selectedRow < 2 ? 0 : 1;
@@ -202,11 +217,18 @@
 
 #pragma mark - Operation
 
+- (void)scrollToIndex:(NSInteger)index
+{
+    if (index >= 0 && index < self.operationArray.count)
+    {
+        self.selectedIndex = index;
+        [self scrollTableAtRow:index];
+    }
+}
+
 - (IBAction)closeOperation:(id)sender
 {
-    [self dismissViewControllerAnimated:YES completion:^{
-        ;
-    }];
+    [self dismissViewControllerAnimated:YES completion:^{}];
 }
 
 /*
@@ -287,6 +309,8 @@
 // 点选操作会计算选择索引
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [self showFunctions:NO animated:YES inLandMode:self.inLandMode];
+
     if (indexPath.section == 1)
     {
         // 点选操作会暂时取消自动选择功能
@@ -296,27 +320,18 @@
     }
 }
 
+// 准备开始拖动
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    if (_inLandMode)
-    {
-        [UIView animateWithDuration:0.5f animations:^{
-            self.backFloatButton.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -60, 0);
-            self.bagFloatButton.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
-        }];
-    }
-    else
-    {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES];
-        [self.navigationController setNavigationBarHidden:YES animated:YES];
-    }
+    // NSLog(@"in Will Begin Dragging");
+    [self showFunctions:NO animated:YES inLandMode:self.inLandMode];
     self.lastSelectedIndexBeforeDrag = self.selectedIndex;
 }
 
 // 当滚动将要进入减速效果的时候强制执行滚动到索引的功能以中断不可控减速
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {
-    NSLog(@"in Will Begin Decelerating");
+    // NSLog(@"in Will Begin Decelerating");
     if (self.autoSelectMode == YES && self.selectedIndex != NSNotFound)
         [self scrollTableAtRow:self.selectedIndex];
 }
@@ -324,7 +339,7 @@
 // 当滚动减速结束的时候强制执行滚动到索引的功能以中断不可控减速
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    NSLog(@"in Did End Decelerating");
+    // NSLog(@"in Did End Decelerating");
     if (self.autoSelectMode == YES && self.selectedIndex != NSNotFound)
         [self scrollTableAtRow:self.selectedIndex];
 }
@@ -332,7 +347,8 @@
 // 当拖动结束的时候强制执行滚动到索引的功能以中断不可控减速
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    NSLog(@"in Did End Dragging");
+    // NSLog(@"in Did End Dragging");
+    [self showFunctions:YES animated:YES inLandMode:self.inLandMode];
     if (self.selectedIndex != NSNotFound && !decelerate)
         [self scrollTableAtRow:self.selectedIndex];
 }
@@ -340,24 +356,7 @@
 // 滚动动画结束后重置自动滚动标记（无论是什么原因结束了滚动）
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    NSLog(@"in Did End Animation");
-    // 如果当前选择索引在最前，或者在手动选择模式下向前滚动了3行以上数据，视为想要看导航栏
-    if (self.selectedIndex < 2 || ((self.lastSelectedIndexBeforeDrag > self.selectedIndex + 3) && self.autoSelectMode == YES))
-    {
-        [[UIApplication sharedApplication] setStatusBarHidden:_inLandMode];
-        [self.navigationController setNavigationBarHidden:(_inLandMode) animated:YES];
-    }
-    
-    if (_inLandMode && (self.selectedIndex < 2 || self.selectedIndex > self.operationArray.count - 3
-        || ((self.lastSelectedIndexBeforeDrag > self.selectedIndex + 3
-             || self.lastSelectedIndexBeforeDrag < self.selectedIndex - 3) && self.autoSelectMode == YES)))
-    {
-        [UIView animateWithDuration:0.5f animations:^{
-            self.backFloatButton.transform = CGAffineTransformIdentity;
-            self.bagFloatButton.transform = CGAffineTransformIdentity;
-        }];
-    }
-    
+    // NSLog(@"in Did End Animation");
     if (self.autoSelectMode == NO)
         self.autoSelectMode = YES;
 }

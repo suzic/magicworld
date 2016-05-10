@@ -16,8 +16,8 @@
 
 - (void)startDrag:(MapController *)controller;
 - (void)endDrag:(MapController *)controller;
-- (void)showZoneInformation:(MapController *)controller withX:(NSInteger)x withY:(NSInteger)y;
 - (void)showOperator:(MapController *)controller withType:(NSInteger)opType;
+- (void)showZoneInformation:(MapController *)controller withX:(NSInteger)x withY:(NSInteger)y;
 
 @end
 

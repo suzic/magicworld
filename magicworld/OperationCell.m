@@ -24,16 +24,6 @@
 {
     [super awakeFromNib];
 
-    // 对表格进行尾部渐变消隐处理
-    //    self.gradientLayer = [CAGradientLayer layer];
-    //    self.gradientLayer.frame = self.gradientView.frame;
-    //    [self.gradientView.layer addSublayer:self.gradientLayer];
-    //    self.gradientLayer.startPoint = CGPointMake(0, 0);
-    //    self.gradientLayer.endPoint = CGPointMake(0, 0.9);
-    //    self.gradientLayer.colors = @[(__bridge id)[UIColor whiteColor].CGColor,
-    //                                  (__bridge id)[UIColor colorWithWhite:1.0 alpha:0.0].CGColor];
-    //    self.gradientLayer.locations = @[@(0.0f) ,@(0.9f)];
-    
     // 默认按横屏初始化数据
     _inLandMode = NO;
     self.cardBorder.transform = CGAffineTransformIdentity;

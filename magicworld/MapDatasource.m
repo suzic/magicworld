@@ -22,8 +22,8 @@
 {
     if (self = [super init])
     {
-//        DataManager *dataManager = [DataManager defaultInstance];
-//        [dataManager insertIntoCoreData:@"Zone"];
+        // DataManager *dataManager = [DataManager defaultInstance];
+        // [dataManager insertIntoCoreData:@"Zone"];
     }
     return self;
 }

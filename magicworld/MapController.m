@@ -57,6 +57,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
     [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
 }
@@ -226,9 +227,13 @@
     // 根据屏幕横竖状态来定义将要改变的constraint，动画距离以及显隐位置
     CGRect targetRect;
     if (size.width < size.height)
-        targetRect = show ? CGRectMake(0, size.height - self.infoPanelHeight.constant, size.width, self.infoPanelHeight.constant) : CGRectMake(0, size.height, size.width, self.infoPanelHeight.constant);
+        targetRect = show ?
+            CGRectMake(0, size.height - self.infoPanelHeight.constant, size.width, self.infoPanelHeight.constant)
+            : CGRectMake(0, size.height, size.width, self.infoPanelHeight.constant);
     else
-        targetRect = show ? CGRectMake(0, 0, self.infoPanelWidth.constant, size.height) : CGRectMake(-self.infoPanelWidth.constant, 0, self.infoPanelWidth.constant, size.height);
+        targetRect = show ?
+            CGRectMake(0, 0, self.infoPanelWidth.constant, size.height)
+            : CGRectMake(-self.infoPanelWidth.constant, 0, self.infoPanelWidth.constant, size.height);
     
     // 根据显隐要求初始化状态
     if (show) [self setupInfoPanelData];
@@ -403,7 +408,9 @@
         if ([self.delegate respondsToSelector:@selector(endDrag:)])
             [self.delegate endDrag:self];
         
-        self.showPanelLight = NO;;
+        if (self.selectedIndexPath != nil)
+            self.showPanel = YES;
+        // self.showPanelLight = NO;
         
         if (decelerate)
         {
@@ -422,7 +429,8 @@
         if ([self.delegate respondsToSelector:@selector(startDrag:)])
             [self.delegate startDrag:self];
         
-        self.showPanelLight = YES;
+        self.showPanel = NO;
+        // self.showPanelLight = YES;
     }
 }
 
