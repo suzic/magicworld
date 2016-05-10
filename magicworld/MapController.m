@@ -68,7 +68,7 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:(kScreenWidth < kScreenHeight ?
                                                                                          @"呀吼～俺来啦！\n侬可以把屏幕横过来看嘛，这样俺就可说更多字了～"
-                                                                                         : @"呀吼～俺来啦！\n但俺暂时没什么想跟侬说的。")];
+                                                                                         : @"呀吼～俺来啦！\n但俺暂时没什么想跟侬说的。\n烦也没用，父亲大人尚未将俺开发完善T_T")];
 }
 
 - (void)didReceiveMemoryWarning
@@ -377,7 +377,7 @@
     else if (collectionView == self.operationCollection)
     {
         if (indexPath.row == 2)
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:@"呀吼～我来啦！"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:@"呀吼～我来啦！\n侬素不素点了Attack？要打架了～算我一个！（好熟悉的台词）"];
         else
         {
             if ([self.delegate respondsToSelector:@selector(showOperator:withType:)])

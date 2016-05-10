@@ -63,17 +63,24 @@
 
 - (void)showGuide:(BOOL)show withInformation:(NSString *)info completion:(void (^ __nullable)(BOOL finished))completion
 {
+    // 第一层动画 淡出之前的文本
     [UIView animateWithDuration:0.5f animations:^{
         self.guideText.alpha = 0.0f;
     } completion:^(BOOL finished) {
         if (!finished) return;
+        
+        // 设置新文本
         [self.guideText setText:info];
+        
+        // 第二层动画 淡入新文本
         [UIView animateWithDuration:0.5 animations:^{
             self.guideText.alpha = 1.0f;
         } completion:^(BOOL finished) {
             if (!finished) return;
+            
+            // 第三层动画 根据显示还是隐藏执行界面切换动画。对于隐藏的情况，延迟一段时间等用户看完新文本后再执行动画
             [UIView animateWithDuration:0.5f
-                                  delay:show ? 0.0f : 1.5f
+                                  delay:show ? 0.0f : 1.0f
                                 options:UIViewAnimationOptionTransitionNone
                              animations:^{
                                  self.guideTalk.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 200.0f);
