@@ -52,12 +52,16 @@
 // 视图尺寸变化（包括发生在旋转屏时）
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
     // 根据横竖屏尺寸信息决定初始化的时候是否显示功能层
     [self showFunctions:YES animated:NO inLandMode:(size.width > size.height)];
 
     // 地图旋转处理
     [self.mapController rotateMapToSize:size];
 }
+
+#pragma mark - Functions
 
 // 显示或隐藏功能层
 - (void)showFunctions:(BOOL)show animated:(BOOL)animated inLandMode:(BOOL)inLandMode

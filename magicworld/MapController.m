@@ -65,6 +65,10 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:(kScreenWidth < kScreenHeight ?
+                                                                                         @"呀吼～俺来啦！\n侬可以把屏幕横过来看嘛，这样俺就可说更多字了～"
+                                                                                         : @"呀吼～俺来啦！\n但俺暂时没什么想跟侬说的。")];
 }
 
 - (void)didReceiveMemoryWarning
@@ -372,10 +376,15 @@
         self.selectedIndexPath = indexPath;
     else if (collectionView == self.operationCollection)
     {
-        if ([self.delegate respondsToSelector:@selector(showOperator:withType:)])
-            [self.delegate showOperator:self withType:0];
-        if ([self.delegate respondsToSelector:@selector(showZoneInformation:withX:withY:)])
-            [self.delegate showZoneInformation:self withX:0 withY:0];
+        if (indexPath.row == 2)
+            [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:@"呀吼～我来啦！"];
+        else
+        {
+            if ([self.delegate respondsToSelector:@selector(showOperator:withType:)])
+                [self.delegate showOperator:self withType:0];
+            if ([self.delegate respondsToSelector:@selector(showZoneInformation:withX:withY:)])
+                [self.delegate showZoneInformation:self withX:0 withY:0];
+        }
     }
 }
 

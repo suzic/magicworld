@@ -59,6 +59,7 @@
     [super viewWillAppear:animated];
     
     self.inLandMode = kScreenWidth > kScreenHeight;
+    [self showFunctions:YES animated:NO inLandMode:self.inLandMode];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -88,6 +89,8 @@
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
     if (size.width < size.height)
     {
         self.inLandMode = NO;
@@ -145,7 +148,7 @@
         return;
     _inLandMode = inLandMode;
 
-    [self showFunctions:YES animated:NO inLandMode:inLandMode];
+    [self showFunctions:NO animated:NO inLandMode:inLandMode];
     
     if (inLandMode)
     {
