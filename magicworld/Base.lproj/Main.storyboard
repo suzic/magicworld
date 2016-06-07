@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BDD-Az-hpI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BDD-Az-hpI">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -48,10 +48,10 @@
                                 </connections>
                             </containerView>
                             <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ews-FW-G2f">
-                                <rect key="frame" x="0.0" y="460" width="600" height="140"/>
+                                <rect key="frame" x="0.0" y="460" width="608" height="148"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="侬可以把屏幕横过来看嘛，这样俺就可以说更多话了～" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YUb-uG-kpR">
-                                        <rect key="frame" x="10" y="0.0" width="430" height="140"/>
+                                        <rect key="frame" x="18" y="0.0" width="440" height="140"/>
                                         <fontDescription key="fontDescription" name="STLibian-SC-Regular" family="Libian SC" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -59,11 +59,11 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="YUb-uG-kpR" secondAttribute="trailing" constant="160" id="Qnq-eQ-8oC"/>
-                                    <constraint firstItem="YUb-uG-kpR" firstAttribute="leading" secondItem="ews-FW-G2f" secondAttribute="leading" constant="10" id="We1-Hu-bra"/>
-                                    <constraint firstAttribute="height" constant="140" id="rd6-0c-fTL"/>
+                                    <constraint firstAttribute="trailing" secondItem="YUb-uG-kpR" secondAttribute="trailing" constant="150" id="Qnq-eQ-8oC"/>
+                                    <constraint firstItem="YUb-uG-kpR" firstAttribute="leading" secondItem="ews-FW-G2f" secondAttribute="leading" constant="18" id="We1-Hu-bra"/>
+                                    <constraint firstAttribute="height" constant="148" id="rd6-0c-fTL"/>
                                     <constraint firstItem="YUb-uG-kpR" firstAttribute="top" secondItem="ews-FW-G2f" secondAttribute="top" id="vZX-WE-n5i"/>
-                                    <constraint firstAttribute="bottom" secondItem="YUb-uG-kpR" secondAttribute="bottom" id="yHQ-zS-wqM"/>
+                                    <constraint firstAttribute="bottom" secondItem="YUb-uG-kpR" secondAttribute="bottom" constant="8" id="yHQ-zS-wqM"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r8V-9V-8T3">
@@ -119,11 +119,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="r8V-9V-8T3" secondAttribute="trailing" id="6s6-gI-EZ7"/>
-                            <constraint firstAttribute="trailing" secondItem="ews-FW-G2f" secondAttribute="trailing" id="7Jm-2a-WLt"/>
+                            <constraint firstAttribute="trailing" secondItem="ews-FW-G2f" secondAttribute="trailing" constant="-8" id="7Jm-2a-WLt"/>
                             <constraint firstItem="yMo-G0-jVY" firstAttribute="height" secondItem="edw-ql-bdm" secondAttribute="height" id="BZv-CM-9oO"/>
                             <constraint firstItem="yMo-G0-jVY" firstAttribute="width" secondItem="edw-ql-bdm" secondAttribute="width" id="Boq-b5-dye"/>
                             <constraint firstItem="yMo-G0-jVY" firstAttribute="centerY" secondItem="edw-ql-bdm" secondAttribute="centerY" id="ByY-5U-DaJ"/>
-                            <constraint firstItem="CDR-56-Lea" firstAttribute="top" secondItem="ews-FW-G2f" secondAttribute="bottom" id="UWg-AZ-DGi"/>
+                            <constraint firstItem="CDR-56-Lea" firstAttribute="top" secondItem="ews-FW-G2f" secondAttribute="bottom" constant="-8" id="UWg-AZ-DGi"/>
                             <constraint firstItem="CDR-56-Lea" firstAttribute="top" secondItem="r8V-9V-8T3" secondAttribute="bottom" id="WUB-sp-hcz"/>
                             <constraint firstItem="yMo-G0-jVY" firstAttribute="centerX" secondItem="edw-ql-bdm" secondAttribute="centerX" id="ghJ-xA-xFq"/>
                             <constraint firstItem="ews-FW-G2f" firstAttribute="leading" secondItem="edw-ql-bdm" secondAttribute="leading" id="ldz-Wd-0KD"/>
@@ -131,13 +131,14 @@
                     </view>
                     <connections>
                         <outlet property="guideArea" destination="r8V-9V-8T3" id="iiT-o4-iEK"/>
+                        <outlet property="guideAreaTailing" destination="6s6-gI-EZ7" id="X8X-0Q-aez"/>
                         <outlet property="guideAvator" destination="V9i-4D-Pl4" id="h6V-Aj-HFi"/>
                         <outlet property="guideBeast" destination="JPN-g8-bUi" id="GME-1q-wPE"/>
                         <outlet property="guideConfirmButton" destination="sgy-0A-B1p" id="GfV-9O-KPR"/>
                         <outlet property="guideTalk" destination="ews-FW-G2f" id="ocB-G3-j3Q"/>
                         <outlet property="guideTalkHeight" destination="rd6-0c-fTL" id="OfF-zu-sQM"/>
+                        <outlet property="guideTalkLeading" destination="ldz-Wd-0KD" id="Sx6-KY-Y1D"/>
                         <outlet property="guideText" destination="YUb-uG-kpR" id="ydN-7E-aFx"/>
-                        <outlet property="guideTextLeading" destination="We1-Hu-bra" id="h1V-kj-iU1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATi-sU-PiV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -285,10 +286,27 @@
                                     <action selector="rightPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X7C-dg-n9b"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bDE-st-RTf">
+                                <rect key="frame" x="535" y="535" width="50" height="50"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="YBf-sh-F6t"/>
+                                    <constraint firstAttribute="width" constant="50" id="cbh-ky-HWm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="HELP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="helpPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0X1-nz-XIj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Qe9-NE-Cl3" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="962-R3-TKR"/>
+                            <constraint firstAttribute="trailing" secondItem="bDE-st-RTf" secondAttribute="trailing" constant="15" id="KFE-SY-G3A"/>
+                            <constraint firstItem="bDE-st-RTf" firstAttribute="bottom" secondItem="Qe9-NE-Cl3" secondAttribute="bottom" constant="-15" id="PAf-yH-6oF"/>
                             <constraint firstItem="Qe9-NE-Cl3" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="QGY-Eg-1M9"/>
                             <constraint firstAttribute="trailing" secondItem="b33-nL-MgM" secondAttribute="trailing" constant="15" id="Zj1-Vl-bEn"/>
                             <constraint firstItem="Qe9-NE-Cl3" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bS5-28-qiQ"/>
@@ -310,6 +328,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="enterFloatButton" destination="b33-nL-MgM" id="jXo-ob-ley"/>
+                        <outlet property="helpFloatButton" destination="bDE-st-RTf" id="hYp-xn-Trf"/>
                         <outlet property="mapLayer" destination="Qe9-NE-Cl3" id="iGf-XZ-nsU"/>
                         <segue destination="n4l-wQ-0aQ" kind="presentation" identifier="showZone" modalPresentationStyle="currentContext" modalTransitionStyle="flipHorizontal" id="WTT-dr-lCx"/>
                     </connections>

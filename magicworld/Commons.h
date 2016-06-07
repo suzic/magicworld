@@ -21,6 +21,7 @@
 
 // Notification flags
 #define NotiShowGuideInfo           @"NotiShowGuideInfo"
+#define NotiHideGuideInfo           @"NotiHideGuideInfo"
 //#define NotiBackToMain          @"NotiBackToMain"
 //#define NotiLocationChanged     @"NotiLocationChanged"
 //#define NotiShowMap             @"NotiShowMap"

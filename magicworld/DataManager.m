@@ -12,6 +12,7 @@
 static NSString *const CoreDataModelFileName = @"database";
 
 @interface DataManager ()
+
 @end
 
 @implementation DataManager

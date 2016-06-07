@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *mapLayer;            // 主地图层对象
 @property (strong, nonatomic) IBOutlet UIButton *enterFloatButton;  // 前景浮动功能按钮
+@property (strong, nonatomic) IBOutlet UIButton *helpFloatButton;   // 前景帮助功能按钮
 
 @property (retain, nonatomic) MapController *mapController;         // 主地图控制器引用
 
@@ -31,6 +32,10 @@
     self.enterFloatButton.layer.cornerRadius = 25.0f;
     self.enterFloatButton.layer.borderColor = [UIColor whiteColor].CGColor;
     self.enterFloatButton.layer.borderWidth = 1.0f;
+    self.helpFloatButton.hidden = YES;
+    self.helpFloatButton.layer.cornerRadius = 25.0f;
+    self.helpFloatButton.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.helpFloatButton.layer.borderWidth = 1.0f;
 }
 
 // 视图将要显示
@@ -72,8 +77,10 @@
     
     // 浮动工具栏在竖屏时不显示，横屏总是显示（但会以动画方式进入／离开屏幕区域）
     self.enterFloatButton.hidden = !inLandMode;
+    self.helpFloatButton.hidden = !inLandMode;
     [UIView animateWithDuration:(animated ? 0.5f : 0.0f) animations:^{
         self.enterFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
+        self.helpFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
     }];
 }
 
@@ -92,6 +99,15 @@
 - (IBAction)rightPress:(id)sender
 {
     [self performSegueWithIdentifier:@"showZone" sender:sender];
+}
+
+// 呼叫帮助
+- (IBAction)helpPress:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
+                                                        object:(kScreenWidth < kScreenHeight ?
+                                                                @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
+                                                                : @"嗯，这样不错，俺的位置不会太碍事儿～\n如果没什么事儿，就摸摸俺的头o(>_<)o")];
 }
 
 #pragma mark - UIAlertView Delegate
