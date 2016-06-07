@@ -55,26 +55,35 @@
     self.boarderWidth.constant = (_inLandMode && selected) ? self.frame.size.height - (selected ? 4 : 1) : self.frame.size.width;
     self.boarderHeight.constant = (_inLandMode && selected) ? self.frame.size.width : self.frame.size.height - (selected ? 4 : 1);
     self.cardBorder.transform = (_inLandMode && selected) ? CGAffineTransformRotate(CGAffineTransformIdentity, -M_PI_2) : CGAffineTransformIdentity;
-
+    
+    self.cardType.transform = CGAffineTransformIdentity;
     if (selected)
     {
-        [UIView animateWithDuration:1.0f animations:^{
-            self.cardType.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -36, 0);
+        [UIView animateWithDuration:0.5f animations:^{
             self.gradientView.backgroundColor = [UIColor colorWithWhite:0.5f alpha:0.6f];
-            self.blur.alpha = 0;
         } completion:^(BOOL finished) {
-            self.blur.hidden = finished ? YES : NO;
+            if (finished)
+                [self openCellContent];
         }];
         self.backgroundColor = [UIColor whiteColor];
     }
     else
     {
-        self.cardType.transform = CGAffineTransformIdentity;
         self.gradientView.backgroundColor = [UIColor clearColor];
         self.blur.alpha = 1.0f;
         self.blur.hidden = NO;
         self.backgroundColor = [UIColor clearColor];
     }
+}
+
+- (void)openCellContent
+{
+    [UIView animateWithDuration:1.0f animations:^{
+        self.cardType.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -36, 0);
+        self.blur.alpha = 0;
+    } completion:^(BOOL finished) {
+        self.blur.hidden = finished ? YES : NO;
+    }];
 }
 
 @end
