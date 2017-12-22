@@ -224,7 +224,7 @@
 				TargetAttributes = {
 					D05780C21C5DE41600E9195D = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = XEW439Z58D;
+						DevelopmentTeam = EBE8LN5WDY;
 					};
 				};
 			};
@@ -396,6 +396,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = EBE8LN5WDY;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = magicworld/Commons.h;
 				INFOPLIST_FILE = magicworld/Info.plist;
@@ -411,6 +412,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = EBE8LN5WDY;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = magicworld/Commons.h;
 				INFOPLIST_FILE = magicworld/Info.plist;

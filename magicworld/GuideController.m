@@ -56,10 +56,10 @@
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [self calculateConstants:(size.width > size.height)];
-//    [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
-//                                                        object:(size.width < size.height ?
-//                                                                @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
-//                                                                : @"嗯，这样不错，俺的位置不会太碍事儿～\n如果没什么事儿，就摸摸俺的头o(>_<)o")];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
+                                                        object:(size.width < size.height ?
+                                                                @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
+                                                                : @"嗯，这样不错，俺的位置不会太碍事儿～\n如果没什么事儿，就摸摸俺的头o(>_<)o")];
 }
 
 - (void)calculateConstants:(BOOL)inLandmode
@@ -75,8 +75,8 @@
     {
         _guideInShown = guideInShown;
         
-        self.guideTalk.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 200.0f);
-        self.guideArea.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 200.0f);
+        self.guideTalk.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 320.0f);
+        self.guideArea.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 320.0f);
         
         if (!_guideInShown)
             [[NSNotificationCenter defaultCenter] postNotificationName:NotiHideGuideInfo object:nil];

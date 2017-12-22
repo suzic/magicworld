@@ -73,9 +73,9 @@
 {
     [super viewDidAppear:animated];
     
-//    [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:(kScreenWidth < kScreenHeight ?
-//                                                                                         @"呀吼～俺来啦！\n侬可以把屏幕横过来看嘛，这样俺就可说更多字了～"
-//                                                                                         : @"呀吼～俺来啦！\n但俺暂时没什么想跟侬说的。\n烦也没用，父亲大人尚未将俺开发完善T_T")];
+    [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:(kScreenWidth < kScreenHeight ?
+                                                                                         @"呀吼～俺来啦！\n侬可以把屏幕横过来看嘛，这样俺就可说更多字了～"
+                                                                                         : @"呀吼～俺来啦！\n但俺暂时没什么想跟侬说的。\n烦也没用，父亲大人尚未将俺开发完善T_T")];
 }
 
 - (void)didReceiveMemoryWarning
