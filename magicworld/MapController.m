@@ -297,9 +297,7 @@
         return;
     _showPanel = showPanel;
 
-    [self infoPanelToShow:showPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-        self.infoPanel.hidden = !showPanel;
-    }];
+    [self infoPanelToShow:showPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:nil];
 }
 
 - (void)setShowPanelLight:(BOOL)showPanelLight
@@ -397,7 +395,7 @@
         self.selectedIndexPath = indexPath;
     else if (collectionView == self.operationCollection)
     {
-        if (indexPath.row == 3)
+        if (indexPath.row == 2)
             [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:@"呀吼～俺来啦！\n侬素不素点了Attack？要打架了～算俺一个！（好熟悉的台词）"];
         else
         {

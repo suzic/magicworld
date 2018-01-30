@@ -73,7 +73,7 @@
     self.guideTextTailing.constant = inLandmode ? 158.0f : 150.0f;
     self.guideAreaTailing.constant = inLandmode ? 8.0f : -20.0f;
 
-    self.guideTalkLeading.constant = inLandmode ? 72.0f : -8.0f;
+    self.guideTalkLeading.constant = inLandmode ? 100.0f : -8.0f;
     self.guideTalkTailing.constant = inLandmode ? 8.0f : -8.0f;
     self.guideTalkHeight.constant = inLandmode ? 88.0f : 148.0f;
     self.guideTalkBottom.constant = inLandmode ? 8.0f : 0.0f;

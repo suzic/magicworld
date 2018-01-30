@@ -59,7 +59,7 @@
     MapCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"zoneCell" forIndexPath:indexPath];
     [cell setIndexNumberIn:indexPath.row / MAP_COLS andCol:indexPath.row % MAP_COLS];
     cell.cellBackground.backgroundColor = indexPath.row == self.selectedRowIndex
-        ? [UIColor colorWithWhite:0.5f alpha:0.5f] : [UIColor colorWithWhite:0.1f alpha:0.8f];
+        ? [UIColor colorWithWhite:0.5f alpha:1.0f] : [UIColor colorWithWhite:0.4f alpha:1.0f];
     return cell;
 }
 
