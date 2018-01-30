@@ -15,7 +15,11 @@
 @property (strong, nonatomic) IBOutlet UIView *guideTalk;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkHeight;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkLeading;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkTailing;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkBottom;
+
 @property (strong, nonatomic) IBOutlet UILabel *guideText;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTextTailing;
 
 @property (strong, nonatomic) IBOutlet UIView *guideArea;
 @property (strong, nonatomic) IBOutlet UIImageView *guideAvator;
@@ -56,31 +60,36 @@
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     [self calculateConstants:(size.width > size.height)];
-    [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
-                                                        object:(size.width < size.height ?
-                                                                @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
-                                                                : @"嗯，这样不错，俺的位置不会太碍事儿～\n如果没什么事儿，就摸摸俺的头o(>_<)o")];
+    
+    if (self.guideInShown)
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
+                                                            object:(size.width < size.height ?
+                                                                    @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
+                                                                    : @"嗯，这样不错，俺的位置不会太碍事儿～\n如果没什么事儿，就摸摸俺的头o(>_<)o")];
 }
 
 - (void)calculateConstants:(BOOL)inLandmode
 {
-    self.guideTalkHeight.constant = inLandmode ? 88.0f : 148.0f;
+    self.guideTextTailing.constant = inLandmode ? 158.0f : 150.0f;
+    self.guideAreaTailing.constant = inLandmode ? 8.0f : -20.0f;
+
     self.guideTalkLeading.constant = inLandmode ? 72.0f : -8.0f;
-    self.guideAreaTailing.constant = inLandmode ? 0.0f : -20.0f;
+    self.guideTalkTailing.constant = inLandmode ? 8.0f : -8.0f;
+    self.guideTalkHeight.constant = inLandmode ? 88.0f : 148.0f;
+    self.guideTalkBottom.constant = inLandmode ? 8.0f : 0.0f;
 }
 
 - (void)setGuideInShown:(BOOL)guideInShown
 {
-    if (_guideInShown != guideInShown)
-    {
-        _guideInShown = guideInShown;
-        
-        self.guideTalk.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 320.0f);
-        self.guideArea.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 320.0f);
-        
-        if (!_guideInShown)
-            [[NSNotificationCenter defaultCenter] postNotificationName:NotiHideGuideInfo object:nil];
-    }
+    if (_guideInShown == guideInShown)
+        return;
+    _guideInShown = guideInShown;
+    
+    self.guideTalk.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 320.0f);
+    self.guideArea.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 320.0f);
+    
+    if (!_guideInShown)
+        [[NSNotificationCenter defaultCenter] postNotificationName:NotiHideGuideInfo object:nil];
 }
 
 - (void)showGuide:(BOOL)show withInformation:(NSString *)info completion:(void (^ __nullable)(BOOL finished))completion

@@ -61,9 +61,6 @@
 
     // 根据横竖屏尺寸信息决定初始化的时候是否显示功能层
     [self showFunctions:YES animated:NO inLandMode:(size.width > size.height)];
-
-    // 地图旋转处理
-    [self.mapController rotateMapToSize:size];
 }
 
 #pragma mark - Functions
@@ -72,7 +69,6 @@
 - (void)showFunctions:(BOOL)show animated:(BOOL)animated inLandMode:(BOOL)inLandMode
 {
     // 系统状态栏和导航在横屏时不显示，竖屏时根据show来决定显隐，并套用是否动画演示效果
-    [[UIApplication sharedApplication] setStatusBarHidden:(inLandMode || !show)];
     [self.navigationController setNavigationBarHidden:(inLandMode || !show) animated:animated];
     
     // 浮动工具栏在竖屏时不显示，横屏总是显示（但会以动画方式进入／离开屏幕区域）
@@ -98,7 +94,7 @@
 // 进入功能
 - (IBAction)rightPress:(id)sender
 {
-    [self performSegueWithIdentifier:@"showZone" sender:sender];
+//    [self performSegueWithIdentifier:@"showZone" sender:sender];
 }
 
 // 呼叫帮助
@@ -147,7 +143,7 @@
 
 - (void)showZoneInformation:(MapController *)controller withX:(NSInteger)x withY:(NSInteger)y
 {
-    [self performSegueWithIdentifier:@"showZone" sender:controller];
+//    [self performSegueWithIdentifier:@"showZone" sender:controller];
 }
 
 #pragma mark - Navigation

@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     self.cellBackground.layer.borderColor = [UIColor darkGrayColor].CGColor;
     self.cellBackground.layer.borderWidth = 0.5f;
 }

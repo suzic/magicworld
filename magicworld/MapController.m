@@ -9,6 +9,7 @@
 #import "MapController.h"
 #import "MapDatasource.h"
 #import "MapCell.h"
+#import "InfoCell.h"
 
 @interface MapController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -20,17 +21,19 @@
 @property (assign, nonatomic) BOOL showPanelLight;
 
 @property (strong, nonatomic) IBOutlet UIView *infoPanel;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoPanelLeading;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoPanelBottom;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoPanelWidth;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoPanelHeight;
-@property (strong, nonatomic) IBOutlet UIButton *infoTitle;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoSpliteWidth;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoSpliteHeight;
+
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *operationLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *operationTop;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *operationBottom;
 
 @property (retain, nonatomic) MapDatasource *datasource;
 @property (retain, nonatomic) NSIndexPath *selectedIndexPath;
 @property (retain, nonatomic) NSIndexPath *autoCenterIndexPath;
+@property (strong, nonatomic) UIButton *infoTitle;
 
 @end
 
@@ -42,7 +45,7 @@
     
     self.guideInShown = NO;
 
-    self.mapCollection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MAPBG"]];
+    //self.mapCollection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"MAPBG"]];
     
     self.lastOffset = self.mapCollection.contentOffset;
     self.dontRecalOffset = NO;
@@ -51,7 +54,6 @@
     // 初始化infoPanel
     self.showPanel = NO;
     self.showPanelLight = NO;
-    [self initPanelSize:CGSizeMake(kScreenWidth, kScreenHeight)];
 
     // 关联datasource对象
     self.datasource = (MapDatasource *)self.mapCollection.dataSource;
@@ -64,9 +66,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -88,6 +87,12 @@
 {
     [super viewDidLayoutSubviews];
     
+    [self initPanelSize:CGSizeMake(kScreenWidth, kScreenHeight)];
+    if (kScreenWidth < kScreenHeight)
+        self.infoPanel.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0, self.infoPanel.frame.size.height);
+    else
+        self.infoPanel.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -self.infoPanel.frame.size.width, 0);
+
     [self recalculateSections:self.mapCollection.contentOffset];
 
     if (self.stopAutoMoveCenter == YES)
@@ -102,6 +107,15 @@
     }
     
     //NSLog(@"Re layout....");
+}
+
+// 视图尺寸变化（包括发生在旋转屏时）
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+   
+    // 地图旋转处理
+    [self rotateMapToSize:size];
 }
 
 #pragma mark - Private functions
@@ -126,31 +140,22 @@
 
 - (void)initPanelSize:(CGSize)size
 {
-    // 计算旋转后的面板尺寸
-    self.infoPanelWidth.constant = (size.width < size.height) ? size.width : 80.0f;
-    self.infoPanelHeight.constant = (size.width < size.height) ? 80.0f: size.height;
+    const CGFloat barHeight = 60.0f;
+    CGFloat vFix = self.bottomLayoutGuide.length;   // 34.0f;
+    CGFloat hFix = self.bottomLayoutGuide.length / 2;   //20.0f;
     
-    if (size.width < size.height)
-    {
-        [self.infoPanel setFrame:CGRectMake(0, size.height, size.width, self.infoPanelHeight.constant)];
-        self.infoPanelBottom.constant = -self.infoPanelHeight.constant;
-        self.infoPanelLeading.constant = 0;
-        self.operationLeading.constant = 80.0f;
-        self.operationTop.constant = 4.0f;
-        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
-        layout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    }
-    else
-    {
-        [self.infoPanel setFrame:CGRectMake(-self.infoPanelWidth.constant, 0, self.infoPanelWidth.constant, size.height)];
-        self.infoPanelBottom.constant = 0;
-        self.infoPanelLeading.constant = -self.infoPanelWidth.constant;
-        self.operationLeading.constant = 4.0f;
-        self.operationTop.constant = 80.0f;
-        UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
-        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    }
-    self.infoPanel.hidden = YES;
+    // 计算旋转后的面板尺寸
+    self.infoPanelWidth.constant = (size.width < size.height) ? size.width : barHeight + vFix;
+    self.infoPanelHeight.constant = (size.width < size.height) ? barHeight + vFix : size.height;
+    self.infoSpliteWidth.constant = (size.width < size.height) ? size.width : 0.5f;
+    self.infoSpliteHeight.constant = (size.width < size.height) ? 0.5f : size.height;
+
+    self.operationLeading.constant = (size.width < size.height) ? 8.0f : vFix;
+    self.operationTop.constant = (size.width < size.height) ? 0.0f : hFix;
+    self.operationBottom.constant = (size.width < size.height) ? 0.0f : hFix;
+    
+    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
+    layout.scrollDirection = (size.width < size.height) ? UICollectionViewScrollDirectionVertical : UICollectionViewScrollDirectionHorizontal;
 }
 
 - (void)rotateMapToSize:(CGSize)size
@@ -235,28 +240,14 @@
 
 - (void)infoPanelToShow:(BOOL)show inSize:(CGSize)size completion:(void (^ __nullable)(BOOL finished))completion
 {
-    // 根据屏幕横竖状态来定义将要改变的constraint，动画距离以及显隐位置
-    CGRect targetRect;
-    if (size.width < size.height)
-        targetRect = show ?
-            CGRectMake(0, size.height - self.infoPanelHeight.constant, size.width, self.infoPanelHeight.constant)
-            : CGRectMake(0, size.height, size.width, self.infoPanelHeight.constant);
-    else
-        targetRect = show ?
-            CGRectMake(0, 0, self.infoPanelWidth.constant, size.height)
-            : CGRectMake(-self.infoPanelWidth.constant, 0, self.infoPanelWidth.constant, size.height);
-    
     // 根据显隐要求初始化状态
     if (show) [self setupInfoPanelData];
-    
-    self.infoPanel.hidden = NO;
     // 动画移动
-    [UIView animateWithDuration:0.2f animations:^{
-        [self.infoPanel setFrame:targetRect];
+    [UIView animateWithDuration:0.3f animations:^{
         if (size.width < size.height)
-            self.infoPanelBottom.constant = show ? 0 : -self.infoPanelHeight.constant;
+            self.infoPanel.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0, self.infoPanel.frame.size.height);
         else
-            self.infoPanelLeading.constant = show ? 0 : -self.infoPanelWidth.constant;
+            self.infoPanel.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, -self.infoPanel.frame.size.width, 0);
     } completion:completion];
 }
 
@@ -367,7 +358,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3;
+    return 5;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -376,16 +367,23 @@
     switch (indexPath.row)
     {
         case 0:
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action1" forIndexPath:indexPath];
-            //cell.backgroundColor = [UIColor lightGrayColor];
+        {
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"infoCell" forIndexPath:indexPath];
+            InfoCell *infoCell = (InfoCell *)cell;
+            self.infoTitle = infoCell.cellIndex;
+        }
             break;
         case 1:
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action2" forIndexPath:indexPath];
-            //cell.backgroundColor = [UIColor lightGrayColor];
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action1" forIndexPath:indexPath];
             break;
         case 2:
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action2" forIndexPath:indexPath];
+            break;
+        case 3:
             cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action3" forIndexPath:indexPath];
-            //cell.backgroundColor = [UIColor lightGrayColor];
+            break;
+        case 4:
+            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action4" forIndexPath:indexPath];
             break;
     }
     return cell;
@@ -399,14 +397,14 @@
         self.selectedIndexPath = indexPath;
     else if (collectionView == self.operationCollection)
     {
-        if (indexPath.row == 2)
+        if (indexPath.row == 3)
             [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo object:@"呀吼～俺来啦！\n侬素不素点了Attack？要打架了～算俺一个！（好熟悉的台词）"];
         else
         {
             if ([self.delegate respondsToSelector:@selector(showOperator:withType:)])
                 [self.delegate showOperator:self withType:0];
-            if ([self.delegate respondsToSelector:@selector(showZoneInformation:withX:withY:)])
-                [self.delegate showZoneInformation:self withX:0 withY:0];
+//            if ([self.delegate respondsToSelector:@selector(showZoneInformation:withX:withY:)])
+//                [self.delegate showZoneInformation:self withX:0 withY:0];
         }
     }
 }

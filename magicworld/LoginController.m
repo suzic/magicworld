@@ -138,6 +138,13 @@
         cell.backgroundColor = [UIColor clearColor];
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0)
+        return 44.0f;
+    return 55.0f;
+}
+
 #pragma mark - LoginActionCellDelegate
 
 - (void)actionExeicute:(LoginActionCell *)cell

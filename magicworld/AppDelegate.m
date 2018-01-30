@@ -17,10 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
-
     // 通过调用数据管理器的单例来实现数据初始化
     [DataManager defaultInstance];
 
