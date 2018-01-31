@@ -7,7 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MapDatasource.h"
 
 @interface FrameController : UIViewController
+
+@property (strong, nonatomic) IBOutlet UICollectionView *mapCollection;
+@property (strong, nonatomic) IBOutlet UICollectionView *operationCollection;
+
+@property (assign, nonatomic) BOOL showPanel;
+@property (assign, nonatomic) BOOL stopAutoMoveCenter;
+
+- (void)infoPanelToShow:(BOOL)show inSize:(CGSize)size completion:(void (^)(BOOL finished))completion;
+- (void)showFunctions:(BOOL)show animated:(BOOL)animated inLandMode:(BOOL)inLandMode;
 
 @end

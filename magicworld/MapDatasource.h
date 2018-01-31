@@ -8,16 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class MapController;
+@class FrameController;
 
 @interface MapDatasource : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (weak, nonatomic) MapController *controller;
+@property (weak, nonatomic) FrameController *controller;
 
-@property (assign, nonatomic) NSInteger selectedRowIndex;
 @property (strong, nonatomic) NSIndexPath *selectedIndexPath;
-@property (retain, nonatomic) NSIndexPath *autoCenterIndexPath;
-
-- (void)recalculateSections:(CGPoint)offset;
+@property (strong, nonatomic) NSIndexPath *highlightedIndexPath;
 
 @end

@@ -23,7 +23,7 @@
                         <viewControllerLayoutGuide type="top" id="SX9-z6-phl"/>
                         <viewControllerLayoutGuide type="bottom" id="CDR-56-Lea"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="edw-ql-bdm">
+                    <view key="view" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="edw-ql-bdm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -106,13 +106,13 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="r8V-9V-8T3" secondAttribute="trailing" id="6s6-gI-EZ7"/>
                             <constraint firstAttribute="trailing" secondItem="ews-FW-G2f" secondAttribute="trailing" id="7Jm-2a-WLt"/>
-                            <constraint firstItem="yMo-G0-jVY" firstAttribute="height" secondItem="edw-ql-bdm" secondAttribute="height" id="BZv-CM-9oO"/>
-                            <constraint firstItem="yMo-G0-jVY" firstAttribute="width" secondItem="edw-ql-bdm" secondAttribute="width" id="Boq-b5-dye"/>
-                            <constraint firstItem="yMo-G0-jVY" firstAttribute="centerY" secondItem="edw-ql-bdm" secondAttribute="centerY" id="ByY-5U-DaJ"/>
+                            <constraint firstAttribute="trailing" secondItem="yMo-G0-jVY" secondAttribute="trailing" id="F3E-0y-Egw"/>
                             <constraint firstAttribute="bottom" secondItem="ews-FW-G2f" secondAttribute="bottom" id="UWg-AZ-DGi"/>
                             <constraint firstAttribute="bottom" secondItem="r8V-9V-8T3" secondAttribute="bottom" id="WUB-sp-hcz"/>
-                            <constraint firstItem="yMo-G0-jVY" firstAttribute="centerX" secondItem="edw-ql-bdm" secondAttribute="centerX" id="ghJ-xA-xFq"/>
+                            <constraint firstItem="yMo-G0-jVY" firstAttribute="top" secondItem="edw-ql-bdm" secondAttribute="top" id="Waf-Wj-qL8"/>
                             <constraint firstItem="ews-FW-G2f" firstAttribute="leading" secondItem="edw-ql-bdm" secondAttribute="leading" id="ldz-Wd-0KD"/>
+                            <constraint firstAttribute="bottom" secondItem="yMo-G0-jVY" secondAttribute="bottom" id="nN4-xf-up5"/>
+                            <constraint firstItem="yMo-G0-jVY" firstAttribute="leading" secondItem="edw-ql-bdm" secondAttribute="leading" id="tNq-lZ-Km1"/>
                         </constraints>
                     </view>
                     <connections>

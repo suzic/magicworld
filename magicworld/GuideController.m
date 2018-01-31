@@ -120,7 +120,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NotiHideGuideInfo object:nil];
 }
 
-- (void)showGuide:(BOOL)show withInformation:(NSString *)info completion:(void (^ __nullable)(BOOL finished))completion
+- (void)showGuide:(BOOL)show withInformation:(NSString *)info completion:(void (^)(BOOL finished))completion
 {
     // 第一层动画 淡出之前的文本
     [UIView animateWithDuration:0.5f

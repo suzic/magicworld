@@ -18,7 +18,6 @@
 		D05780D61C5DE41600E9195D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05780D51C5DE41600E9195D /* Assets.xcassets */; };
 		D05780D91C5DE41600E9195D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05780D71C5DE41600E9195D /* LaunchScreen.storyboard */; };
 		D05780E21C5DEEC000E9195D /* FrameController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780E11C5DEEC000E9195D /* FrameController.m */; };
-		D05780E51C5DEECF00E9195D /* MapController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780E41C5DEECF00E9195D /* MapController.m */; };
 		D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780E71C5DEEFA00E9195D /* LoginController.m */; };
 		D05780EC1C5DF11F00E9195D /* LoginActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780EB1C5DF11F00E9195D /* LoginActionCell.m */; };
 		D05780EF1C5DF12C00E9195D /* LoginInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780EE1C5DF12C00E9195D /* LoginInputCell.m */; };
@@ -54,8 +53,6 @@
 		D05780DA1C5DE41600E9195D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D05780E01C5DEEC000E9195D /* FrameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FrameController.h; sourceTree = "<group>"; };
 		D05780E11C5DEEC000E9195D /* FrameController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FrameController.m; sourceTree = "<group>"; };
-		D05780E31C5DEECF00E9195D /* MapController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapController.h; sourceTree = "<group>"; };
-		D05780E41C5DEECF00E9195D /* MapController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapController.m; sourceTree = "<group>"; };
 		D05780E61C5DEEFA00E9195D /* LoginController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginController.h; sourceTree = "<group>"; };
 		D05780E71C5DEEFA00E9195D /* LoginController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginController.m; sourceTree = "<group>"; };
 		D05780EA1C5DF11F00E9195D /* LoginActionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginActionCell.h; sourceTree = "<group>"; };
@@ -183,8 +180,6 @@
 				D09E8ECF20205327002B1967 /* InfoCell.m */,
 				D0594CAF2021897000AD5E27 /* ActionCell.h */,
 				D0594CB02021897000AD5E27 /* ActionCell.m */,
-				D05780E31C5DEECF00E9195D /* MapController.h */,
-				D05780E41C5DEECF00E9195D /* MapController.m */,
 				D0940BFC1C5DFD5000B9C5C7 /* MapCell.h */,
 				D0940BFD1C5DFD5000B9C5C7 /* MapCell.m */,
 				D0940BFF1C5DFD6900B9C5C7 /* MapDatasource.h */,
@@ -273,7 +268,6 @@
 				D05780E21C5DEEC000E9195D /* FrameController.m in Sources */,
 				D0940BFA1C5DFD2F00B9C5C7 /* MapCellLayout.m in Sources */,
 				D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */,
-				D05780E51C5DEECF00E9195D /* MapController.m in Sources */,
 				D03AEB581CE182FE00CB48DC /* GuideController.m in Sources */,
 				D05780EC1C5DF11F00E9195D /* LoginActionCell.m in Sources */,
 				D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */,
