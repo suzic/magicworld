@@ -22,6 +22,7 @@
 		D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780E71C5DEEFA00E9195D /* LoginController.m */; };
 		D05780EC1C5DF11F00E9195D /* LoginActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780EB1C5DF11F00E9195D /* LoginActionCell.m */; };
 		D05780EF1C5DF12C00E9195D /* LoginInputCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780EE1C5DF12C00E9195D /* LoginInputCell.m */; };
+		D0594CB12021897000AD5E27 /* ActionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0594CB02021897000AD5E27 /* ActionCell.m */; };
 		D0940BFA1C5DFD2F00B9C5C7 /* MapCellLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0940BF91C5DFD2F00B9C5C7 /* MapCellLayout.m */; };
 		D0940BFE1C5DFD5000B9C5C7 /* MapCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D0940BFD1C5DFD5000B9C5C7 /* MapCell.m */; };
 		D0940C011C5DFD6900B9C5C7 /* MapDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0940C001C5DFD6900B9C5C7 /* MapDatasource.m */; };
@@ -61,6 +62,8 @@
 		D05780EB1C5DF11F00E9195D /* LoginActionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginActionCell.m; sourceTree = "<group>"; };
 		D05780ED1C5DF12C00E9195D /* LoginInputCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginInputCell.h; sourceTree = "<group>"; };
 		D05780EE1C5DF12C00E9195D /* LoginInputCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginInputCell.m; sourceTree = "<group>"; };
+		D0594CAF2021897000AD5E27 /* ActionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ActionCell.h; sourceTree = "<group>"; };
+		D0594CB02021897000AD5E27 /* ActionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ActionCell.m; sourceTree = "<group>"; };
 		D0940BF81C5DFD2F00B9C5C7 /* MapCellLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapCellLayout.h; sourceTree = "<group>"; };
 		D0940BF91C5DFD2F00B9C5C7 /* MapCellLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapCellLayout.m; sourceTree = "<group>"; };
 		D0940BFC1C5DFD5000B9C5C7 /* MapCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapCell.h; sourceTree = "<group>"; };
@@ -178,6 +181,8 @@
 			children = (
 				D09E8ECE20205327002B1967 /* InfoCell.h */,
 				D09E8ECF20205327002B1967 /* InfoCell.m */,
+				D0594CAF2021897000AD5E27 /* ActionCell.h */,
+				D0594CB02021897000AD5E27 /* ActionCell.m */,
 				D05780E31C5DEECF00E9195D /* MapController.h */,
 				D05780E41C5DEECF00E9195D /* MapController.m */,
 				D0940BFC1C5DFD5000B9C5C7 /* MapCell.h */,
@@ -277,6 +282,7 @@
 				D05095D61CC80FC30027F45D /* PaddingCell.m in Sources */,
 				D0CB14011C61E7330028D552 /* DataManager.m in Sources */,
 				D05095D01CC804B00027F45D /* OperationController.m in Sources */,
+				D0594CB12021897000AD5E27 /* ActionCell.m in Sources */,
 				D05095D31CC805CD0027F45D /* OperationCell.m in Sources */,
 				D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */,
 				D0940BFE1C5DFD5000B9C5C7 /* MapCell.m in Sources */,

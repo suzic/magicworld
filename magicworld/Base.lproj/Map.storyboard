@@ -47,7 +47,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <inset key="separatorInset" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="inputCell" id="69H-XU-DKP" customClass="LoginInputCell">
                                 <rect key="frame" x="0.0" y="55.333333333333336" width="375" height="44"/>
@@ -364,7 +363,7 @@
                                                     <outlet property="cellIndex" destination="Ima-jg-556" id="Lyu-Ev-yog"/>
                                                 </connections>
                                             </collectionViewCell>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action1" id="4zh-z9-Cjz">
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="actionCell" id="4zh-z9-Cjz" userLabel="action" customClass="ActionCell">
                                                 <rect key="frame" x="74.666666666666671" y="0.0" width="60" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -398,111 +397,10 @@
                                                     <constraint firstItem="MxB-CA-HuZ" firstAttribute="centerX" secondItem="4zh-z9-Cjz" secondAttribute="centerX" id="ki9-1V-yUp"/>
                                                     <constraint firstItem="MxB-CA-HuZ" firstAttribute="height" secondItem="4zh-z9-Cjz" secondAttribute="height" id="n6g-CR-i8b"/>
                                                 </constraints>
-                                            </collectionViewCell>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action2" id="c03-9O-iBh" userLabel="action2">
-                                                <rect key="frame" x="149.66666666666666" y="0.0" width="60" height="60"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD_Attack" translatesAutoresizingMaskIntoConstraints="NO" id="aYh-1S-IYI">
-                                                            <rect key="frame" x="0.0" y="6" width="60" height="32"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="32" id="WNw-zb-AI6"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6U-UE-6Lc">
-                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <state key="normal" title="Attack">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                        </button>
-                                                    </subviews>
-                                                </view>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="M6U-UE-6Lc" firstAttribute="width" secondItem="c03-9O-iBh" secondAttribute="width" id="4QX-0y-70z"/>
-                                                    <constraint firstItem="aYh-1S-IYI" firstAttribute="top" secondItem="c03-9O-iBh" secondAttribute="top" constant="6" id="7B5-GQ-caZ"/>
-                                                    <constraint firstItem="M6U-UE-6Lc" firstAttribute="centerX" secondItem="c03-9O-iBh" secondAttribute="centerX" id="KTM-65-gNW"/>
-                                                    <constraint firstAttribute="trailing" secondItem="aYh-1S-IYI" secondAttribute="trailing" id="LNj-C5-5Fe"/>
-                                                    <constraint firstItem="aYh-1S-IYI" firstAttribute="leading" secondItem="c03-9O-iBh" secondAttribute="leading" id="dUh-yP-81S"/>
-                                                    <constraint firstItem="M6U-UE-6Lc" firstAttribute="height" secondItem="c03-9O-iBh" secondAttribute="height" id="mWk-YI-yQ5"/>
-                                                    <constraint firstItem="M6U-UE-6Lc" firstAttribute="centerY" secondItem="c03-9O-iBh" secondAttribute="centerY" id="tsS-6G-gqv"/>
-                                                </constraints>
-                                            </collectionViewCell>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action3" id="tIn-P9-wg3" userLabel="action3">
-                                                <rect key="frame" x="224.33333333333334" y="0.0" width="60" height="60"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD_Force" translatesAutoresizingMaskIntoConstraints="NO" id="fHx-kj-Gna">
-                                                            <rect key="frame" x="0.0" y="6" width="60" height="32"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="32" id="cRB-Ai-xoe"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZiM-86-jrK">
-                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <state key="normal" title="Force">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                        </button>
-                                                    </subviews>
-                                                </view>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="ZiM-86-jrK" firstAttribute="centerY" secondItem="tIn-P9-wg3" secondAttribute="centerY" id="Gko-hx-mqv"/>
-                                                    <constraint firstItem="fHx-kj-Gna" firstAttribute="top" secondItem="tIn-P9-wg3" secondAttribute="top" constant="6" id="Nte-jg-Pom"/>
-                                                    <constraint firstItem="ZiM-86-jrK" firstAttribute="height" secondItem="tIn-P9-wg3" secondAttribute="height" id="XUB-nd-hnb"/>
-                                                    <constraint firstItem="ZiM-86-jrK" firstAttribute="centerX" secondItem="tIn-P9-wg3" secondAttribute="centerX" id="lDf-69-s1t"/>
-                                                    <constraint firstItem="fHx-kj-Gna" firstAttribute="leading" secondItem="tIn-P9-wg3" secondAttribute="leading" id="vMR-UA-dhP"/>
-                                                    <constraint firstAttribute="trailing" secondItem="fHx-kj-Gna" secondAttribute="trailing" id="wHf-8w-ham"/>
-                                                    <constraint firstItem="ZiM-86-jrK" firstAttribute="width" secondItem="tIn-P9-wg3" secondAttribute="width" id="xuu-5A-AdE"/>
-                                                </constraints>
-                                            </collectionViewCell>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action4" id="39L-2d-RUD">
-                                                <rect key="frame" x="299" y="0.0" width="60" height="60"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD_Construct" translatesAutoresizingMaskIntoConstraints="NO" id="mzD-GI-OPE">
-                                                            <rect key="frame" x="0.0" y="6" width="60" height="32"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="32" id="vMY-oL-fPd"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9QU-41-iJs">
-                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <state key="normal" title="Construct">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                        </button>
-                                                    </subviews>
-                                                </view>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="centerY" secondItem="39L-2d-RUD" secondAttribute="centerY" id="2HQ-OX-irf"/>
-                                                    <constraint firstItem="mzD-GI-OPE" firstAttribute="top" secondItem="39L-2d-RUD" secondAttribute="top" constant="6" id="48Y-aX-Euh"/>
-                                                    <constraint firstItem="mzD-GI-OPE" firstAttribute="leading" secondItem="39L-2d-RUD" secondAttribute="leading" id="VrU-2T-Vws"/>
-                                                    <constraint firstAttribute="trailing" secondItem="mzD-GI-OPE" secondAttribute="trailing" id="Wyp-6g-ixz"/>
-                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="centerX" secondItem="39L-2d-RUD" secondAttribute="centerX" id="gXw-0k-OW8"/>
-                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="height" secondItem="39L-2d-RUD" secondAttribute="height" id="n07-lE-gC7"/>
-                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="width" secondItem="39L-2d-RUD" secondAttribute="width" id="y5O-7V-Rtc"/>
-                                                </constraints>
+                                                <connections>
+                                                    <outlet property="actionImage" destination="TOE-Jt-A1G" id="Xc4-1q-J3A"/>
+                                                    <outlet property="actionTitle" destination="MxB-CA-HuZ" id="ghn-Gi-nLS"/>
+                                                </connections>
                                             </collectionViewCell>
                                         </cells>
                                         <connections>
@@ -780,10 +678,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CMD_Attack" width="21" height="21"/>
-        <image name="CMD_Construct" width="21" height="21"/>
         <image name="CMD_Explore" width="21" height="21"/>
-        <image name="CMD_Force" width="21" height="21"/>
         <image name="C_001_0001" width="340" height="340"/>
     </resources>
 </document>

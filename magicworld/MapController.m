@@ -10,6 +10,7 @@
 #import "MapDatasource.h"
 #import "MapCell.h"
 #import "InfoCell.h"
+#import "ActionCell.h"
 
 @interface MapController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -228,27 +229,17 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = nil;
-    switch (indexPath.row)
+    if (indexPath.row == 0)
     {
-        case 0:
-        {
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"infoCell" forIndexPath:indexPath];
-            InfoCell *infoCell = (InfoCell *)cell;
-            self.infoTitle = infoCell.cellIndex;
-        }
-            break;
-        case 1:
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action1" forIndexPath:indexPath];
-            break;
-        case 2:
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action2" forIndexPath:indexPath];
-            break;
-        case 3:
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action3" forIndexPath:indexPath];
-            break;
-        case 4:
-            cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"action4" forIndexPath:indexPath];
-            break;
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"infoCell" forIndexPath:indexPath];
+        InfoCell *infoCell = (InfoCell *)cell;
+        self.infoTitle = infoCell.cellIndex;
+    }
+    else
+    {
+        cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"actionCell" forIndexPath:indexPath];
+        ActionCell *actionCell = (ActionCell *)cell;
+        actionCell.actionType = indexPath.row - 1;
     }
     return cell;
 }

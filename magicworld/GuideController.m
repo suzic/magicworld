@@ -39,7 +39,6 @@
 {
     [super viewDidLoad];
 
-    self.guideTalk.layer.cornerRadius = 8.0f;
     _guideInShown = YES;
     self.guideInShown = NO;
     
@@ -101,10 +100,11 @@
     self.guideTextTailing.constant = inLandMode ? 158.0f : 150.0f;
     self.guideAreaTailing.constant = inLandMode ? 8.0f : -20.0f;
     
-    self.guideTalkLeading.constant = inLandMode ? 100.0f : -8.0f;
-    self.guideTalkTailing.constant = inLandMode ? 8.0f : -8.0f;
+    self.guideTalkLeading.constant = inLandMode ? 100.0f : 0.0f;
+    self.guideTalkTailing.constant = inLandMode ? 8.0f : 0.0f;
     self.guideTalkHeight.constant = inLandMode ? 88.0f : 148.0f;
     self.guideTalkBottom.constant = inLandMode ? 8.0f : 0.0f;
+    self.guideTalk.layer.cornerRadius = inLandMode ? 16.0f : 0.0f;
 }
 
 - (void)setGuideInShown:(BOOL)guideInShown
