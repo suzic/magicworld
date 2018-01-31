@@ -13,6 +13,8 @@
 @property (strong, nonatomic) IBOutlet UIView *cellBackground;
 @property (strong, nonatomic) IBOutlet UILabel *indexLabel;
 
+@property (assign, nonatomic) BOOL isSelected;
+
 - (void)setIndexNumberIn:(NSInteger)row andCol:(NSInteger)col;
 
 @end

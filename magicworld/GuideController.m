@@ -43,6 +43,7 @@
     self.guideInShown = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGuideInformation:) name:NotiShowGuideInfo object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideGuideInformation:) name:NotiHideGuideInfo object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -109,8 +110,8 @@
 
 - (void)setGuideInShown:(BOOL)guideInShown
 {
-    if (_guideInShown == guideInShown)
-        return;
+//    if (_guideInShown == guideInShown)
+//        return;
     _guideInShown = guideInShown;
     
     self.guideTalk.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 320.0f);
@@ -139,7 +140,9 @@
               [UIView animateWithDuration:0.5f
                                     delay:show ? 0.0f : 1.0f
                                   options:UIViewAnimationOptionTransitionNone
-                               animations:^{ self.guideInShown = show; }
+                               animations:^{
+                                   self.guideInShown = show;
+                               }
                                completion:completion];
           }];
      }];
@@ -149,8 +152,14 @@
 
 - (void)showGuideInformation:(NSNotification *)notification
 {
+    //self.guideInShown = YES;
     NSString *stringInfo = notification.object;
     [self showGuide:YES withInformation:stringInfo completion:nil];
+}
+
+- (void)hideGuideInformation:(NSNotification *)notification
+{
+    self.guideInShown = NO;
 }
 
 - (IBAction)pressAvator:(id)sender

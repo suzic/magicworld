@@ -13,7 +13,6 @@
 @interface MapDatasource ()
 
 @property (retain, nonatomic) NSMutableArray *zoneArray;
-@property (assign, nonatomic) CGPoint lastOffset;
 
 @end
 
@@ -34,7 +33,7 @@
 - (void)setController:(FrameController *)controller
 {
     _controller = controller;
-    self.lastOffset = self.controller.mapCollection.contentOffset;
+    self.selectedIndexPath = [NSIndexPath indexPathForRow:MAP_ROWS * MAP_COLS / 2 inSection:0];
     [self.controller.mapCollection reloadData];
 }
 
@@ -43,28 +42,6 @@
     if (_zoneArray == nil)
         _zoneArray = [NSMutableArray arrayWithCapacity:MAP_ROWS * MAP_COLS];
     return _zoneArray;
-}
-
-//- (void)calCenterIndexPath
-//{
-//    // 根据偏移量计算可能显示的所有格子的横竖索引的起始
-//    NSInteger row_c = ((self.lastOffset.y + kScreenHeight / 2.0f) / CELL_HEIGHT);
-//    NSInteger col_c = ((self.lastOffset.x + kScreenWidth / 2.0f) / CELL_WIDTH);
-//
-//    NSInteger section = 0;
-//    section += (col_c >= MAP_COLS) ? 1 : 0;
-//    section += (row_c >= MAP_ROWS) ? 2 : 0;
-//
-//    self.autoCenterIndexPath = [NSIndexPath indexPathForItem:(row_c % MAP_ROWS) * MAP_COLS + (col_c % MAP_COLS)
-//                                                   inSection:section];
-//}
-
-- (void)setLastOffset:(CGPoint)lastOffset
-{
-    if (_lastOffset.x == lastOffset.x && _lastOffset.y == lastOffset.y)
-        return;
-    _lastOffset.x = lastOffset.x;
-    _lastOffset.y = lastOffset.y;
 }
 
 - (void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath
@@ -79,22 +56,34 @@
         || (_selectedIndexPath != nil && _selectedIndexPath.row == selectedIndexPath.row))
     {
         _selectedIndexPath = nil;
-        self.controller.showPanel = NO;
+        self.controller.shouldShowPanel = NO;
     }
     // 选择一个不同的索引
     else
     {
         _selectedIndexPath = selectedIndexPath;
+        self.controller.shouldShowPanel = YES;
+    }
+    
+    if (self.controller.shouldShowPanel)
+    {
         [self.controller infoPanelToShow:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
+            self.controller.showPanel = NO;
             [self.controller infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-                [self.controller setNeedsStatusBarAppearanceUpdate];
                 self.controller.showPanel = YES;
             }];
+        }];
+    }
+    else
+    {
+        [self.controller infoPanelToShow:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
+            self.controller.showPanel = NO;
         }];
     }
     
     if (_selectedIndexPath != nil)
         [indexPathArray addObject:_selectedIndexPath];
+    [self.controller moveToSelected:nil];
     [self.controller.mapCollection reloadItemsAtIndexPaths:indexPathArray];
 }
 
@@ -114,10 +103,6 @@
 {
     MapCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"zoneCell" forIndexPath:indexPath];
     [cell setIndexNumberIn:indexPath.row / MAP_COLS andCol:indexPath.row % MAP_COLS];
-    
-    cell.cellBackground.backgroundColor = [UIColor colorWithWhite:0.4f alpha:1.0f];
-    if (self.selectedIndexPath != nil && indexPath.row == self.selectedIndexPath.row)
-        cell.cellBackground.backgroundColor = [UIColor colorWithWhite:0.5f alpha:1.0f];
     return cell;
 }
 
@@ -128,21 +113,25 @@
     self.selectedIndexPath = indexPath;
 }
 
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    MapCell *mapCell = (MapCell *)cell;
+    mapCell.isSelected = (self.selectedIndexPath != nil && indexPath.row == self.selectedIndexPath.row);
+}
+
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    [self.controller showFunctions:YES animated:YES inLandMode:(kScreenWidth > kScreenHeight)];
-    if (self.selectedIndexPath != nil)
+    if (self.controller.shouldShowPanel)
         [self.controller infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-            [self.controller setNeedsStatusBarAppearanceUpdate];
+            self.controller.showPanel = YES;
         }];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [self.controller showFunctions:YES animated:YES inLandMode:(kScreenWidth > kScreenHeight)];
-    if (self.selectedIndexPath != nil)
+    if (self.controller.shouldShowPanel)
         [self.controller infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-            [self.controller setNeedsStatusBarAppearanceUpdate];
+            self.controller.showPanel = YES;
         }];
 }
 
@@ -154,24 +143,18 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    self.controller.stopAutoMoveCenter = YES;
-    
     if (decelerate)
         return;
-    
-    [self.controller showFunctions:YES animated:YES inLandMode:(kScreenWidth > kScreenHeight)];
-    if (self.selectedIndexPath != nil)
+    if (self.controller.shouldShowPanel && !decelerate)
         [self.controller infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-            [self.controller setNeedsStatusBarAppearanceUpdate];
+            self.controller.showPanel = YES;
         }];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    self.controller.stopAutoMoveCenter = YES;
-    [self.controller showFunctions:NO animated:YES inLandMode:(kScreenWidth > kScreenHeight)];
     [self.controller infoPanelToShow:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-        [self.controller setNeedsStatusBarAppearanceUpdate];
+        self.controller.showPanel = NO;
     }];
 }
 

@@ -14,8 +14,6 @@
 
 @interface FrameController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (assign, nonatomic) BOOL guideInShown;
-
 @property (strong, nonatomic) IBOutlet UIButton *enterFloatButton;  // 前景浮动功能按钮
 @property (strong, nonatomic) IBOutlet UIButton *helpFloatButton;   // 前景帮助功能按钮
 
@@ -30,6 +28,10 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *operationTop;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *operationBottom;
 
+@property (strong, nonatomic) IBOutlet UIView *headPanel;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *headPanelHeight;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *headPanelTop;
+
 @property (strong, nonatomic) IBOutlet MapDatasource *mapDatasource;
 
 @end
@@ -41,7 +43,7 @@
 {
     [super viewDidLoad];
     self.mapDatasource.controller = self;
-    self.automaticallyAdjustsScrollViewInsets = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
 
     // 订制前景浮动功能按钮外观
     self.enterFloatButton.hidden = YES;
@@ -54,12 +56,8 @@
     self.helpFloatButton.layer.borderWidth = 1.0f;
     
     // 初始化infoPanel
-    self.guideInShown = NO;
+    self.shouldShowPanel = NO;
     self.showPanel = NO;
-    self.stopAutoMoveCenter = NO;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGuideInformation:) name:NotiShowGuideInfo object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideGuideInformation:) name:NotiHideGuideInfo object:nil];
 }
 
 // 内存警告
@@ -69,61 +67,52 @@
     // Dispose of any resources that can be recreated.
 }
 
-// 视图将要显示
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+//    [self.navigationController setNavigationBarHidden:YES animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+//    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+// 视图显示
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
     // 初始化的时候显示功能层
-    [self showFunctions:YES animated:NO inLandMode:(kScreenWidth > kScreenHeight)];
+    
+    if (self.mapDatasource.selectedIndexPath != nil)
+    {
+        self.shouldShowPanel = YES;
+        [self moveToSelected:nil];
+    }
 }
 
 // 完成重布局
-- (void)viewDidLayoutSubviews
+- (void)viewWillLayoutSubviews
 {
-    [super viewDidLayoutSubviews];
-    
-    // 重新计算消息面板
+    [super viewWillLayoutSubviews];
     [self updatePanelSize:CGSizeMake(kScreenWidth, kScreenHeight)];
-    if (kScreenWidth < kScreenHeight)
-        self.infoPanel.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, 0, self.infoPanel.frame.size.height);
-    else
-        self.infoPanel.transform = CGAffineTransformTranslate(CGAffineTransformIdentity, -self.infoPanel.frame.size.width, 0);
-    
-    //    if (self.stopAutoMoveCenter == YES)
-    //        self.stopAutoMoveCenter = NO;
-    //    else
-    //    {
-    //        self.dontRecalOffset = YES;
-    //        [self.mapCollection scrollToItemAtIndexPath:self.mapDatasource.autoCenterIndexPath
-    //                                   atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally | UICollectionViewScrollPositionCenteredVertically
-    //                                           animated:NO];
-    //        self.dontRecalOffset = NO;
-    //    }
 }
 
 // 视图尺寸变化（包括发生在旋转屏时）
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-
-    // 根据横竖屏尺寸信息决定初始化的时候是否显示功能层
-    [self showFunctions:YES animated:NO inLandMode:(size.width > size.height)];
     
     // 横竖屏的时候重新计算信息面板
     [self rotateInfoPanelToSize:size];
+    [self moveToSelected:nil];
 }
 
 // 重载显示状态栏风格
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
     return UIStatusBarStyleLightContent;
-}
-
-// 重载是否显示状态栏，这里保持与导航栏显示隐藏一致即可
-- (BOOL)prefersStatusBarHidden
-{
-    return self.navigationController.navigationBarHidden;
 }
 
 #pragma mark - User operations
@@ -133,7 +122,6 @@
 {
     if (self.mapDatasource.selectedIndexPath == nil)
         return;
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
     [self.mapCollection scrollToItemAtIndexPath:self.mapDatasource.selectedIndexPath
                                atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally
                                                 | UICollectionViewScrollPositionCenteredVertically
@@ -163,19 +151,19 @@
 
 #pragma mark - Properties & inner method
 
-- (void)setShowPanel:(BOOL)showPanel
+- (void)setShouldShowPanel:(BOOL)shouldShowPanel
 {
-    if (_showPanel == showPanel)
+    if (_shouldShowPanel == shouldShowPanel)
         return;
-    _showPanel = showPanel;
+    _shouldShowPanel = shouldShowPanel;
     
-    [self infoPanelToShow:showPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-        [self setNeedsStatusBarAppearanceUpdate];
-    }];
+    [self infoPanelToShow:shouldShowPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:nil];
 }
 
 - (void)updateInfoPanelContent
 {
+    if (self.mapDatasource.selectedIndexPath == nil)
+        return;
     [self.infoTitle setTitle:[NSString stringWithFormat:@"%02ld - %02ld",
                               (long)(self.mapDatasource.selectedIndexPath.row / MAP_COLS),
                               (long)(self.mapDatasource.selectedIndexPath.row % MAP_COLS)]
@@ -184,7 +172,9 @@
 
 - (void)updatePanelSize:(CGSize)size
 {
+    const CGFloat headHeight = 44.0f;
     const CGFloat barHeight = 60.0f;
+    CGFloat tFix = self.topLayoutGuide.length;
     CGFloat vFix = self.bottomLayoutGuide.length;   // 34.0f;
     CGFloat hFix = self.bottomLayoutGuide.length / 2;   //20.0f;
     
@@ -198,6 +188,8 @@
     self.operationTop.constant = (size.width < size.height) ? 0.0f : hFix;
     self.operationBottom.constant = (size.width < size.height) ? 0.0f : hFix;
     
+    self.headPanelHeight.constant = headHeight + tFix;
+    
     UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
     layout.scrollDirection = (size.width < size.height) ? UICollectionViewScrollDirectionVertical : UICollectionViewScrollDirectionHorizontal;
 }
@@ -205,57 +197,61 @@
 - (void)rotateInfoPanelToSize:(CGSize)size
 {
     [self updatePanelSize:size];
-    if (self.showPanel)
+    if (self.shouldShowPanel)
+    {
+        if (self.showPanel)
+        {
+            [self infoPanelToShow:NO inSize:size completion:^(BOOL finished) {
+                self.showPanel = NO;
+                [self infoPanelToShow:YES inSize:size completion:^(BOOL finished) {
+                    self.showPanel = YES;
+                }];
+            }];
+        }
+        else
+        {
+            [self infoPanelToShow:YES inSize:size completion:^(BOOL finished) {
+                self.showPanel = YES;
+            }];
+        }
+    }
+    else
     {
         [self infoPanelToShow:NO inSize:size completion:^(BOOL finished) {
-            [self infoPanelToShow:YES inSize:size completion:^(BOOL finished) {
-                [self setNeedsStatusBarAppearanceUpdate];
-            }];
+            self.showPanel = NO;
         }];
     }
 }
 
 - (void)infoPanelToShow:(BOOL)show inSize:(CGSize)size completion:(void (^)(BOOL finished))completion
 {
+    if (self.mapDatasource.selectedIndexPath == nil)
+        show = NO;
+    
     // 根据显隐要求初始化状态
-    if (show)
+    if (self.mapDatasource.selectedIndexPath != nil && show)
         [self updateInfoPanelContent];
+    BOOL inLandMode = size.width > size.height;
     
     // 动画移动
     [UIView animateWithDuration:0.3f animations:^{
         if (size.width < size.height)
             self.infoPanel.transform = show ? CGAffineTransformIdentity
-                : CGAffineTransformTranslate(CGAffineTransformIdentity, 0, self.infoPanel.frame.size.height);
+            : CGAffineTransformTranslate(CGAffineTransformIdentity, 0, self.infoPanel.frame.size.height);
         else
             self.infoPanel.transform = show ? CGAffineTransformIdentity
-                : CGAffineTransformTranslate(CGAffineTransformIdentity, -self.infoPanel.frame.size.width, 0);
+            : CGAffineTransformTranslate(CGAffineTransformIdentity, -self.infoPanel.frame.size.width, 0);
     } completion:completion];
-}
-
-- (void)showGuideInformation:(NSNotification *)notification
-{
-    self.guideInShown = YES;
-//    // 强制隐藏infoPanel
-//    [self infoPanelToShow:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:nil];
-}
-
-- (void)hideGuideInformation:(NSNotification *)notification
-{
-    self.guideInShown = NO;
-//    // 还原infoPanel的显隐状态
-//    [self infoPanelToShow:self.showPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:nil];
-}
-
-// 显示或隐藏功能层
-- (void)showFunctions:(BOOL)show animated:(BOOL)animated inLandMode:(BOOL)inLandMode
-{
-    // 系统状态栏和导航在横屏时不显示，竖屏时根据show来决定显隐，并套用是否动画演示效果
-    [self.navigationController setNavigationBarHidden:(inLandMode || !show) animated:YES];
     
-    // 浮动工具栏在竖屏时不显示，横屏总是显示（但会以动画方式进入／离开屏幕区域）
+    [UIView animateWithDuration:0.3f animations:^{
+            self.headPanel.transform = (show && !inLandMode) ? CGAffineTransformIdentity
+            : CGAffineTransformTranslate(CGAffineTransformIdentity, 0, -self.headPanel.frame.size.height);
+    } completion:completion];
+
+    // 功能按钮显隐
     self.enterFloatButton.hidden = !inLandMode;
     self.helpFloatButton.hidden = !inLandMode;
-    [UIView animateWithDuration:(animated ? 0.5f : 0.0f) animations:^{
+    [UIView animateWithDuration:0.3f animations:^{
         self.enterFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
         self.helpFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
     }];

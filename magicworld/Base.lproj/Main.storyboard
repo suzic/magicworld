@@ -115,6 +115,7 @@
                             <constraint firstItem="yMo-G0-jVY" firstAttribute="leading" secondItem="edw-ql-bdm" secondAttribute="leading" id="tNq-lZ-Km1"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
                         <outlet property="guideArea" destination="r8V-9V-8T3" id="iiT-o4-iEK"/>
                         <outlet property="guideAreaTailing" destination="6s6-gI-EZ7" id="X8X-0Q-aez"/>

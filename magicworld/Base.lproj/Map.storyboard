@@ -22,9 +22,10 @@
         <scene sceneID="obr-ae-Kwm">
             <objects>
                 <navigationController storyboardIdentifier="MapNavi" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="oyE-Bx-5de" userLabel="Main Navi" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="phv-4e-5Ua">
+                    <navigationBar key="navigationBar" autoresizesSubviews="NO" contentMode="scaleToFill" misplaced="YES" barStyle="black" id="phv-4e-5Ua">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="20"/>
                             <color key="textShadowColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -41,7 +42,7 @@
         <!--Login Controller-->
         <scene sceneID="hjk-tE-QXe">
             <objects>
-                <tableViewController id="pqG-2o-Znb" customClass="LoginController" sceneMemberID="viewController">
+                <tableViewController automaticallyAdjustsScrollViewInsets="NO" id="pqG-2o-Znb" customClass="LoginController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" contentViewInsetsToSafeArea="NO" id="rie-GL-LfD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -139,9 +140,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="loginSegment" destination="Xiw-J9-PDZ" id="JCK-3l-6lf"/>
-                        <segue destination="zSo-Sb-aE0" kind="show" identifier="loginSuccess" id="niR-88-LhE">
-                            <nil key="action"/>
-                        </segue>
+                        <segue destination="zSo-Sb-aE0" kind="show" identifier="loginSuccess" action="showDetailViewController:sender:" id="niR-88-LhE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XmX-VT-bLB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -151,19 +150,19 @@
         <!--Magicard-->
         <scene sceneID="9uE-Cb-uVM">
             <objects>
-                <viewController id="zSo-Sb-aE0" customClass="FrameController" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="zSo-Sb-aE0" customClass="FrameController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gHF-Cy-5xM"/>
                         <viewControllerLayoutGuide type="bottom" id="1LU-oz-ySz"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="fpZ-5N-ctb">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="fpZ-5N-ctb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MAPBG" translatesAutoresizingMaskIntoConstraints="NO" id="MQv-53-Z6K" customClass="C_001_0004">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MAPBG" translatesAutoresizingMaskIntoConstraints="NO" id="MQv-53-Z6K">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nuz-2G-uAQ">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nuz-2G-uAQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
@@ -213,6 +212,36 @@
                                     <outlet property="delegate" destination="YiZ-BW-SIK" id="o8p-dl-gAM"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QOL-yd-y8t">
+                                <rect key="frame" x="309" y="104" width="50" height="50"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="9Li-dL-Qfe"/>
+                                    <constraint firstAttribute="height" constant="50" id="gVs-yA-0mg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="ENTER">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="rightPress:" destination="zSo-Sb-aE0" eventType="touchUpInside" id="Vhc-to-PQg"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0NV-rH-g2a">
+                                <rect key="frame" x="309" y="746" width="50" height="50"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="6DL-ZA-IyW"/>
+                                    <constraint firstAttribute="height" constant="50" id="QDW-A0-UDc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="HELP">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="helpPress:" destination="zSo-Sb-aE0" eventType="touchUpInside" id="i36-x8-7hf"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1PF-hX-hrb" userLabel="Info Panel">
                                 <rect key="frame" x="0.0" y="718" width="375" height="94"/>
                                 <subviews>
@@ -287,7 +316,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD_Explore" translatesAutoresizingMaskIntoConstraints="NO" id="YST-F4-3sk">
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD_Undefined" translatesAutoresizingMaskIntoConstraints="NO" id="YST-F4-3sk">
                                                             <rect key="frame" x="0.0" y="6" width="60" height="32"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
@@ -298,7 +327,7 @@
                                                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
                                                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <state key="normal" title="Explore">
+                                                            <state key="normal" title="Undefined">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
                                                         </button>
@@ -350,46 +379,77 @@
                                     <constraint firstItem="t5B-yR-YCL" firstAttribute="centerX" secondItem="1PF-hX-hrb" secondAttribute="centerX" id="uvm-f6-W3g"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QOL-yd-y8t">
-                                <rect key="frame" x="309" y="104" width="50" height="50"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zFS-v5-4br" userLabel="Head Panel">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                <subviews>
+                                    <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugm-Zm-MQk">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="EeZ-p9-Dtz">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="88"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Magicard" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5j-Gn-ixQ">
+                                                    <rect key="frame" x="156" y="52.333333333333336" width="64" height="27.666666666666664"/>
+                                                    <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="22"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <color key="shadowColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6gr-p1-j1X">
+                                                    <rect key="frame" x="16" y="49.666666666666657" width="30" height="34"/>
+                                                    <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="18"/>
+                                                    <state key="normal" title="Exit">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="logOut:" destination="zSo-Sb-aE0" eventType="touchUpInside" id="KEb-us-EDe"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bcb-gl-SCi">
+                                                    <rect key="frame" x="329" y="49.333333333333343" width="30" height="34"/>
+                                                    <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="18"/>
+                                                    <state key="normal" title="Enter">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="rightPress:" destination="zSo-Sb-aE0" eventType="touchUpInside" id="ioB-Ur-X0t"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="bcb-gl-SCi" secondAttribute="trailing" constant="16" id="IlL-On-ZU5"/>
+                                                <constraint firstItem="6gr-p1-j1X" firstAttribute="centerY" secondItem="z5j-Gn-ixQ" secondAttribute="centerY" id="NdG-Ho-d1Q"/>
+                                                <constraint firstItem="z5j-Gn-ixQ" firstAttribute="centerX" secondItem="EeZ-p9-Dtz" secondAttribute="centerX" id="OqB-Cv-zNW"/>
+                                                <constraint firstItem="6gr-p1-j1X" firstAttribute="leading" secondItem="EeZ-p9-Dtz" secondAttribute="leading" constant="16" id="QdI-UB-KPu"/>
+                                                <constraint firstItem="bcb-gl-SCi" firstAttribute="centerY" secondItem="z5j-Gn-ixQ" secondAttribute="centerY" id="wbg-e1-IEv"/>
+                                                <constraint firstAttribute="bottom" secondItem="z5j-Gn-ixQ" secondAttribute="bottom" constant="8" id="yBd-5p-J3L"/>
+                                            </constraints>
+                                        </view>
+                                        <blurEffect style="dark"/>
+                                    </visualEffectView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="9Li-dL-Qfe"/>
-                                    <constraint firstAttribute="height" constant="50" id="gVs-yA-0mg"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ugm-Zm-MQk" secondAttribute="bottom" id="IXq-NU-Enu"/>
+                                    <constraint firstAttribute="height" constant="88" id="P7V-e4-ndc"/>
+                                    <constraint firstItem="Ugm-Zm-MQk" firstAttribute="leading" secondItem="zFS-v5-4br" secondAttribute="leading" id="RBL-Dl-O6K"/>
+                                    <constraint firstAttribute="trailing" secondItem="Ugm-Zm-MQk" secondAttribute="trailing" id="sLa-aQ-JMW"/>
+                                    <constraint firstItem="Ugm-Zm-MQk" firstAttribute="top" secondItem="zFS-v5-4br" secondAttribute="top" id="vvW-6H-K3C"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="ENTER">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="rightPress:" destination="zSo-Sb-aE0" eventType="touchUpInside" id="WYe-09-DPU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0NV-rH-g2a">
-                                <rect key="frame" x="309" y="746" width="50" height="50"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="6DL-ZA-IyW"/>
-                                    <constraint firstAttribute="height" constant="50" id="QDW-A0-UDc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="HELP">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="helpPress:" destination="zSo-Sb-aE0" eventType="touchUpInside" id="MPZ-da-KH3"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="0NV-rH-g2a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fpZ-5N-ctb" secondAttribute="leading" constant="20" symbolic="YES" id="63g-FG-Ha7"/>
                             <constraint firstItem="nuz-2G-uAQ" firstAttribute="top" secondItem="fpZ-5N-ctb" secondAttribute="top" id="8fz-Ft-dx2"/>
                             <constraint firstAttribute="trailing" secondItem="QOL-yd-y8t" secondAttribute="trailing" constant="16" id="90b-E2-HbC"/>
+                            <constraint firstItem="zFS-v5-4br" firstAttribute="top" secondItem="fpZ-5N-ctb" secondAttribute="top" id="Ew5-FB-l97"/>
                             <constraint firstAttribute="bottom" secondItem="0NV-rH-g2a" secondAttribute="bottom" constant="16" id="LaC-HY-NCy"/>
                             <constraint firstItem="nuz-2G-uAQ" firstAttribute="leading" secondItem="fpZ-5N-ctb" secondAttribute="leading" id="MWA-FY-4tm"/>
                             <constraint firstAttribute="trailing" secondItem="MQv-53-Z6K" secondAttribute="trailing" id="SbX-DR-6Q2"/>
                             <constraint firstItem="MQv-53-Z6K" firstAttribute="leading" secondItem="fpZ-5N-ctb" secondAttribute="leading" id="UEk-sk-byr"/>
                             <constraint firstItem="1PF-hX-hrb" firstAttribute="leading" secondItem="fpZ-5N-ctb" secondAttribute="leading" id="ZEL-BD-4Du"/>
+                            <constraint firstItem="zFS-v5-4br" firstAttribute="leading" secondItem="fpZ-5N-ctb" secondAttribute="leading" id="asr-ut-BID"/>
+                            <constraint firstAttribute="trailing" secondItem="zFS-v5-4br" secondAttribute="trailing" id="bfy-Bf-NUD"/>
                             <constraint firstItem="QOL-yd-y8t" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fpZ-5N-ctb" secondAttribute="leading" constant="20" symbolic="YES" id="edm-5a-iyJ"/>
                             <constraint firstAttribute="bottom" secondItem="MQv-53-Z6K" secondAttribute="bottom" id="ez0-en-SBV"/>
                             <constraint firstAttribute="bottom" secondItem="1PF-hX-hrb" secondAttribute="bottom" id="flu-cP-F1r"/>
@@ -400,22 +460,12 @@
                             <constraint firstItem="MQv-53-Z6K" firstAttribute="top" secondItem="fpZ-5N-ctb" secondAttribute="top" id="viV-AI-Uce"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Magicard" id="Z4i-eu-INR">
-                        <barButtonItem key="leftBarButtonItem" systemItem="stop" id="8X2-WD-P3K">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="logOut:" destination="zSo-Sb-aE0" id="lIN-EJ-b8c"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="pmZ-Ja-lFd">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="rightPress:" destination="zSo-Sb-aE0" id="Npn-gQ-L2V"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Magicard" largeTitleDisplayMode="never" id="LND-CJ-ZjH"/>
                     <connections>
                         <outlet property="enterFloatButton" destination="QOL-yd-y8t" id="kys-xu-NEK"/>
+                        <outlet property="headPanel" destination="zFS-v5-4br" id="3xH-yA-fUN"/>
+                        <outlet property="headPanelHeight" destination="P7V-e4-ndc" id="eKy-IO-PSK"/>
+                        <outlet property="headPanelTop" destination="Ew5-FB-l97" id="jHL-gJ-8SP"/>
                         <outlet property="helpFloatButton" destination="0NV-rH-g2a" id="jVb-Qy-Xf4"/>
                         <outlet property="infoPanel" destination="1PF-hX-hrb" id="x8a-eA-H00"/>
                         <outlet property="infoPanelHeight" destination="NZc-Xn-bhq" id="6E6-g6-bKT"/>
@@ -650,7 +700,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="CMD_Explore" width="21" height="21"/>
+        <image name="CMD_Undefined" width="21" height="21"/>
         <image name="C_001_0001" width="340" height="340"/>
         <image name="MAPBG" width="1651" height="753"/>
     </resources>

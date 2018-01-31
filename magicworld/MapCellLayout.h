@@ -10,7 +10,6 @@
 
 @interface MapCellLayout : UICollectionViewLayout
 
-@property (assign, nonatomic) NSIndexPath* selectedIndexPath;
 @property (retain, nonatomic) NSMutableArray *visibleAttributes;
 
 @end

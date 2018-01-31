@@ -17,6 +17,12 @@
 
 @implementation ActionCell
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.actionType = NSNotFound;
+}
+
 - (void)setActionType:(NSInteger)actionType
 {
     if (_actionType == actionType)
