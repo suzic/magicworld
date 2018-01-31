@@ -161,8 +161,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qwI-wD-13q" userLabel="LAYER_MAP">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                                <connections>
+                                    <segue destination="PjP-dy-60A" kind="embed" identifier="mapSegue" id="eQJ-da-TA5"/>
+                                </connections>
+                            </containerView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QOL-yd-y8t">
-                                <rect key="frame" x="310" y="103" width="50" height="50"/>
+                                <rect key="frame" x="309" y="104" width="50" height="50"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="9Li-dL-Qfe"/>
@@ -177,7 +183,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0NV-rH-g2a">
-                                <rect key="frame" x="310" y="713" width="50" height="50"/>
+                                <rect key="frame" x="309" y="746" width="50" height="50"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="6DL-ZA-IyW"/>
@@ -191,25 +197,19 @@
                                     <action selector="helpPress:" destination="zSo-Sb-aE0" eventType="touchUpInside" id="MPZ-da-KH3"/>
                                 </connections>
                             </button>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qwI-wD-13q" userLabel="LAYER_MAP">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                                <connections>
-                                    <segue destination="PjP-dy-60A" kind="embed" identifier="mapSegue" id="eQJ-da-TA5"/>
-                                </connections>
-                            </containerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0NV-rH-g2a" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fpZ-5N-ctb" secondAttribute="leading" constant="20" symbolic="YES" id="63g-FG-Ha7"/>
-                            <constraint firstAttribute="trailing" secondItem="QOL-yd-y8t" secondAttribute="trailing" constant="15" id="90b-E2-HbC"/>
+                            <constraint firstAttribute="trailing" secondItem="QOL-yd-y8t" secondAttribute="trailing" constant="16" id="90b-E2-HbC"/>
                             <constraint firstItem="qwI-wD-13q" firstAttribute="centerX" secondItem="fpZ-5N-ctb" secondAttribute="centerX" id="9cJ-GI-9Nn"/>
                             <constraint firstItem="qwI-wD-13q" firstAttribute="width" secondItem="fpZ-5N-ctb" secondAttribute="width" id="FFy-qY-E0J"/>
-                            <constraint firstItem="1LU-oz-ySz" firstAttribute="top" secondItem="0NV-rH-g2a" secondAttribute="bottom" constant="15" id="LaC-HY-NCy"/>
+                            <constraint firstAttribute="bottom" secondItem="0NV-rH-g2a" secondAttribute="bottom" constant="16" id="LaC-HY-NCy"/>
                             <constraint firstItem="QOL-yd-y8t" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fpZ-5N-ctb" secondAttribute="leading" constant="20" symbolic="YES" id="edm-5a-iyJ"/>
-                            <constraint firstItem="QOL-yd-y8t" firstAttribute="top" secondItem="gHF-Cy-5xM" secondAttribute="bottom" constant="15" id="gE5-uM-vKY"/>
+                            <constraint firstItem="QOL-yd-y8t" firstAttribute="top" secondItem="gHF-Cy-5xM" secondAttribute="bottom" constant="16" id="gE5-uM-vKY"/>
                             <constraint firstItem="qwI-wD-13q" firstAttribute="height" secondItem="fpZ-5N-ctb" secondAttribute="height" id="lbT-tc-Ugl"/>
                             <constraint firstItem="qwI-wD-13q" firstAttribute="centerY" secondItem="fpZ-5N-ctb" secondAttribute="centerY" id="mIe-9r-d4p"/>
-                            <constraint firstAttribute="trailing" secondItem="0NV-rH-g2a" secondAttribute="trailing" constant="15" id="qds-T2-aRy"/>
+                            <constraint firstAttribute="trailing" secondItem="0NV-rH-g2a" secondAttribute="trailing" constant="16" id="qds-T2-aRy"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Magicard" id="Z4i-eu-INR">
@@ -294,7 +294,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="YiZ-BW-SIK" id="X7r-TH-gZS"/>
-                                    <outlet property="delegate" destination="PjP-dy-60A" id="URK-cH-rgf"/>
+                                    <outlet property="delegate" destination="YiZ-BW-SIK" id="eKT-2l-2n3"/>
                                 </connections>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RVG-vs-C7O" userLabel="Info Panel">
@@ -340,7 +340,6 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ima-jg-556">
                                                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="18"/>
-                                                            <inset key="titleEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
                                                             <state key="normal" title="Index">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
@@ -401,7 +400,7 @@
                                                 </constraints>
                                             </collectionViewCell>
                                             <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action2" id="c03-9O-iBh" userLabel="action2">
-                                                <rect key="frame" x="224.33333333333334" y="0.0" width="60" height="60"/>
+                                                <rect key="frame" x="149.66666666666666" y="0.0" width="60" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -435,43 +434,8 @@
                                                     <constraint firstItem="M6U-UE-6Lc" firstAttribute="centerY" secondItem="c03-9O-iBh" secondAttribute="centerY" id="tsS-6G-gqv"/>
                                                 </constraints>
                                             </collectionViewCell>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action3" id="39L-2d-RUD" userLabel="action3">
-                                                <rect key="frame" x="149.66666666666666" y="0.0" width="60" height="60"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD_Construct" translatesAutoresizingMaskIntoConstraints="NO" id="mzD-GI-OPE">
-                                                            <rect key="frame" x="0.0" y="6" width="60" height="32"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="32" id="vMY-oL-fPd"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9QU-41-iJs">
-                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
-                                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
-                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <state key="normal" title="Construct">
-                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            </state>
-                                                        </button>
-                                                    </subviews>
-                                                </view>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="centerY" secondItem="39L-2d-RUD" secondAttribute="centerY" id="2HQ-OX-irf"/>
-                                                    <constraint firstItem="mzD-GI-OPE" firstAttribute="top" secondItem="39L-2d-RUD" secondAttribute="top" constant="6" id="48Y-aX-Euh"/>
-                                                    <constraint firstItem="mzD-GI-OPE" firstAttribute="leading" secondItem="39L-2d-RUD" secondAttribute="leading" id="VrU-2T-Vws"/>
-                                                    <constraint firstAttribute="trailing" secondItem="mzD-GI-OPE" secondAttribute="trailing" id="Wyp-6g-ixz"/>
-                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="centerX" secondItem="39L-2d-RUD" secondAttribute="centerX" id="gXw-0k-OW8"/>
-                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="height" secondItem="39L-2d-RUD" secondAttribute="height" id="n07-lE-gC7"/>
-                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="width" secondItem="39L-2d-RUD" secondAttribute="width" id="y5O-7V-Rtc"/>
-                                                </constraints>
-                                            </collectionViewCell>
-                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action4" id="tIn-P9-wg3">
-                                                <rect key="frame" x="299" y="0.0" width="60" height="60"/>
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action3" id="tIn-P9-wg3" userLabel="action3">
+                                                <rect key="frame" x="224.33333333333334" y="0.0" width="60" height="60"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                     <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
@@ -503,6 +467,41 @@
                                                     <constraint firstItem="fHx-kj-Gna" firstAttribute="leading" secondItem="tIn-P9-wg3" secondAttribute="leading" id="vMR-UA-dhP"/>
                                                     <constraint firstAttribute="trailing" secondItem="fHx-kj-Gna" secondAttribute="trailing" id="wHf-8w-ham"/>
                                                     <constraint firstItem="ZiM-86-jrK" firstAttribute="width" secondItem="tIn-P9-wg3" secondAttribute="width" id="xuu-5A-AdE"/>
+                                                </constraints>
+                                            </collectionViewCell>
+                                            <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="action4" id="39L-2d-RUD">
+                                                <rect key="frame" x="299" y="0.0" width="60" height="60"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CMD_Construct" translatesAutoresizingMaskIntoConstraints="NO" id="mzD-GI-OPE">
+                                                            <rect key="frame" x="0.0" y="6" width="60" height="32"/>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="32" id="vMY-oL-fPd"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9QU-41-iJs">
+                                                            <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="17"/>
+                                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <state key="normal" title="Construct">
+                                                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </state>
+                                                        </button>
+                                                    </subviews>
+                                                </view>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="centerY" secondItem="39L-2d-RUD" secondAttribute="centerY" id="2HQ-OX-irf"/>
+                                                    <constraint firstItem="mzD-GI-OPE" firstAttribute="top" secondItem="39L-2d-RUD" secondAttribute="top" constant="6" id="48Y-aX-Euh"/>
+                                                    <constraint firstItem="mzD-GI-OPE" firstAttribute="leading" secondItem="39L-2d-RUD" secondAttribute="leading" id="VrU-2T-Vws"/>
+                                                    <constraint firstAttribute="trailing" secondItem="mzD-GI-OPE" secondAttribute="trailing" id="Wyp-6g-ixz"/>
+                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="centerX" secondItem="39L-2d-RUD" secondAttribute="centerX" id="gXw-0k-OW8"/>
+                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="height" secondItem="39L-2d-RUD" secondAttribute="height" id="n07-lE-gC7"/>
+                                                    <constraint firstItem="9QU-41-iJs" firstAttribute="width" secondItem="39L-2d-RUD" secondAttribute="width" id="y5O-7V-Rtc"/>
                                                 </constraints>
                                             </collectionViewCell>
                                         </cells>
@@ -554,6 +553,7 @@
                         <outlet property="infoSpliteHeight" destination="AsK-my-27j" id="Isg-eu-FsN"/>
                         <outlet property="infoSpliteWidth" destination="gRI-to-QM7" id="ibj-Wb-bEd"/>
                         <outlet property="mapCollection" destination="amJ-aG-8AC" id="ksW-iB-RiX"/>
+                        <outlet property="mapDatasource" destination="YiZ-BW-SIK" id="ObT-rk-702"/>
                         <outlet property="operationBottom" destination="cBl-Cb-r73" id="qfj-QC-isH"/>
                         <outlet property="operationCollection" destination="xeX-m6-ivm" id="edv-0o-VCr"/>
                         <outlet property="operationLeading" destination="EJA-qo-k0d" id="En6-7P-3zR"/>

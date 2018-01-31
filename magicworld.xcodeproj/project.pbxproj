@@ -27,8 +27,6 @@
 		D0940C011C5DFD6900B9C5C7 /* MapDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0940C001C5DFD6900B9C5C7 /* MapDatasource.m */; };
 		D09E8ECD20200776002B1967 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E8ECB20200776002B1967 /* Map.storyboard */; };
 		D09E8ED020205327002B1967 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D09E8ECF20205327002B1967 /* InfoCell.m */; };
-		D0CB13FA1C61DDE00028D552 /* Zone+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13F71C61DDE00028D552 /* Zone+CoreDataProperties.m */; };
-		D0CB13FB1C61DDE00028D552 /* Zone.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13F91C61DDE00028D552 /* Zone.m */; };
 		D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */; };
 		D0CB14011C61E7330028D552 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB14001C61E7330028D552 /* DataManager.m */; };
 		D0D0A9ED1CE08E8E008E4D68 /* Libian.ttc in Resources */ = {isa = PBXBuildFile; fileRef = D0D0A9EC1CE08D47008E4D68 /* Libian.ttc */; };
@@ -72,11 +70,6 @@
 		D09E8ECC20200776002B1967 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		D09E8ECE20205327002B1967 /* InfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoCell.h; sourceTree = "<group>"; };
 		D09E8ECF20205327002B1967 /* InfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoCell.m; sourceTree = "<group>"; };
-		D0B99DEA1C6211A3002A03DF /* MW100.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MW100.xcdatamodel; sourceTree = "<group>"; };
-		D0CB13F61C61DDE00028D552 /* Zone+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Zone+CoreDataProperties.h"; path = "Database/Zone+CoreDataProperties.h"; sourceTree = "<group>"; };
-		D0CB13F71C61DDE00028D552 /* Zone+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Zone+CoreDataProperties.m"; path = "Database/Zone+CoreDataProperties.m"; sourceTree = "<group>"; };
-		D0CB13F81C61DDE00028D552 /* Zone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Zone.h; path = Database/Zone.h; sourceTree = "<group>"; };
-		D0CB13F91C61DDE00028D552 /* Zone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Zone.m; path = Database/Zone.m; sourceTree = "<group>"; };
 		D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = magicworld.xcdatamodel; sourceTree = "<group>"; };
 		D0CB13FF1C61E7330028D552 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		D0CB14001C61E7330028D552 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
@@ -163,10 +156,6 @@
 				D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */,
 				D0CB13FF1C61E7330028D552 /* DataManager.h */,
 				D0CB14001C61E7330028D552 /* DataManager.m */,
-				D0CB13F61C61DDE00028D552 /* Zone+CoreDataProperties.h */,
-				D0CB13F71C61DDE00028D552 /* Zone+CoreDataProperties.m */,
-				D0CB13F81C61DDE00028D552 /* Zone.h */,
-				D0CB13F91C61DDE00028D552 /* Zone.m */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -187,16 +176,16 @@
 		D0940BFB1C5DFD3500B9C5C7 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				D09E8ECE20205327002B1967 /* InfoCell.h */,
+				D09E8ECF20205327002B1967 /* InfoCell.m */,
 				D05780E31C5DEECF00E9195D /* MapController.h */,
 				D05780E41C5DEECF00E9195D /* MapController.m */,
+				D0940BFC1C5DFD5000B9C5C7 /* MapCell.h */,
+				D0940BFD1C5DFD5000B9C5C7 /* MapCell.m */,
 				D0940BFF1C5DFD6900B9C5C7 /* MapDatasource.h */,
 				D0940C001C5DFD6900B9C5C7 /* MapDatasource.m */,
 				D0940BF81C5DFD2F00B9C5C7 /* MapCellLayout.h */,
 				D0940BF91C5DFD2F00B9C5C7 /* MapCellLayout.m */,
-				D0940BFC1C5DFD5000B9C5C7 /* MapCell.h */,
-				D0940BFD1C5DFD5000B9C5C7 /* MapCell.m */,
-				D09E8ECE20205327002B1967 /* InfoCell.h */,
-				D09E8ECF20205327002B1967 /* InfoCell.m */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -275,7 +264,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0CB13FB1C61DDE00028D552 /* Zone.m in Sources */,
 				D0940C011C5DFD6900B9C5C7 /* MapDatasource.m in Sources */,
 				D05780E21C5DEEC000E9195D /* FrameController.m in Sources */,
 				D0940BFA1C5DFD2F00B9C5C7 /* MapCellLayout.m in Sources */,
@@ -293,7 +281,6 @@
 				D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */,
 				D0940BFE1C5DFD5000B9C5C7 /* MapCell.m in Sources */,
 				D05780EF1C5DF12C00E9195D /* LoginInputCell.m in Sources */,
-				D0CB13FA1C61DDE00028D552 /* Zone+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +423,7 @@
 				INFOPLIST_FILE = magicworld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.suzic.magicworld;
+				PRODUCT_BUNDLE_IDENTIFIER = com.suzic.magicworld1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -452,7 +439,7 @@
 				INFOPLIST_FILE = magicworld/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.suzic.magicworld;
+				PRODUCT_BUNDLE_IDENTIFIER = com.suzic.magicworld1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -484,7 +471,6 @@
 		D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				D0B99DEA1C6211A3002A03DF /* MW100.xcdatamodel */,
 				D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */,
 			);
 			currentVersion = D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */;

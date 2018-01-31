@@ -6,10 +6,18 @@
 //  Copyright © 2016年 Suzic. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
-@interface MapDatasource : NSObject
+@class MapController;
+
+@interface MapDatasource : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
+
+@property (weak, nonatomic) MapController *controller;
 
 @property (assign, nonatomic) NSInteger selectedRowIndex;
+@property (strong, nonatomic) NSIndexPath *selectedIndexPath;
+@property (retain, nonatomic) NSIndexPath *autoCenterIndexPath;
+
+- (void)recalculateSections:(CGPoint)offset;
 
 @end

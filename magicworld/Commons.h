@@ -27,6 +27,5 @@
 //#define NotiShowMap             @"NotiShowMap"
 
 #import "DataManager.h"
-#import "Zone.h"
 
 #endif /* Commons_h */

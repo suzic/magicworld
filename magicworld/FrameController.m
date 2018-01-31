@@ -38,6 +38,13 @@
     self.helpFloatButton.layer.borderWidth = 1.0f;
 }
 
+// 内存警告
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 // 视图将要显示
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -47,13 +54,6 @@
     [self showFunctions:YES animated:NO inLandMode:(kScreenWidth > kScreenHeight)];
 }
 
-// 内存警告
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 // 视图尺寸变化（包括发生在旋转屏时）
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
@@ -61,6 +61,21 @@
 
     // 根据横竖屏尺寸信息决定初始化的时候是否显示功能层
     [self showFunctions:YES animated:NO inLandMode:(size.width > size.height)];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
+- (UIViewController *)childViewControllerForStatusBarStyle
+{
+    return self.mapController;
+}
+
+- (UIViewController *)childViewControllerForStatusBarHidden
+{
+    return self.mapController;
 }
 
 #pragma mark - Functions
