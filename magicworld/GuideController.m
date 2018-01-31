@@ -43,7 +43,6 @@
     self.guideInShown = NO;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGuideInformation:) name:NotiShowGuideInfo object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(hideGuideInformation:) name:NotiHideGuideInfo object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -152,14 +151,8 @@
 
 - (void)showGuideInformation:(NSNotification *)notification
 {
-    //self.guideInShown = YES;
     NSString *stringInfo = notification.object;
     [self showGuide:YES withInformation:stringInfo completion:nil];
-}
-
-- (void)hideGuideInformation:(NSNotification *)notification
-{
-    self.guideInShown = NO;
 }
 
 - (IBAction)pressAvator:(id)sender

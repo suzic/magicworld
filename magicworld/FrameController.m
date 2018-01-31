@@ -56,8 +56,8 @@
     self.helpFloatButton.layer.borderWidth = 1.0f;
     
     // 初始化infoPanel
-    self.shouldShowPanel = NO;
-    self.showPanel = NO;
+    _shouldShowPanel = YES;
+    _showPanel = YES;
 }
 
 // 内存警告
@@ -70,26 +70,24 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    [self.navigationController setNavigationBarHidden:NO animated:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 // 视图显示
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    // 初始化的时候显示功能层
-    
-    if (self.mapDatasource.selectedIndexPath != nil)
-    {
-        self.shouldShowPanel = YES;
-        [self moveToSelected:nil];
-    }
+    [self.mapCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:MAP_ROWS * MAP_COLS / 2 inSection:0]
+                               atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally | UICollectionViewScrollPositionCenteredVertically
+                                       animated:animated];
+    //self.mapDatasource.selectedIndexPath = [NSIndexPath indexPathForRow:MAP_ROWS * MAP_COLS / 2 inSection:0];
+    self.shouldShowPanel = NO;
 }
 
 // 完成重布局
@@ -157,7 +155,9 @@
         return;
     _shouldShowPanel = shouldShowPanel;
     
-    [self infoPanelToShow:shouldShowPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:nil];
+    [self infoPanelToShow:shouldShowPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
+        self.showPanel = shouldShowPanel;
+    }];
 }
 
 - (void)updateInfoPanelContent

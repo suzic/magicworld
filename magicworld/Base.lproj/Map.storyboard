@@ -140,7 +140,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="loginSegment" destination="Xiw-J9-PDZ" id="JCK-3l-6lf"/>
-                        <segue destination="zSo-Sb-aE0" kind="show" identifier="loginSuccess" action="showDetailViewController:sender:" id="niR-88-LhE"/>
+                        <segue destination="zSo-Sb-aE0" kind="show" identifier="loginSuccess" id="niR-88-LhE"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XmX-VT-bLB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -168,14 +168,14 @@
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                 <collectionViewLayout key="collectionViewLayout" id="qJ0-GH-fq9" customClass="MapCellLayout"/>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoneCell" id="s5N-LE-mzT" customClass="MapCell">
+                                    <collectionViewCell clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="zoneCell" id="s5N-LE-mzT" customClass="MapCell">
                                         <rect key="frame" x="37.666666666666664" y="0.0" width="300" height="300"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atc-4G-P4m">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="atc-4G-P4m">
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yl-Zy-ma0">

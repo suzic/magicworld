@@ -33,7 +33,6 @@
 - (void)setController:(FrameController *)controller
 {
     _controller = controller;
-    self.selectedIndexPath = [NSIndexPath indexPathForRow:MAP_ROWS * MAP_COLS / 2 inSection:0];
     [self.controller.mapCollection reloadData];
 }
 
@@ -83,8 +82,8 @@
     
     if (_selectedIndexPath != nil)
         [indexPathArray addObject:_selectedIndexPath];
-    [self.controller moveToSelected:nil];
     [self.controller.mapCollection reloadItemsAtIndexPaths:indexPathArray];
+    [self.controller moveToSelected:nil];
 }
 
 #pragma mark - UICollectionView Datasource
@@ -103,6 +102,7 @@
 {
     MapCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"zoneCell" forIndexPath:indexPath];
     [cell setIndexNumberIn:indexPath.row / MAP_COLS andCol:indexPath.row % MAP_COLS];
+    cell.isSelected = (self.selectedIndexPath != nil && indexPath.row == self.selectedIndexPath.row);
     return cell;
 }
 
@@ -111,12 +111,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     self.selectedIndexPath = indexPath;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    MapCell *mapCell = (MapCell *)cell;
-    mapCell.isSelected = (self.selectedIndexPath != nil && indexPath.row == self.selectedIndexPath.row);
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
