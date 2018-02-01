@@ -40,7 +40,11 @@
 
     _guideInShown = YES;
     self.guideInShown = NO;
-    
+    self.guideAvator.layer.shadowColor = [UIColor whiteColor].CGColor;
+    self.guideAvator.layer.shadowOffset = CGSizeMake(0, 0);
+    self.guideAvator.layer.shadowRadius = 8.0f;
+    self.guideAvator.layer.shadowOpacity = 0.5f;
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showGuideInformation:) name:NotiShowGuideInfo object:nil];
 }
 
@@ -68,8 +72,8 @@
     if (self.guideInShown)
         [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
                                                             object:(size.width < 460.0f ?
-                                                                    @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
-                                                                    : @"嗯，不错，俺的位置不会太碍事儿～\n没什么事儿，就摸摸俺的头o(>_<)o")];
+                                                                    @"侬可以把屏幕横过来看嘛，这样俺讲话有点挤呀～\n没事儿记得摸摸俺的头o(>_<)o"
+                                                                    : @"嗯，不错，舒展多了，么么哒～\n没什么事儿，就摸摸俺的头o(>_<)o")];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
