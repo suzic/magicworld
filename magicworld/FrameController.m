@@ -11,6 +11,7 @@
 #import "MapCell.h"
 #import "InfoCell.h"
 #import "ActionCell.h"
+#import "ActionLayout.h"
 
 @interface FrameController () <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -109,7 +110,7 @@
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    
+
     // 横竖屏的时候重新计算信息面板
     [self rotateInfoPanelToSize:size];
     [self moveToSelected:nil];
@@ -187,24 +188,22 @@
 {
     const CGFloat headHeight = 44.0f;
     const CGFloat barHeight = 60.0f;
-    CGFloat tFix = self.topLayoutGuide.length;
-    CGFloat vFix = self.bottomLayoutGuide.length;   // 34.0f;
-    CGFloat hFix = self.bottomLayoutGuide.length / 2;   //20.0f;
+    CGFloat topFix = self.topLayoutGuide.length;
+    CGFloat botFix = self.bottomLayoutGuide.length;
     
     // 计算旋转后的面板尺寸
-    self.infoPanelWidth.constant = (size.width < size.height) ? size.width : barHeight + vFix;
-    self.infoPanelHeight.constant = (size.width < size.height) ? barHeight + vFix : size.height;
+    self.infoPanelWidth.constant = (size.width < size.height) ? size.width : barHeight + botFix;
+    self.infoPanelHeight.constant = (size.width < size.height) ? barHeight + botFix : size.height;
     self.infoSpliteWidth.constant = (size.width < size.height) ? size.width : 0.5f;
     self.infoSpliteHeight.constant = (size.width < size.height) ? 0.5f : size.height;
     
-    self.operationLeading.constant = (size.width < size.height) ? 8.0f : vFix;
-    self.operationTop.constant = (size.width < size.height) ? 0.0f : hFix;
-    self.operationBottom.constant = (size.width < size.height) ? 0.0f : hFix;
+    self.operationLeading.constant = (size.width < size.height) ? 0.0f : botFix;
+    self.operationBottom.constant = (size.width < size.height) ? botFix : 0.0f;
     
-    self.headPanelHeight.constant = headHeight + tFix;
+    self.headPanelHeight.constant = headHeight + topFix;
     
-    UICollectionViewFlowLayout *layout = (UICollectionViewFlowLayout *)self.operationCollection.collectionViewLayout;
-    layout.scrollDirection = (size.width < size.height) ? UICollectionViewScrollDirectionVertical : UICollectionViewScrollDirectionHorizontal;
+    ActionLayout *layout = (ActionLayout *)self.operationCollection.collectionViewLayout;
+    layout.inLandMode = (size.width > size.height);
 }
 
 - (void)rotateInfoPanelToSize:(CGSize)size

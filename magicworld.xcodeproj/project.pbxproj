@@ -30,6 +30,7 @@
 		D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */; };
 		D0CB14011C61E7330028D552 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB14001C61E7330028D552 /* DataManager.m */; };
 		D0D0A9ED1CE08E8E008E4D68 /* Libian.ttc in Resources */ = {isa = PBXBuildFile; fileRef = D0D0A9EC1CE08D47008E4D68 /* Libian.ttc */; };
+		D0E25C4A2022DFF8006D1503 /* ActionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E25C492022DFF8006D1503 /* ActionLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +75,8 @@
 		D0CB13FF1C61E7330028D552 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
 		D0CB14001C61E7330028D552 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		D0D0A9EC1CE08D47008E4D68 /* Libian.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Libian.ttc; sourceTree = "<group>"; };
+		D0E25C482022DFF8006D1503 /* ActionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionLayout.h; sourceTree = "<group>"; };
+		D0E25C492022DFF8006D1503 /* ActionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +183,8 @@
 				D09E8ECF20205327002B1967 /* InfoCell.m */,
 				D0594CAF2021897000AD5E27 /* ActionCell.h */,
 				D0594CB02021897000AD5E27 /* ActionCell.m */,
+				D0E25C482022DFF8006D1503 /* ActionLayout.h */,
+				D0E25C492022DFF8006D1503 /* ActionLayout.m */,
 				D0940BFC1C5DFD5000B9C5C7 /* MapCell.h */,
 				D0940BFD1C5DFD5000B9C5C7 /* MapCell.m */,
 				D0940BFF1C5DFD6900B9C5C7 /* MapDatasource.h */,
@@ -277,6 +282,7 @@
 				D0CB14011C61E7330028D552 /* DataManager.m in Sources */,
 				D05095D01CC804B00027F45D /* OperationController.m in Sources */,
 				D0594CB12021897000AD5E27 /* ActionCell.m in Sources */,
+				D0E25C4A2022DFF8006D1503 /* ActionLayout.m in Sources */,
 				D05095D31CC805CD0027F45D /* OperationCell.m in Sources */,
 				D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */,
 				D0940BFE1C5DFD5000B9C5C7 /* MapCell.m in Sources */,
