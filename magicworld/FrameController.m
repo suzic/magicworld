@@ -101,8 +101,9 @@
     if (firstInit)
     {
         firstInit = NO;
-        [self.mapCollection setContentOffset:CGPointMake((CELL_WIDTH * MAP_COLS - CELL_WIDTH) / 2,
-                                                         (CELL_HEIGHT * MAP_ROWS - CELL_HEIGHT) / 2)];
+        CGSize size = self.mapCollection.collectionViewLayout.collectionViewContentSize;
+        CGPoint targetPoint = CGPointMake(size.width / 2 - kScreenWidth / 2, size.height / 2 - kScreenHeight / 2);
+        [self.mapCollection setContentOffset:targetPoint];
     }
 }
 

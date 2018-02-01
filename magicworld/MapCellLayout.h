@@ -11,5 +11,6 @@
 @interface MapCellLayout : UICollectionViewLayout
 
 @property (retain, nonatomic) NSMutableArray *visibleAttributes;
+@property (assign, nonatomic) CGFloat cellSize;
 
 @end

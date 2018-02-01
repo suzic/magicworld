@@ -15,9 +15,6 @@
 
 #define MAP_ROWS    9
 #define MAP_COLS    9
-#define CELL_WIDTH   (kScreenWidth < kScreenHeight ? (int)(kScreenWidth / 5.0f) : (int)(kScreenHeight / 5.0f))
-#define CELL_HEIGHT  CELL_WIDTH //(kScreenWidth < kScreenHeight ? (int)(kScreenHeight / 9.0f) : (int)(kScreenHeight / 5.0f))
-
 
 // Notification flags
 #define NotiShowGuideInfo           @"NotiShowGuideInfo"

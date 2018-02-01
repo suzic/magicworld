@@ -18,6 +18,7 @@
     if (self)
     {
         self.visibleAttributes = [NSMutableArray arrayWithCapacity:MAP_COLS * MAP_ROWS];
+        self.cellSize = 0.0f;
     }
     return self;
 }
@@ -27,9 +28,26 @@
     [super prepareLayout];
 }
 
+- (CGFloat)cellSize
+{
+    if (_cellSize <= 0.0f)
+    {
+        CGFloat spaceSize = kScreenWidth < kScreenHeight ? kScreenWidth : kScreenHeight;
+        CGFloat minSize = 60.0f;
+        CGFloat maxSize = 69.0f;
+        int maxCount = (int)(spaceSize / minSize);
+        int minCount = (int)(spaceSize / maxSize);
+        int selCount = minCount < 5 ? maxCount : minCount;
+        _cellSize = spaceSize / selCount;        
+    }
+    return _cellSize;
+}
+
 - (CGSize)collectionViewContentSize
 {
-    CGSize size = CGSizeMake(CELL_WIDTH * MAP_COLS + kScreenWidth - CELL_WIDTH, CELL_HEIGHT * MAP_ROWS + kScreenHeight - CELL_HEIGHT);
+    CGSize size = CGSizeZero;
+    size.width = fmax(self.cellSize * MAP_COLS + self.cellSize * 3, kScreenWidth + self.cellSize * 2);
+    size.height = fmax(self.cellSize * MAP_ROWS + self.cellSize * 3, kScreenHeight + self.cellSize * 2);
     return size;
 }
 
@@ -60,8 +78,9 @@
     NSInteger row = (indexPath.row / MAP_ROWS);
     NSInteger col = (indexPath.row % MAP_COLS);
     
-    CGRect frame = CGRectMake((kScreenWidth - CELL_WIDTH) / 2 + col * CELL_WIDTH,
-                              (kScreenHeight - CELL_HEIGHT) / 2 + row * CELL_HEIGHT, CELL_WIDTH, CELL_HEIGHT);
+    CGRect frame = CGRectMake((self.collectionViewContentSize.width - self.cellSize * MAP_COLS) / 2  + col * self.cellSize,
+                              (self.collectionViewContentSize.height - self.cellSize * MAP_ROWS) / 2 + row * self.cellSize,
+                              self.cellSize, self.cellSize);
     attr.frame = frame;
     attr.zIndex = indexPath.row;
     attr.transform = CGAffineTransformIdentity;
