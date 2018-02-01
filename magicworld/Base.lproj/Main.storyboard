@@ -45,6 +45,7 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="375" id="CV7-U6-ShE"/>
                                     <constraint firstAttribute="trailing" secondItem="YUb-uG-kpR" secondAttribute="trailing" constant="18" id="Qnq-eQ-8oC"/>
                                     <constraint firstItem="YUb-uG-kpR" firstAttribute="leading" secondItem="ews-FW-G2f" secondAttribute="leading" constant="18" id="We1-Hu-bra"/>
                                     <constraint firstAttribute="height" constant="148" id="rd6-0c-fTL"/>
@@ -110,7 +111,6 @@
                             <constraint firstAttribute="bottom" secondItem="ews-FW-G2f" secondAttribute="bottom" id="UWg-AZ-DGi"/>
                             <constraint firstAttribute="bottom" secondItem="r8V-9V-8T3" secondAttribute="bottom" id="WUB-sp-hcz"/>
                             <constraint firstItem="yMo-G0-jVY" firstAttribute="top" secondItem="edw-ql-bdm" secondAttribute="top" id="Waf-Wj-qL8"/>
-                            <constraint firstItem="ews-FW-G2f" firstAttribute="leading" secondItem="edw-ql-bdm" secondAttribute="leading" id="ldz-Wd-0KD"/>
                             <constraint firstAttribute="bottom" secondItem="yMo-G0-jVY" secondAttribute="bottom" id="nN4-xf-up5"/>
                             <constraint firstItem="yMo-G0-jVY" firstAttribute="leading" secondItem="edw-ql-bdm" secondAttribute="leading" id="tNq-lZ-Km1"/>
                         </constraints>
@@ -125,15 +125,15 @@
                         <outlet property="guideTalk" destination="ews-FW-G2f" id="ocB-G3-j3Q"/>
                         <outlet property="guideTalkBottom" destination="UWg-AZ-DGi" id="Tcz-Is-CnJ"/>
                         <outlet property="guideTalkHeight" destination="rd6-0c-fTL" id="OfF-zu-sQM"/>
-                        <outlet property="guideTalkLeading" destination="ldz-Wd-0KD" id="Sx6-KY-Y1D"/>
                         <outlet property="guideTalkTailing" destination="7Jm-2a-WLt" id="R4C-LH-jbw"/>
+                        <outlet property="guideTalkWidth" destination="CV7-U6-ShE" id="3YZ-7o-4JD"/>
                         <outlet property="guideText" destination="YUb-uG-kpR" id="ydN-7E-aFx"/>
                         <outlet property="guideTextTailing" destination="Qnq-eQ-8oC" id="NJa-1c-Rk5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ATi-sU-PiV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="0.0" y="0.0"/>
+            <point key="canvasLocation" x="-0.80000000000000004" y="0.0"/>
         </scene>
         <!--MapNavi-->
         <scene sceneID="Poa-La-GCX">

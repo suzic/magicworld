@@ -13,11 +13,10 @@
 @property (weak, nonatomic) UINavigationController *frameNavi;
 
 @property (assign, nonatomic) BOOL guideInShown;
-@property (assign, nonatomic) BOOL inLandMode;
 
 @property (strong, nonatomic) IBOutlet UIView *guideTalk;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkWidth;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkHeight;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkLeading;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkTailing;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *guideTalkBottom;
 
@@ -59,17 +58,16 @@
 - (void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.inLandMode = (kScreenWidth > kScreenHeight);
+    [self switchToWideSize:kScreenWidth];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
-    self.inLandMode = (size.width > size.height);
-    
+    [self switchToWideSize:size.width];
     if (self.guideInShown)
         [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
-                                                            object:(size.width < size.height ?
+                                                            object:(size.width < 460.0f ?
                                                                     @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
                                                                     : @"嗯，不错，俺的位置不会太碍事儿～\n没什么事儿，就摸摸俺的头o(>_<)o")];
 }
@@ -91,20 +89,19 @@
 
 #pragma mark - Properties & Inner fucntions
 
-- (void)setInLandMode:(BOOL)inLandMode
+- (void)switchToWideSize:(CGFloat)width
 {
-    if (_inLandMode == inLandMode)
-        return;
-    _inLandMode = inLandMode;
+    BOOL isWide = width > 460.0f;
     
-    self.guideTextTailing.constant = inLandMode ? 158.0f : 150.0f;
-    self.guideAreaTailing.constant = inLandMode ? 8.0f : -20.0f;
-    
-    self.guideTalkLeading.constant = inLandMode ? 100.0f : 0.0f;
-    self.guideTalkTailing.constant = inLandMode ? 8.0f : 0.0f;
-    self.guideTalkHeight.constant = inLandMode ? 88.0f : 148.0f;
-    self.guideTalkBottom.constant = inLandMode ? 8.0f : 0.0f;
-    self.guideTalk.layer.cornerRadius = inLandMode ? 16.0f : 0.0f;
+    self.guideTextTailing.constant = isWide ? 158.0f : 150.0f;
+    self.guideAreaTailing.constant = isWide ? 8.0f : -20.0f;
+
+    self.guideTalkTailing.constant = isWide ? 8.0f : 0.0f;
+    self.guideTalkWidth.constant = isWide ? fmin(kScreenWidth - 100.0f, 600.0f) : kScreenWidth;
+    self.guideTalkBottom.constant = isWide ? 8.0f : 0.0f;
+    self.guideTalkHeight.constant = isWide ? 88.0f : 148.0f;
+
+    self.guideTalk.layer.cornerRadius = isWide ? 16.0f : 0.0f;
 }
 
 - (void)setGuideInShown:(BOOL)guideInShown

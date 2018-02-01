@@ -707,6 +707,6 @@
     <resources>
         <image name="CMD_Undefined" width="21" height="21"/>
         <image name="C_001_0001" width="340" height="340"/>
-        <image name="MAPBG" width="1651" height="753"/>
+        <image name="MAPBG" width="1376" height="768"/>
     </resources>
 </document>
