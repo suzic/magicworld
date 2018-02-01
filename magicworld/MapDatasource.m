@@ -33,7 +33,6 @@
 - (void)setController:(FrameController *)controller
 {
     _controller = controller;
-    [self.controller.mapCollection reloadData];
 }
 
 - (NSMutableArray *)zoneArray
@@ -66,20 +65,35 @@
     
     if (self.controller.shouldShowPanel)
     {
-        [self.controller infoPanelToShow:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-            self.controller.showPanel = NO;
-            [self.controller infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-                self.controller.showPanel = YES;
-            }];
-        }];
+        [self.controller switchPanelShowInfo:NO
+                                  showHeader:YES
+                                    showFunc:YES
+                                      inSize:CGSizeMake(kScreenWidth, kScreenHeight)
+                                  completion:^(BOOL finished) {
+                                      if (!finished) return;
+                                      self.controller.showPanel = NO;
+                                      [self.controller switchPanelShowInfo:YES
+                                                                showHeader:YES
+                                                                  showFunc:YES
+                                                                    inSize:CGSizeMake(kScreenWidth, kScreenHeight)
+                                                                completion:^(BOOL finished) {
+                                                                    if (!finished) return;
+                                                                    self.controller.showPanel = YES;
+                                                                }];
+                                  }];
     }
     else
     {
-        [self.controller infoPanelToShow:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-            self.controller.showPanel = NO;
-        }];
+        [self.controller switchPanelShowInfo:NO
+                                  showHeader:YES
+                                    showFunc:YES
+                                      inSize:CGSizeMake(kScreenWidth, kScreenHeight)
+                                  completion:^(BOOL finished) {
+                                      if (!finished) return;
+                                      self.controller.showPanel = NO;
+                                  }];
     }
-    
+
     if (_selectedIndexPath != nil)
         [indexPathArray addObject:_selectedIndexPath];
     [self.controller.mapCollection reloadItemsAtIndexPaths:indexPathArray];
@@ -115,41 +129,36 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    if (self.controller.shouldShowPanel)
-        [self.controller infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-            self.controller.showPanel = YES;
-        }];
+    [self.controller switchPanelShowInfo:YES showHeader:YES showFunc:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
+        self.controller.showPanel = YES;
+    }];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    if (self.controller.shouldShowPanel)
-        [self.controller infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-            self.controller.showPanel = YES;
-        }];
+    [self.controller switchPanelShowInfo:YES showHeader:YES showFunc:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
+        self.controller.showPanel = YES;
+    }];
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
 //    if (self.controller.dontRecalOffset == NO)
 //        [self calCenterIndexPath];
-//}
+}
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    if (decelerate)
-        return;
-    if (self.controller.shouldShowPanel && !decelerate)
-        [self.controller infoPanelToShow:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
+    if (!decelerate)
+        [self.controller switchPanelShowInfo:YES showHeader:YES showFunc:YES inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
             self.controller.showPanel = YES;
         }];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.controller infoPanelToShow:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
-        self.controller.showPanel = NO;
-    }];
+    self.controller.showPanel = NO;
+    [self.controller switchPanelShowInfo:NO showHeader:NO showFunc:NO inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) { }];
 }
 
 @end

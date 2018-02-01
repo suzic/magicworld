@@ -37,10 +37,15 @@
 @end
 
 @implementation FrameController
+{
+    BOOL firstInit;
+}
 
 // 视图内容初始化
 - (void)viewDidLoad
 {
+    firstInit = YES;
+    
     [super viewDidLoad];
     self.mapDatasource.controller = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -58,9 +63,9 @@
     // 初始化infoPanel
     _shouldShowPanel = YES;
     _showPanel = YES;
+    self.shouldShowPanel = NO;
 }
 
-// 内存警告
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -83,18 +88,21 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    [self.mapCollection scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:MAP_ROWS * MAP_COLS / 2 inSection:0]
-                               atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally | UICollectionViewScrollPositionCenteredVertically
-                                       animated:animated];
-    //self.mapDatasource.selectedIndexPath = [NSIndexPath indexPathForRow:MAP_ROWS * MAP_COLS / 2 inSection:0];
-    self.shouldShowPanel = NO;
 }
 
 // 完成重布局
-- (void)viewWillLayoutSubviews
+- (void)viewDidLayoutSubviews
 {
-    [super viewWillLayoutSubviews];
-    [self updatePanelSize:CGSizeMake(kScreenWidth, kScreenHeight)];
+    [super viewDidLayoutSubviews];
+    [self rotateInfoPanelToSize:CGSizeMake(kScreenWidth, kScreenHeight)];
+    
+    // 第一次自动执行居中布局
+    if (firstInit)
+    {
+        firstInit = NO;
+        [self.mapCollection setContentOffset:CGPointMake((CELL_WIDTH * MAP_COLS - CELL_WIDTH) / 2,
+                                                         (CELL_HEIGHT * MAP_ROWS - CELL_HEIGHT) / 2)];
+    }
 }
 
 // 视图尺寸变化（包括发生在旋转屏时）
@@ -129,7 +137,8 @@
 // 登出功能
 - (IBAction)logOut:(id)sender
 {
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+    //[self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 // 进入功能
@@ -144,7 +153,7 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
                                                         object:(kScreenWidth < kScreenHeight ?
                                                                 @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
-                                                                : @"嗯，这样不错，俺的位置不会太碍事儿～\n如果没什么事儿，就摸摸俺的头o(>_<)o")];
+                                                                : @"嗯，不错，俺的位置不会太碍事儿～\n没什么事儿，就摸摸俺的头o(>_<)o")];
 }
 
 #pragma mark - Properties & inner method
@@ -155,7 +164,11 @@
         return;
     _shouldShowPanel = shouldShowPanel;
     
-    [self infoPanelToShow:shouldShowPanel inSize:CGSizeMake(kScreenWidth, kScreenHeight) completion:^(BOOL finished) {
+    [self switchPanelShowInfo:shouldShowPanel
+                   showHeader:YES
+                     showFunc:YES
+                       inSize:CGSizeMake(kScreenWidth, kScreenHeight)
+                   completion:^(BOOL finished) {
         self.showPanel = shouldShowPanel;
     }];
 }
@@ -201,64 +214,75 @@
     {
         if (self.showPanel)
         {
-            [self infoPanelToShow:NO inSize:size completion:^(BOOL finished) {
+            [self switchPanelShowInfo:NO showHeader:NO showFunc:NO inSize:size completion:^(BOOL finished) {
                 self.showPanel = NO;
-                [self infoPanelToShow:YES inSize:size completion:^(BOOL finished) {
+                [self switchPanelShowInfo:YES showHeader:YES showFunc:YES inSize:size completion:^(BOOL finished) {
                     self.showPanel = YES;
                 }];
             }];
         }
         else
         {
-            [self infoPanelToShow:YES inSize:size completion:^(BOOL finished) {
+            [self switchPanelShowInfo:YES showHeader:YES showFunc:YES inSize:size completion:^(BOOL finished) {
                 self.showPanel = YES;
             }];
         }
     }
     else
     {
-        [self infoPanelToShow:NO inSize:size completion:^(BOOL finished) {
+        [self switchPanelShowInfo:NO showHeader:YES showFunc:YES inSize:size completion:^(BOOL finished) {
             self.showPanel = NO;
         }];
     }
 }
 
-- (void)infoPanelToShow:(BOOL)show inSize:(CGSize)size completion:(void (^)(BOOL finished))completion
+- (void)switchPanelShowInfo:(BOOL)showInfo
+                 showHeader:(BOOL)showHeader
+                   showFunc:(BOOL)showFunc
+                     inSize:(CGSize)size
+                 completion:(void (^)(BOOL finished))completion
 {
     if (self.mapDatasource.selectedIndexPath == nil)
-        show = NO;
+        showInfo = NO;
+    
+    BOOL inLandMode = size.width > size.height;
+    if (inLandMode)
+        showHeader = NO;
     
     // 根据显隐要求初始化状态
-    if (self.mapDatasource.selectedIndexPath != nil && show)
+    if (showInfo)
         [self updateInfoPanelContent];
-    BOOL inLandMode = size.width > size.height;
     
     // 动画移动
     [UIView animateWithDuration:0.3f animations:^{
         if (size.width < size.height)
-            self.infoPanel.transform = show ? CGAffineTransformIdentity
-            : CGAffineTransformTranslate(CGAffineTransformIdentity, 0, self.infoPanel.frame.size.height);
+            self.infoPanel.transform = showInfo
+                ? CGAffineTransformIdentity
+                : CGAffineTransformTranslate(CGAffineTransformIdentity, 0, self.infoPanel.frame.size.height);
         else
-            self.infoPanel.transform = show ? CGAffineTransformIdentity
-            : CGAffineTransformTranslate(CGAffineTransformIdentity, -self.infoPanel.frame.size.width, 0);
+            self.infoPanel.transform = showInfo
+                ? CGAffineTransformIdentity
+                : CGAffineTransformTranslate(CGAffineTransformIdentity, -self.infoPanel.frame.size.width, 0);
     } completion:completion];
     
+    // 标题栏显隐
     [UIView animateWithDuration:0.3f animations:^{
-            self.headPanel.transform = (show && !inLandMode) ? CGAffineTransformIdentity
-            : CGAffineTransformTranslate(CGAffineTransformIdentity, 0, -self.headPanel.frame.size.height);
-    } completion:completion];
+            self.headPanel.transform = showHeader
+                ? CGAffineTransformIdentity
+                : CGAffineTransformTranslate(CGAffineTransformIdentity, 0, -self.headPanel.frame.size.height);
+    }];
 
     // 功能按钮显隐
     self.enterFloatButton.hidden = !inLandMode;
     self.helpFloatButton.hidden = !inLandMode;
     [UIView animateWithDuration:0.3f animations:^{
-        self.enterFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
-        self.helpFloatButton.transform = show ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
+        self.enterFloatButton.transform = showFunc ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
+        self.helpFloatButton.transform = showFunc ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 60, 0);
     }];
 }
 
-//- (void)showOperator:(MapController *)controller withType:(NSInteger)opType
-//{
+- (void)showOperator:(FrameController *)controller withType:(NSInteger)opType
+{
 //  self.operationLayer.alpha = 0.0f;
 //  self.operationLayer.hidden = NO;
 //  [UIView animateWithDuration:0.5f animations:^{
@@ -266,12 +290,12 @@
 //  } completion:^(BOOL finished) {
 //      [self.opearationController scrollToIndex:19];
 //  }];
-//}
+}
 
-//- (void)showZoneInformation:(MapController *)controller withX:(NSInteger)x withY:(NSInteger)y
-//{
-////    [self performSegueWithIdentifier:@"showZone" sender:controller];
-//}
+- (void)showZoneInformation:(FrameController *)controller withX:(NSInteger)x withY:(NSInteger)y
+{
+//    [self performSegueWithIdentifier:@"showZone" sender:controller];
+}
 
 #pragma mark - UICollectionView Datasource & Delegate
 

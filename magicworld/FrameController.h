@@ -17,7 +17,12 @@
 @property (assign, nonatomic) BOOL shouldShowPanel;
 @property (assign, nonatomic) BOOL showPanel;
 
-- (void)infoPanelToShow:(BOOL)show inSize:(CGSize)size completion:(void (^)(BOOL finished))completion;
+- (void)switchPanelShowInfo:(BOOL)showInfo
+                 showHeader:(BOOL)showHeader
+                   showFunc:(BOOL)showFunc
+                     inSize:(CGSize)size
+                 completion:(void (^)(BOOL finished))completion;
+
 - (IBAction)moveToSelected:(id)sender;
 
 @end

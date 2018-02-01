@@ -71,7 +71,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:NotiShowGuideInfo
                                                             object:(size.width < size.height ?
                                                                     @"侬可以把屏幕横过来看嘛，这样俺就可说更多字了～\n没事儿记得摸摸俺的头o(>_<)o"
-                                                                    : @"嗯，这样不错，俺的位置不会太碍事儿～\n如果没什么事儿，就摸摸俺的头o(>_<)o")];
+                                                                    : @"嗯，不错，俺的位置不会太碍事儿～\n没什么事儿，就摸摸俺的头o(>_<)o")];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
