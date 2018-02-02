@@ -105,6 +105,11 @@
     }
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
+}
+
 #pragma mark - Test Data Setup
 
 - (void)setupTestData
@@ -130,7 +135,6 @@
 - (void)showFunctions:(BOOL)show animated:(BOOL)animated inLandMode:(BOOL)inLandMode
 {
     // 系统状态栏和导航在横屏时不显示，竖屏时根据show来决定显隐，并套用是否动画演示效果
-    [[UIApplication sharedApplication] setStatusBarHidden:(inLandMode || !show)];
     [self.navigationController setNavigationBarHidden:(inLandMode || !show) animated:animated];
     
     // 浮动工具栏在竖屏时不显示，横屏总是显示（但会以动画方式进入／离开屏幕区域）

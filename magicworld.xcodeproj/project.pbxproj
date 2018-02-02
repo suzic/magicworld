@@ -12,6 +12,7 @@
 		D05095D01CC804B00027F45D /* OperationController.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095CF1CC804B00027F45D /* OperationController.m */; };
 		D05095D31CC805CD0027F45D /* OperationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095D21CC805CD0027F45D /* OperationCell.m */; };
 		D05095D61CC80FC30027F45D /* PaddingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095D51CC80FC30027F45D /* PaddingCell.m */; };
+		D0558F1C202406AF009D6F29 /* Operation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0558F1A202406AF009D6F29 /* Operation.storyboard */; };
 		D05780C81C5DE41600E9195D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780C71C5DE41600E9195D /* main.m */; };
 		D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780CA1C5DE41600E9195D /* AppDelegate.m */; };
 		D05780D11C5DE41600E9195D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05780CF1C5DE41600E9195D /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 		D05095D21CC805CD0027F45D /* OperationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperationCell.m; sourceTree = "<group>"; };
 		D05095D41CC80FC30027F45D /* PaddingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddingCell.h; sourceTree = "<group>"; };
 		D05095D51CC80FC30027F45D /* PaddingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddingCell.m; sourceTree = "<group>"; };
+		D0558F1B202406AF009D6F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Operation.storyboard; sourceTree = "<group>"; };
 		D05780C31C5DE41600E9195D /* magicworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = magicworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05780C71C5DE41600E9195D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D05780C91C5DE41600E9195D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 		D05095CD1CC804630027F45D /* Operation */ = {
 			isa = PBXGroup;
 			children = (
+				D0558F1A202406AF009D6F29 /* Operation.storyboard */,
 				D05095CE1CC804B00027F45D /* OperationController.h */,
 				D05095CF1CC804B00027F45D /* OperationController.m */,
 				D05095D11CC805CD0027F45D /* OperationCell.h */,
@@ -101,6 +104,29 @@
 				D05095D51CC80FC30027F45D /* PaddingCell.m */,
 			);
 			name = Operation;
+			sourceTree = "<group>";
+		};
+		D0558F1820240641009D6F29 /* Frame */ = {
+			isa = PBXGroup;
+			children = (
+				D05780E01C5DEEC000E9195D /* FrameController.h */,
+				D05780E11C5DEEC000E9195D /* FrameController.m */,
+				D0594CAF2021897000AD5E27 /* ActionCell.h */,
+				D0594CB02021897000AD5E27 /* ActionCell.m */,
+				D0E25C482022DFF8006D1503 /* ActionLayout.h */,
+				D0E25C492022DFF8006D1503 /* ActionLayout.m */,
+			);
+			name = Frame;
+			sourceTree = "<group>";
+		};
+		D0558F1920240662009D6F29 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D05780D71C5DE41600E9195D /* LaunchScreen.storyboard */,
+				D05780D51C5DE41600E9195D /* Assets.xcassets */,
+				D03C865F1CDC7A9900337090 /* Media.xcassets */,
+			);
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		D05780BA1C5DE41600E9195D = {
@@ -122,21 +148,16 @@
 		D05780C51C5DE41600E9195D /* magicworld */ = {
 			isa = PBXGroup;
 			children = (
+				D05780E91C5DEF3B00E9195D /* Database */,
 				D05780C91C5DE41600E9195D /* AppDelegate.h */,
 				D05780CA1C5DE41600E9195D /* AppDelegate.m */,
 				D05780CF1C5DE41600E9195D /* Main.storyboard */,
-				D09E8ECB20200776002B1967 /* Map.storyboard */,
-				D05780D71C5DE41600E9195D /* LaunchScreen.storyboard */,
-				D05780F01C5DF13400E9195D /* Login */,
-				D05780D51C5DE41600E9195D /* Assets.xcassets */,
-				D03C865F1CDC7A9900337090 /* Media.xcassets */,
 				D03AEB561CE182FE00CB48DC /* GuideController.h */,
 				D03AEB571CE182FE00CB48DC /* GuideController.m */,
-				D05780E01C5DEEC000E9195D /* FrameController.h */,
-				D05780E11C5DEEC000E9195D /* FrameController.m */,
+				D0558F1820240641009D6F29 /* Frame */,
 				D0940BFB1C5DFD3500B9C5C7 /* Map */,
 				D05095CD1CC804630027F45D /* Operation */,
-				D05780E91C5DEF3B00E9195D /* Database */,
+				D0558F1920240662009D6F29 /* Resource */,
 				D05780C61C5DE41600E9195D /* Supporting Files */,
 			);
 			path = magicworld;
@@ -179,12 +200,10 @@
 		D0940BFB1C5DFD3500B9C5C7 /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				D09E8ECB20200776002B1967 /* Map.storyboard */,
+				D05780F01C5DF13400E9195D /* Login */,
 				D09E8ECE20205327002B1967 /* InfoCell.h */,
 				D09E8ECF20205327002B1967 /* InfoCell.m */,
-				D0594CAF2021897000AD5E27 /* ActionCell.h */,
-				D0594CB02021897000AD5E27 /* ActionCell.m */,
-				D0E25C482022DFF8006D1503 /* ActionLayout.h */,
-				D0E25C492022DFF8006D1503 /* ActionLayout.m */,
 				D0940BFC1C5DFD5000B9C5C7 /* MapCell.h */,
 				D0940BFD1C5DFD5000B9C5C7 /* MapCell.m */,
 				D0940BFF1C5DFD6900B9C5C7 /* MapDatasource.h */,
@@ -254,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D05780D91C5DE41600E9195D /* LaunchScreen.storyboard in Resources */,
+				D0558F1C202406AF009D6F29 /* Operation.storyboard in Resources */,
 				D05780D61C5DE41600E9195D /* Assets.xcassets in Resources */,
 				D03C86601CDC7A9900337090 /* Media.xcassets in Resources */,
 				D05780D11C5DE41600E9195D /* Main.storyboard in Resources */,
@@ -293,6 +313,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		D0558F1A202406AF009D6F29 /* Operation.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D0558F1B202406AF009D6F29 /* Base */,
+			);
+			name = Operation.storyboard;
+			sourceTree = "<group>";
+		};
 		D05780CF1C5DE41600E9195D /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
