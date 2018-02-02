@@ -20,6 +20,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *helpFloatButton;   // 前景帮助功能按钮
 @property (weak, nonatomic) IBOutlet UIView *selectedView;
 @property (weak, nonatomic) IBOutlet UILabel *selectedViewLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *arrowImage;
 
 @property (strong, nonatomic) IBOutlet UIView *infoPanel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoPanelWidth;
@@ -37,12 +38,15 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *headPanelTop;
 
 @property (strong, nonatomic) IBOutlet MapDatasource *mapDatasource;
+@property (weak, nonatomic) MapCell *highlightCell;
 
 @end
 
 @implementation FrameController
 {
     BOOL firstInit;
+    CGPoint panFromPoint;
+    CGPoint panToPoint;
 }
 
 // 视图内容初始化
@@ -53,8 +57,13 @@
     [super viewDidLoad];
     self.mapDatasource.controller = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
+    self.highlightCell = nil;
 
+    [self.mapCollection addSubview:self.arrowImage];
     [self.mapCollection addSubview:self.selectedView];
+    self.arrowImage.hidden = YES;
+    self.selectedView.hidden = YES;
+    self.arrowImage.layer.anchorPoint = CGPointMake(0.0f, 0.5f);
     
     // 订制前景浮动功能按钮外观
     self.enterFloatButton.hidden = YES;
@@ -167,8 +176,69 @@
                                                                 : @"嗯，不错，舒展多了，么么哒～\n没什么事儿，就摸摸俺的头o(>_<)o")];
 }
 
+// 定位目标手势
+- (IBAction)panTarget:(id)sender
+{
+    UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)sender;
+    CGFloat vDis = 0;
+    CGFloat hDis = 0;
+    CGFloat panDistance = 0.0f;
+    CGFloat angle = 0.0f;
+    switch (pan.state)
+    {
+        case UIGestureRecognizerStateBegan:
+            panFromPoint = [pan translationInView:self.view];
+            self.arrowImage.transform = CGAffineTransformIdentity;
+            [self.arrowImage setFrame:CGRectMake(self.selectedView.center.x, self.selectedView.center.y - 36.0f, 1.0f, 72.0f)];
+            self.arrowImage.hidden = YES;
+            break;
+            
+        case UIGestureRecognizerStateChanged:
+            panToPoint = [pan translationInView:self.view];
+            vDis = panToPoint.x - panFromPoint.x;
+            hDis = panToPoint.y - panFromPoint.y;
+            panDistance = sqrt(vDis * vDis + hDis * hDis);
+            self.arrowImage.hidden = panDistance < 64.0f;
+            self.mapDatasource.highlightedIndexPath = nil;
+            // NSLog(@"终点 x = %02.2f, y = %02.2f (%02.2f)", panToPoint.x, panToPoint.y, panDistance);
+            if (!self.arrowImage.hidden)
+            {
+                if (vDis == 0.0f)
+                    angle = hDis > 0 ? M_PI_2 : -M_PI_2;
+                else
+                    angle = (vDis > 0) ? atan(hDis / vDis) : (M_PI + atan(hDis / vDis));
+                // NSLog(@"角度 a = %02.2f 长度 d = %02.2f", angle, panDistance);
+                self.arrowImage.transform = CGAffineTransformIdentity;
+                [self.arrowImage setFrame:CGRectMake(self.selectedView.center.x, self.selectedView.center.y - 36.0f, panDistance, 72.0f)];
+                self.arrowImage.transform = CGAffineTransformRotate(CGAffineTransformIdentity, angle);
+                
+                CGPoint pointInCollectionView = CGPointMake(vDis, hDis);
+//                pointInCollectionView.x += self.mapCollection.contentOffset.x;
+//                pointInCollectionView.y += self.mapCollection.contentOffset.y;
+                NSLog(@"MAP POS x = %02.2f y = %02.2f", pointInCollectionView.x, pointInCollectionView.y);
+                NSIndexPath *indexPath = [self.mapCollection indexPathForItemAtPoint:pointInCollectionView];
+                if (indexPath != nil && indexPath.section == 0)
+                    self.highlightCell = (MapCell *)[self.mapCollection cellForItemAtIndexPath:indexPath];
+            }
+            break;
+
+        case UIGestureRecognizerStateEnded:
+            break;
+
+        case UIGestureRecognizerStateCancelled:
+            self.arrowImage.hidden = YES;
+            break;
+
+        case UIGestureRecognizerStatePossible:
+            break;
+        case UIGestureRecognizerStateFailed:
+            break;
+    }
+}
+
 - (void)updateSelection:(BOOL)autoCenter
 {
+    self.arrowImage.hidden = YES;
     [UIView animateWithDuration:0.2f animations:^{
         self.selectedView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.7f, 0.7f);
     } completion:^(BOOL finished) {
@@ -190,6 +260,20 @@
 }
 
 #pragma mark - Properties & inner method
+
+- (void)setHighlightCell:(MapCell *)highlightCell
+{
+    if (![highlightCell isKindOfClass:[MapCell class]])
+        return;
+    if (_highlightCell == highlightCell)
+        return;
+    
+    if (_highlightCell != nil)
+        _highlightCell.highlight = NO;
+    _highlightCell = highlightCell;
+    if (_highlightCell != nil)
+        _highlightCell.highlight = YES;
+}
 
 - (void)setShouldShowPanel:(BOOL)shouldShowPanel
 {

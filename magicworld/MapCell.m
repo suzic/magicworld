@@ -32,10 +32,10 @@
     self.indexLabel.text = [NSString stringWithFormat:@"%02ld - %02ld", (long)row, (long)col];
 }
 
-- (void)setIsSelected:(BOOL)isSelected
+- (void)setHighlight:(BOOL)highlight
 {
-    _isSelected = isSelected;
-//    self.cellBackground.backgroundColor = isSelected ? [UIColor colorWithWhite:0.5f alpha:1.0f] : [UIColor colorWithWhite:0.4f alpha:1.0f];
+    _highlight = highlight;
+    self.cellBackground.backgroundColor = highlight ? [UIColor colorWithWhite:0.5f alpha:1.0f] : [UIColor colorWithWhite:145.0f / 256.0f alpha:1.0f];
 }
 
 @end

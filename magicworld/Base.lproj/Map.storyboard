@@ -474,6 +474,7 @@
                     <navigationItem key="navigationItem" title="Magicard" largeTitleDisplayMode="never" id="LND-CJ-ZjH"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="arrowImage" destination="rAt-Aj-z9P" id="7t8-0S-zTH"/>
                         <outlet property="enterFloatButton" destination="QOL-yd-y8t" id="kys-xu-NEK"/>
                         <outlet property="headPanel" destination="zFS-v5-4br" id="3xH-yA-fUN"/>
                         <outlet property="headPanelHeight" destination="P7V-e4-ndc" id="eKy-IO-PSK"/>
@@ -497,27 +498,41 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AJe-jd-Ew3" sceneMemberID="firstResponder"/>
                 <customObject id="YiZ-BW-SIK" customClass="MapDatasource"/>
                 <view contentMode="scaleToFill" id="7YR-Fk-cP0">
-                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                    <rect key="frame" x="0.0" y="0.0" width="64" height="64"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFE-BP-AbQ">
-                            <rect key="frame" x="42" y="48.333333333333336" width="44" height="31.333333333333336"/>
+                            <rect key="frame" x="10" y="16.333333333333336" width="44" height="31.333333333333336"/>
                             <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="26"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <gestureRecognizers/>
                     <constraints>
                         <constraint firstItem="hFE-BP-AbQ" firstAttribute="centerY" secondItem="7YR-Fk-cP0" secondAttribute="centerY" id="Z9e-hS-gbI"/>
                         <constraint firstItem="hFE-BP-AbQ" firstAttribute="centerX" secondItem="7YR-Fk-cP0" secondAttribute="centerX" id="vs5-yf-jpM"/>
                     </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="deL-M9-Pj9" appends="YES" id="1W7-cF-Z77"/>
+                    </connections>
                 </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="redraw" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow" id="rAt-Aj-z9P">
+                    <rect key="frame" x="0.0" y="0.0" width="144" height="72"/>
+                    <autoresizingMask key="autoresizingMask"/>
+                </imageView>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="deL-M9-Pj9">
+                    <connections>
+                        <action selector="panTarget:" destination="zSo-Sb-aE0" id="qRv-WH-qrz"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2000" y="0.0"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Arrow" width="60" height="72"/>
         <image name="CMD_Undefined" width="21" height="21"/>
         <image name="MAPBG" width="1376" height="768"/>
     </resources>

@@ -120,7 +120,7 @@
     {
         MapCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"zoneCell" forIndexPath:indexPath];
         [cell setIndexNumberIn:indexPath.row / MAP_COLS andCol:indexPath.row % MAP_COLS];
-        cell.isSelected = (self.selectedIndexPath != nil && indexPath.row == self.selectedIndexPath.row);
+        cell.highlight = (self.highlightedIndexPath != nil && indexPath.row == self.highlightedIndexPath.row);
         return cell;
     }
     return [collectionView dequeueReusableCellWithReuseIdentifier:@"backgroundCell" forIndexPath:indexPath];
