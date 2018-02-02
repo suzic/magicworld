@@ -8,6 +8,7 @@
 
 #import "FrameController.h"
 #import "OperationController.h"
+#import "MapCellLayout.h"
 #import "MapCell.h"
 #import "InfoCell.h"
 #import "ActionCell.h"
@@ -17,6 +18,8 @@
 
 @property (strong, nonatomic) IBOutlet UIButton *enterFloatButton;  // 前景浮动功能按钮
 @property (strong, nonatomic) IBOutlet UIButton *helpFloatButton;   // 前景帮助功能按钮
+@property (weak, nonatomic) IBOutlet UIView *selectedView;
+@property (weak, nonatomic) IBOutlet UILabel *selectedViewLabel;
 
 @property (strong, nonatomic) IBOutlet UIView *infoPanel;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *infoPanelWidth;
@@ -51,6 +54,8 @@
     self.mapDatasource.controller = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
 
+    [self.mapCollection addSubview:self.selectedView];
+    
     // 订制前景浮动功能按钮外观
     self.enterFloatButton.hidden = YES;
     self.enterFloatButton.layer.cornerRadius = 25.0f;
@@ -101,8 +106,12 @@
     if (firstInit)
     {
         firstInit = NO;
-        CGSize size = self.mapCollection.collectionViewLayout.collectionViewContentSize;
+        MapCellLayout *mapLayout = (MapCellLayout *)self.mapCollection.collectionViewLayout;
+        CGSize size = mapLayout.collectionViewContentSize;
         CGPoint targetPoint = CGPointMake(size.width / 2 - kScreenWidth / 2, size.height / 2 - kScreenHeight / 2);
+        self.selectedView.frame = CGRectMake(0, 0, mapLayout.cellSize * 1.5f, mapLayout.cellSize * 1.5f);
+        self.selectedView.layer.cornerRadius = self.selectedView.frame.size.width / 2;
+        [self updateSelection:NO];
         [self.mapCollection setContentOffset:targetPoint];
     }
 }
@@ -156,6 +165,28 @@
                                                         object:(kScreenWidth < 460.0f ?
                                                                 @"侬可以把屏幕横过来看嘛，这样俺讲话有点挤呀～\n没事儿记得摸摸俺的头o(>_<)o"
                                                                 : @"嗯，不错，舒展多了，么么哒～\n没什么事儿，就摸摸俺的头o(>_<)o")];
+}
+
+- (void)updateSelection:(BOOL)autoCenter
+{
+    [UIView animateWithDuration:0.2f animations:^{
+        self.selectedView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.7f, 0.7f);
+    } completion:^(BOOL finished) {
+        self.selectedView.hidden = YES;
+        if (self.mapDatasource.selectedIndexPath)
+        {
+            MapCell *cell = (MapCell *)[self.mapCollection cellForItemAtIndexPath:self.mapDatasource.selectedIndexPath];
+            self.selectedView.center = cell.center;
+            self.selectedViewLabel.text = cell.indexLabel.text;
+            self.selectedView.hidden = NO;
+            [UIView animateWithDuration:0.2f animations:^{
+                self.selectedView.transform = CGAffineTransformIdentity;
+            }];
+        }
+    }];
+    
+    if (autoCenter)
+        [self moveToSelected:nil];
 }
 
 #pragma mark - Properties & inner method

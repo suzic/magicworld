@@ -160,7 +160,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MAPBG" translatesAutoresizingMaskIntoConstraints="NO" id="MQv-53-Z6K">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nuz-2G-uAQ">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nuz-2G-uAQ">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
@@ -177,13 +177,13 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yl-Zy-ma0">
-                                                            <rect key="frame" x="138.66666666666666" y="142" width="23.666666666666657" height="17"/>
-                                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="14"/>
-                                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                            <rect key="frame" x="137" y="141.33333333333334" width="27.333333333333343" height="18.333333333333343"/>
+                                                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="16"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
-                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="backgroundColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
                                                         <constraint firstItem="0Yl-Zy-ma0" firstAttribute="centerX" secondItem="atc-4G-P4m" secondAttribute="centerX" id="hmy-zM-BTh"/>
                                                         <constraint firstItem="0Yl-Zy-ma0" firstAttribute="centerY" secondItem="atc-4G-P4m" secondAttribute="centerY" id="lGE-ra-jb9"/>
@@ -203,6 +203,16 @@
                                             <outlet property="cellBackground" destination="atc-4G-P4m" id="Frx-kD-7aA"/>
                                             <outlet property="indexLabel" destination="0Yl-Zy-ma0" id="Ba7-pU-Y30"/>
                                         </connections>
+                                    </collectionViewCell>
+                                    <collectionViewCell clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="backgroundCell" id="mZR-cd-N4T">
+                                        <rect key="frame" x="37.666666666666664" y="310" width="300" height="300"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <size key="customSize" width="300" height="300"/>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -480,10 +490,29 @@
                         <outlet property="operationCollection" destination="4Gn-tQ-nAK" id="d3m-zb-ax3"/>
                         <outlet property="operationLeading" destination="ZYW-5h-oIb" id="fyf-qe-r7d"/>
                         <outlet property="operationTop" destination="oYh-m4-IiB" id="Nm8-bY-0r0"/>
+                        <outlet property="selectedView" destination="7YR-Fk-cP0" id="HID-5A-oqf"/>
+                        <outlet property="selectedViewLabel" destination="hFE-BP-AbQ" id="2dC-CI-Fb3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AJe-jd-Ew3" sceneMemberID="firstResponder"/>
                 <customObject id="YiZ-BW-SIK" customClass="MapDatasource"/>
+                <view contentMode="scaleToFill" id="7YR-Fk-cP0">
+                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFE-BP-AbQ">
+                            <rect key="frame" x="42" y="48.333333333333336" width="44" height="31.333333333333336"/>
+                            <fontDescription key="fontDescription" name="Futura-CondensedMedium" family="Futura" pointSize="26"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="hFE-BP-AbQ" firstAttribute="centerY" secondItem="7YR-Fk-cP0" secondAttribute="centerY" id="Z9e-hS-gbI"/>
+                        <constraint firstItem="hFE-BP-AbQ" firstAttribute="centerX" secondItem="7YR-Fk-cP0" secondAttribute="centerX" id="vs5-yf-jpM"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="2000" y="0.0"/>
         </scene>

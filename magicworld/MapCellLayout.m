@@ -17,7 +17,7 @@
     self = [super initWithCoder:aDecoder];
     if (self)
     {
-        self.visibleAttributes = [NSMutableArray arrayWithCapacity:MAP_COLS * MAP_ROWS];
+        self.visibleAttributes = [NSMutableArray arrayWithCapacity:MAP_COLS * MAP_ROWS + 1];
         self.cellSize = 0.0f;
     }
     return self;
@@ -54,20 +54,17 @@
 - (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
 {
     [self.visibleAttributes removeAllObjects];
-    // NSLog(@"x = %f, y = %f, w = %f, h = %f",rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 
-    // 双层循环处理可视区域内的各个格子
     for (NSInteger row = 0; row < MAP_ROWS; row++)
     for (NSInteger col = 0; col < MAP_COLS; col++)
     {
         NSIndexPath *indexPath = [NSIndexPath indexPathForItem:(row * MAP_COLS + col) inSection:0];
         UICollectionViewLayoutAttributes *attr = [self layoutAttributesForItemAtIndexPath:indexPath];
-        
-        //加入可见属性列表
         [self.visibleAttributes addObject:attr];
     }
-
-    // NSLog(@"Render attributes: %d", self.visibleAttributes.count);
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:1];
+    UICollectionViewLayoutAttributes *attr = [self layoutAttributesForItemAtIndexPath:indexPath];
+    [self.visibleAttributes addObject:attr];
     return self.visibleAttributes;
 }
 
@@ -75,21 +72,26 @@
 {
     UICollectionViewLayoutAttributes *attr = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
     
-    NSInteger row = (indexPath.row / MAP_ROWS);
-    NSInteger col = (indexPath.row % MAP_COLS);
-    
-    CGRect frame = CGRectMake((self.collectionViewContentSize.width - self.cellSize * MAP_COLS) / 2  + col * self.cellSize,
-                              (self.collectionViewContentSize.height - self.cellSize * MAP_ROWS) / 2 + row * self.cellSize,
-                              self.cellSize, self.cellSize);
-    attr.frame = frame;
-    attr.zIndex = indexPath.row;
-    attr.transform = CGAffineTransformIdentity;
-    NSIndexPath *selectedIndexPath = ((MapDatasource *)self.collectionView.dataSource).selectedIndexPath;
-    if (selectedIndexPath != nil && selectedIndexPath.row == indexPath.row)
+    if (indexPath.section == 0)
     {
-        attr.zIndex = MAP_ROWS * MAP_COLS;
-        attr.transform = CGAffineTransformScale(CGAffineTransformIdentity, 1.5f, 1.5f);
+        NSInteger row = (indexPath.row / MAP_ROWS);
+        NSInteger col = (indexPath.row % MAP_COLS);
+        CGRect frame = CGRectMake((self.collectionViewContentSize.width - self.cellSize * MAP_COLS) / 2  + col * self.cellSize,
+                                  (self.collectionViewContentSize.height - self.cellSize * MAP_ROWS) / 2 + row * self.cellSize,
+                                  self.cellSize, self.cellSize);
+        attr.frame = frame;
+        attr.zIndex = indexPath.row + 1;
+        attr.transform = CGAffineTransformIdentity;
     }
+    else
+    {
+        attr.frame = CGRectMake((self.collectionViewContentSize.width - self.cellSize * MAP_COLS) / 2 - 2,
+                                (self.collectionViewContentSize.height - self.cellSize * MAP_ROWS) / 2 - 2,
+                                self.cellSize * MAP_COLS + 4, self.cellSize * MAP_ROWS + 4);
+        attr.zIndex = 0;
+        attr.transform = CGAffineTransformIdentity;
+    }
+
     return attr;
 }
 

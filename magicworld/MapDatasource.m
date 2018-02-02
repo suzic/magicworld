@@ -97,34 +97,41 @@
     if (_selectedIndexPath != nil)
         [indexPathArray addObject:_selectedIndexPath];
     [self.controller.mapCollection reloadItemsAtIndexPaths:indexPathArray];
-    [self.controller moveToSelected:nil];
+    [self.controller updateSelection:YES];
 }
 
 #pragma mark - UICollectionView Datasource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return MAP_ROWS * MAP_COLS;
+    if (section == 0)
+        return MAP_ROWS * MAP_COLS;
+    return 1;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    MapCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"zoneCell" forIndexPath:indexPath];
-    [cell setIndexNumberIn:indexPath.row / MAP_COLS andCol:indexPath.row % MAP_COLS];
-    cell.isSelected = (self.selectedIndexPath != nil && indexPath.row == self.selectedIndexPath.row);
-    return cell;
+    if (indexPath.section == 0)
+    {
+        MapCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"zoneCell" forIndexPath:indexPath];
+        [cell setIndexNumberIn:indexPath.row / MAP_COLS andCol:indexPath.row % MAP_COLS];
+        cell.isSelected = (self.selectedIndexPath != nil && indexPath.row == self.selectedIndexPath.row);
+        return cell;
+    }
+    return [collectionView dequeueReusableCellWithReuseIdentifier:@"backgroundCell" forIndexPath:indexPath];
 }
 
 #pragma mark - UICollectionView Delegate
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.selectedIndexPath = indexPath;
+    if (indexPath.section == 0)
+        self.selectedIndexPath = indexPath;
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView

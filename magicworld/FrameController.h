@@ -23,6 +23,6 @@
                      inSize:(CGSize)size
                  completion:(void (^)(BOOL finished))completion;
 
-- (IBAction)moveToSelected:(id)sender;
+- (void)updateSelection:(BOOL)autoCenter;
 
 @end
