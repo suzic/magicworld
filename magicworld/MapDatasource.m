@@ -44,6 +44,8 @@
 
 - (void)setSelectedIndexPath:(NSIndexPath *)selectedIndexPath
 {
+    self.highlightedIndexPath = nil;
+    
     NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:2];
     
     if (_selectedIndexPath != nil)
@@ -98,6 +100,25 @@
         [indexPathArray addObject:_selectedIndexPath];
     [self.controller.mapCollection reloadItemsAtIndexPaths:indexPathArray];
     [self.controller updateSelection:YES];
+}
+
+- (void)setHighlightedIndexPath:(NSIndexPath *)highlightedIndexPath
+{
+    if (_highlightedIndexPath.section == highlightedIndexPath.section
+        && _highlightedIndexPath.row == highlightedIndexPath.row)
+        return;
+    
+    NSMutableArray *indexPathArray = [NSMutableArray arrayWithCapacity:2];
+    if (_highlightedIndexPath != nil)
+        [indexPathArray addObject:_highlightedIndexPath];
+    
+    if (highlightedIndexPath != nil && highlightedIndexPath.section != 0)
+        highlightedIndexPath = nil;
+    _highlightedIndexPath = highlightedIndexPath;
+
+    if (_highlightedIndexPath != nil)
+        [indexPathArray addObject:_highlightedIndexPath];
+    [self.controller.mapCollection reloadItemsAtIndexPaths:indexPathArray];
 }
 
 #pragma mark - UICollectionView Datasource

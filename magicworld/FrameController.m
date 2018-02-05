@@ -38,15 +38,13 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *headPanelTop;
 
 @property (strong, nonatomic) IBOutlet MapDatasource *mapDatasource;
-@property (weak, nonatomic) MapCell *highlightCell;
 
 @end
 
 @implementation FrameController
 {
     BOOL firstInit;
-    CGPoint panFromPoint;
-    CGPoint panToPoint;
+    CGPoint panLengthPoint;
 }
 
 // 视图内容初始化
@@ -57,7 +55,6 @@
     [super viewDidLoad];
     self.mapDatasource.controller = self;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.highlightCell = nil;
 
     [self.mapCollection addSubview:self.arrowImage];
     [self.mapCollection addSubview:self.selectedView];
@@ -110,11 +107,13 @@
 {
     [super viewDidLayoutSubviews];
     [self rotateInfoPanelToSize:CGSizeMake(kScreenWidth, kScreenHeight)];
-    
+    [self moveToSelected:nil];
+
     // 第一次自动执行居中布局
     if (firstInit)
     {
         firstInit = NO;
+
         MapCellLayout *mapLayout = (MapCellLayout *)self.mapCollection.collectionViewLayout;
         CGSize size = mapLayout.collectionViewContentSize;
         CGPoint targetPoint = CGPointMake(size.width / 2 - kScreenWidth / 2, size.height / 2 - kScreenHeight / 2);
@@ -132,7 +131,6 @@
 
     // 横竖屏的时候重新计算信息面板
     [self rotateInfoPanelToSize:size];
-    [self moveToSelected:nil];
 }
 
 // 重载显示状态栏风格
@@ -180,49 +178,28 @@
 - (IBAction)panTarget:(id)sender
 {
     UIPanGestureRecognizer *pan = (UIPanGestureRecognizer *)sender;
-    CGFloat vDis = 0;
-    CGFloat hDis = 0;
-    CGFloat panDistance = 0.0f;
-    CGFloat angle = 0.0f;
     switch (pan.state)
     {
         case UIGestureRecognizerStateBegan:
-            panFromPoint = [pan translationInView:self.view];
-            self.arrowImage.transform = CGAffineTransformIdentity;
-            [self.arrowImage setFrame:CGRectMake(self.selectedView.center.x, self.selectedView.center.y - 36.0f, 1.0f, 72.0f)];
-            self.arrowImage.hidden = YES;
+            [self drawArrowLengthPoint:CGPointZero];
             break;
             
         case UIGestureRecognizerStateChanged:
-            panToPoint = [pan translationInView:self.view];
-            vDis = panToPoint.x - panFromPoint.x;
-            hDis = panToPoint.y - panFromPoint.y;
-            panDistance = sqrt(vDis * vDis + hDis * hDis);
-            self.arrowImage.hidden = panDistance < 64.0f;
-            self.mapDatasource.highlightedIndexPath = nil;
-            // NSLog(@"终点 x = %02.2f, y = %02.2f (%02.2f)", panToPoint.x, panToPoint.y, panDistance);
-            if (!self.arrowImage.hidden)
-            {
-                if (vDis == 0.0f)
-                    angle = hDis > 0 ? M_PI_2 : -M_PI_2;
-                else
-                    angle = (vDis > 0) ? atan(hDis / vDis) : (M_PI + atan(hDis / vDis));
-                // NSLog(@"角度 a = %02.2f 长度 d = %02.2f", angle, panDistance);
-                self.arrowImage.transform = CGAffineTransformIdentity;
-                [self.arrowImage setFrame:CGRectMake(self.selectedView.center.x, self.selectedView.center.y - 36.0f, panDistance, 72.0f)];
-                self.arrowImage.transform = CGAffineTransformRotate(CGAffineTransformIdentity, angle);
-                
-                CGPoint pointInCollectionView = CGPointMake(vDis, hDis);
-//                pointInCollectionView.x += self.mapCollection.contentOffset.x;
-//                pointInCollectionView.y += self.mapCollection.contentOffset.y;
-                NSLog(@"MAP POS x = %02.2f y = %02.2f", pointInCollectionView.x, pointInCollectionView.y);
-                NSIndexPath *indexPath = [self.mapCollection indexPathForItemAtPoint:pointInCollectionView];
-                if (indexPath != nil && indexPath.section == 0)
-                    self.highlightCell = (MapCell *)[self.mapCollection cellForItemAtIndexPath:indexPath];
-            }
+            panLengthPoint = [pan translationInView:self.view];
+            [self drawArrowLengthPoint:panLengthPoint];
+            [self updateTargetHightlight:panLengthPoint];
             break;
 
         case UIGestureRecognizerStateEnded:
+            if (self.mapDatasource.highlightedIndexPath == nil || self.mapDatasource.highlightedIndexPath.section != 0)
+                self.arrowImage.hidden = YES;
+            else
+            {
+                MapCell *highlightCell = (MapCell *)[self.mapCollection cellForItemAtIndexPath:self.mapDatasource.highlightedIndexPath];
+                CGPoint adjustLengthPoint = CGPointMake(highlightCell.center.x - self.selectedView.center.x,
+                                                        highlightCell.center.y - self.selectedView.center.y);
+                [self drawArrowLengthPoint:adjustLengthPoint];
+            }
             break;
 
         case UIGestureRecognizerStateCancelled:
@@ -233,6 +210,30 @@
             break;
         case UIGestureRecognizerStateFailed:
             break;
+    }
+}
+
+- (void)updateTargetHightlight:(CGPoint)pointTo
+{
+    CGPoint pointInCollectionView = CGPointMake(pointTo.x + self.selectedView.center.x, pointTo.y + self.selectedView.center.y);
+    self.mapDatasource.highlightedIndexPath = [self.mapCollection indexPathForItemAtPoint:pointInCollectionView];
+}
+
+- (void)drawArrowLengthPoint:(CGPoint)length
+{
+    CGFloat angle = 0.0f;
+    CGFloat panDistance = sqrt(length.x * length.x + length.y * length.y);
+    self.arrowImage.hidden = panDistance < 64.0f;
+    if (!self.arrowImage.hidden)
+    {
+        if (length.x == 0.0f)
+            angle = length.y > 0 ? M_PI_2 : -M_PI_2;
+        else
+            angle = (length.x > 0) ? atan(length.y / length.x) : (M_PI + atan(length.y / length.x));
+        // NSLog(@"角度 a = %02.2f 长度 d = %02.2f", angle, panDistance);
+        self.arrowImage.transform = CGAffineTransformIdentity;
+        [self.arrowImage setFrame:CGRectMake(self.selectedView.center.x, self.selectedView.center.y - 36.0f, panDistance, 72.0f)];
+        self.arrowImage.transform = CGAffineTransformRotate(CGAffineTransformIdentity, angle);
     }
 }
 
@@ -260,20 +261,6 @@
 }
 
 #pragma mark - Properties & inner method
-
-- (void)setHighlightCell:(MapCell *)highlightCell
-{
-    if (![highlightCell isKindOfClass:[MapCell class]])
-        return;
-    if (_highlightCell == highlightCell)
-        return;
-    
-    if (_highlightCell != nil)
-        _highlightCell.highlight = NO;
-    _highlightCell = highlightCell;
-    if (_highlightCell != nil)
-        _highlightCell.highlight = YES;
-}
 
 - (void)setShouldShowPanel:(BOOL)shouldShowPanel
 {
@@ -330,8 +317,10 @@
         if (self.showPanel)
         {
             [self switchPanelShowInfo:NO showHeader:NO showFunc:NO inSize:size completion:^(BOOL finished) {
+                if (!finished) return;
                 self.showPanel = NO;
                 [self switchPanelShowInfo:YES showHeader:YES showFunc:YES inSize:size completion:^(BOOL finished) {
+                    if (!finished) return;
                     self.showPanel = YES;
                 }];
             }];
@@ -339,6 +328,7 @@
         else
         {
             [self switchPanelShowInfo:YES showHeader:YES showFunc:YES inSize:size completion:^(BOOL finished) {
+                if (!finished) return;
                 self.showPanel = YES;
             }];
         }
@@ -346,6 +336,7 @@
     else
     {
         [self switchPanelShowInfo:NO showHeader:YES showFunc:YES inSize:size completion:^(BOOL finished) {
+            if (!finished) return;
             self.showPanel = NO;
         }];
     }
