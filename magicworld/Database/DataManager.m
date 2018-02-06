@@ -41,7 +41,6 @@ static NSString *const CoreDataModelFileName = @"database";
     return self;
 }
 
-
 - (void)applicationWillEnterbackground:(NSNotification *)notification
 {
     [self saveContext];
@@ -187,33 +186,29 @@ static NSString *const CoreDataModelFileName = @"database";
 
 /**
  *  @abstract 向数据库中插入一条新建数据
- *
  */
 - (NSManagedObject *)insertIntoCoreData:(NSString *)entityName
 {
-    NSManagedObject *obj  = [NSEntityDescription insertNewObjectForEntityForName:entityName
-                                                          inManagedObjectContext:self.managedObjectContext];
-        return obj;
+    NSManagedObject *obj = [NSEntityDescription insertNewObjectForEntityForName:entityName inManagedObjectContext:self.managedObjectContext];
+    return obj;
 }
 
 /**
  *  @abstract 从数据库中删除一条数据
  */
-- (void) deleteFromCoreData:(NSManagedObject *) obj
+- (void)deleteFromCoreData:(NSManagedObject *) obj
 {
     [self.managedObjectContext deleteObject:obj];
 }
 
-- (void) cleanCoreDatabyEntityName:(NSString*)entityName
+/**
+ *  @abstract 从数据库中清除一张表
+ */
+- (void)cleanCoreDatabyEntityName:(NSString*)entityName
 {
     NSArray *DBarray = [self arrayFromCoreData:entityName predicate:nil limit:NSIntegerMax offset:0 orderBy:nil];
-    if (DBarray.count >0)
-    {
-        for (NSManagedObject *obj in DBarray)
-        {
-            [self deleteFromCoreData:obj];
-        }
-    }
+    for (NSManagedObject *obj in DBarray)
+        [self deleteFromCoreData:obj];
 }
 
 @end

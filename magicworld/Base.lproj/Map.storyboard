@@ -182,9 +182,14 @@
                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UTA_000" translatesAutoresizingMaskIntoConstraints="NO" id="y4g-1W-Adg">
+                                                            <rect key="frame" x="134.33333333333334" y="134.33333333333334" width="32" height="32"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.57045853140000002" green="0.57047235969999999" blue="0.57046490910000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
+                                                        <constraint firstItem="y4g-1W-Adg" firstAttribute="centerY" secondItem="atc-4G-P4m" secondAttribute="centerY" id="Prz-VP-Tkd"/>
+                                                        <constraint firstItem="y4g-1W-Adg" firstAttribute="centerX" secondItem="atc-4G-P4m" secondAttribute="centerX" id="UAo-CT-lKV"/>
                                                         <constraint firstItem="0Yl-Zy-ma0" firstAttribute="centerX" secondItem="atc-4G-P4m" secondAttribute="centerX" id="hmy-zM-BTh"/>
                                                         <constraint firstItem="0Yl-Zy-ma0" firstAttribute="centerY" secondItem="atc-4G-P4m" secondAttribute="centerY" id="lGE-ra-jb9"/>
                                                     </constraints>
@@ -202,6 +207,7 @@
                                         <connections>
                                             <outlet property="cellBackground" destination="atc-4G-P4m" id="Frx-kD-7aA"/>
                                             <outlet property="indexLabel" destination="0Yl-Zy-ma0" id="Ba7-pU-Y30"/>
+                                            <outlet property="unitAvator" destination="y4g-1W-Adg" id="2DM-0O-uJ4"/>
                                         </connections>
                                     </collectionViewCell>
                                     <collectionViewCell clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="backgroundCell" id="mZR-cd-N4T">
@@ -535,5 +541,6 @@
         <image name="Arrow" width="60" height="72"/>
         <image name="CMD_Undefined" width="21" height="21"/>
         <image name="MAPBG" width="1376" height="768"/>
+        <image name="UTA_000" width="32" height="32"/>
     </resources>
 </document>

@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
+#import "MWForce+CoreDataClass.h"
 
 @interface DataManager : NSObject
 
 // 单例模式的数据管理器
 + (instancetype)defaultInstance;
+
+@property (strong, nonatomic) MWForce *myForce;
 
 #pragma mark - NSManagedObjectContext Methods
 

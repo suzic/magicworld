@@ -1,22 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17C205" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
-    <entity name="MWForce" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13772" systemVersion="17D47" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
+    <entity name="MWForce" representedClassName="MWForce" syncable="YES" codeGenerationType="class">
         <attribute name="force_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="force_name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="force_score" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="force_submitted" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="force_wins" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="player_force" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="hasGameSnaps" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWGameSnapView" inverseName="myForce" inverseEntity="MWGameSnapView" syncable="YES"/>
         <relationship name="hasMaterials" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWMaterial" inverseName="belongForce" inverseEntity="MWMaterial" syncable="YES"/>
         <relationship name="hasUnits" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnit" inverseName="belongForce" inverseEntity="MWUnit" syncable="YES"/>
-        <relationship name="hasZones" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MWZone" inverseName="belongForce" inverseEntity="MWZone" syncable="YES"/>
     </entity>
-    <entity name="MWMaterial" syncable="YES">
+    <entity name="MWGame" representedClassName="MWGame" syncable="YES" codeGenerationType="class">
+        <attribute name="current_round_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="game_id" attributeType="String" syncable="YES"/>
+        <attribute name="game_type" attributeType="Integer 16" minValueString="0" maxValueString="4" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="state" optional="YES" attributeType="Integer 16" minValueString="0" maxValueString="4" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="assignMap" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="MWMap" inverseName="assignGame" inverseEntity="MWMap" syncable="YES"/>
+        <relationship name="hasGameSnaps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MWGameSnapView" inverseName="belongGame" inverseEntity="MWGameSnapView" syncable="YES"/>
+        <relationship name="hasRounds" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWRound" inverseName="belongGame" inverseEntity="MWRound" syncable="YES"/>
+    </entity>
+    <entity name="MWGameSnapView" representedClassName="MWGameSnapView" syncable="YES" codeGenerationType="class">
+        <attribute name="awon" optional="YES" attributeType="Boolean" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="force_a" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="force_b" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="game_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="game_state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="snap_id" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="belongGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWGame" inverseName="hasGameSnaps" inverseEntity="MWGame" syncable="YES"/>
+        <relationship name="myForce" optional="YES" maxCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="MWForce" inverseName="hasGameSnaps" inverseEntity="MWForce" syncable="YES"/>
+        <relationship name="myUnits" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnitInstance" inverseName="belongGameSnap" inverseEntity="MWUnitInstance" syncable="YES"/>
+    </entity>
+    <entity name="MWMap" representedClassName="MWMap" syncable="YES" codeGenerationType="class">
+        <attribute name="map_id" attributeType="String" syncable="YES"/>
+        <attribute name="map_type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="assignGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWGame" inverseName="assignMap" inverseEntity="MWGame" syncable="YES"/>
+        <relationship name="belongMapType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWMapType" inverseName="hasInstances" inverseEntity="MWMapType" syncable="YES"/>
+        <relationship name="hasZones" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWZone" inverseName="belongMap" inverseEntity="MWZone" syncable="YES"/>
+    </entity>
+    <entity name="MWMapType" representedClassName="MWMapType" syncable="YES" codeGenerationType="class">
+        <attribute name="map_type_id" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="map_type_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="size_col" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="size_row" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="hasInstances" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MWMap" inverseName="belongMapType" inverseEntity="MWMap" syncable="YES"/>
+        <relationship name="hasZones" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWZone" inverseName="belongMapType" inverseEntity="MWZone" syncable="YES"/>
+    </entity>
+    <entity name="MWMaterial" representedClassName="MWMaterial" syncable="YES" codeGenerationType="class">
         <attribute name="material_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="material_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="belongForce" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWForce" inverseName="hasMaterials" inverseEntity="MWForce" syncable="YES"/>
     </entity>
-    <entity name="MWOverlay" syncable="YES">
+    <entity name="MWOverlay" representedClassName="MWOverlay" syncable="YES" codeGenerationType="class">
         <attribute name="bonus_attack" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_defense" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_explore" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
@@ -27,9 +62,15 @@
         <attribute name="overlay_hp_max" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="overlay_hp_rec" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="overlay_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="hasAssigned" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MWZoneType" inverseName="assignOverlay" inverseEntity="MWZoneType" syncable="YES"/>
         <relationship name="hasBonus" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnitInOverlay" inverseName="belongOverlay" inverseEntity="MWUnitInOverlay" syncable="YES"/>
     </entity>
-    <entity name="MWTerrain" syncable="YES">
+    <entity name="MWRound" representedClassName="MWRound" syncable="YES" codeGenerationType="class">
+        <attribute name="round_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="round_state" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="belongGame" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWGame" inverseName="hasRounds" inverseEntity="MWGame" syncable="YES"/>
+    </entity>
+    <entity name="MWTerrain" representedClassName="MWTerrain" syncable="YES" codeGenerationType="class">
         <attribute name="bonus_attack" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_defense" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_explore" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
@@ -37,19 +78,17 @@
         <attribute name="cost_points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="terrain_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="hasAssigned" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MWZoneType" inverseName="assignTerrain" inverseEntity="MWZoneType" syncable="YES"/>
         <relationship name="hasBonus" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnitInTerrain" inverseName="belongTerrain" inverseEntity="MWUnitInTerrain" syncable="YES"/>
     </entity>
-    <entity name="MWUnit" syncable="YES">
-        <attribute name="current_action_points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="current_atk" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="current_def" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="current_hp" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+    <entity name="MWUnit" representedClassName="MWUnit" syncable="YES" codeGenerationType="class">
         <attribute name="unit_id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="unit_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="belongForce" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWForce" inverseName="hasUnits" inverseEntity="MWForce" syncable="YES"/>
-        <relationship name="belongZone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWZone" inverseName="hasUnits" inverseEntity="MWZone" syncable="YES"/>
+        <relationship name="belongUnitType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWUnitType" inverseName="hasInstances" inverseEntity="MWUnitType" syncable="YES"/>
+        <relationship name="hasInstance" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MWUnitInstance" inverseName="belongUnit" inverseEntity="MWUnitInstance" syncable="YES"/>
     </entity>
-    <entity name="MWUnitInOverlay" syncable="YES">
+    <entity name="MWUnitInOverlay" representedClassName="MWUnitInOverlay" syncable="YES" codeGenerationType="class">
         <attribute name="bonus_action_points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_atk" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_def" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
@@ -60,7 +99,18 @@
         <relationship name="belongOverlay" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWOverlay" inverseName="hasBonus" inverseEntity="MWOverlay" syncable="YES"/>
         <relationship name="belongUnitType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWUnitType" inverseName="hasOverlayBonus" inverseEntity="MWUnitType" syncable="YES"/>
     </entity>
-    <entity name="MWUnitInTerrain" syncable="YES">
+    <entity name="MWUnitInstance" representedClassName="MWUnitInstance" syncable="YES" codeGenerationType="class">
+        <attribute name="current_action_points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="current_atk" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="current_def" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="current_hp" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="unit_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unit_type" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="atZone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWZone" inverseName="unitOn" inverseEntity="MWZone" syncable="YES"/>
+        <relationship name="belongGameSnap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWGameSnapView" inverseName="myUnits" inverseEntity="MWGameSnapView" syncable="YES"/>
+        <relationship name="belongUnit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWUnit" inverseName="hasInstance" inverseEntity="MWUnit" syncable="YES"/>
+    </entity>
+    <entity name="MWUnitInTerrain" representedClassName="MWUnitInTerrain" syncable="YES" codeGenerationType="class">
         <attribute name="bonus_action_points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_atk" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_def" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
@@ -71,7 +121,7 @@
         <relationship name="belongTerrain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWTerrain" inverseName="hasBonus" inverseEntity="MWTerrain" syncable="YES"/>
         <relationship name="belongUnitType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWUnitType" inverseName="hasTerrainBonus" inverseEntity="MWUnitType" syncable="YES"/>
     </entity>
-    <entity name="MWUnitToUnit" syncable="YES">
+    <entity name="MWUnitToUnit" representedClassName="MWUnitToUnit" syncable="YES" codeGenerationType="class">
         <attribute name="bonus_atk" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="bonus_def" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="unit_type_a" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
@@ -80,39 +130,54 @@
         <relationship name="belongTypeA" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWUnitType" inverseName="hasTypeBonus" inverseEntity="MWUnitType" syncable="YES"/>
         <relationship name="belongTypeB" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWUnitType" inverseName="hasTypeLack" inverseEntity="MWUnitType" syncable="YES"/>
     </entity>
-    <entity name="MWUnitType" syncable="YES">
+    <entity name="MWUnitType" representedClassName="MWUnitType" syncable="YES" codeGenerationType="class">
         <attribute name="max_action_points" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="max_atk" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="max_def" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="max_hp" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="type_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="type_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="max_range" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="min_range" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="unit_type_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="unit_type_name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="hasInstances" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnit" inverseName="belongUnitType" inverseEntity="MWUnit" syncable="YES"/>
         <relationship name="hasOverlayBonus" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnitInOverlay" inverseName="belongUnitType" inverseEntity="MWUnitInOverlay" syncable="YES"/>
         <relationship name="hasTerrainBonus" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnitInTerrain" inverseName="belongUnitType" inverseEntity="MWUnitInTerrain" syncable="YES"/>
         <relationship name="hasTypeBonus" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnitToUnit" inverseName="belongTypeA" inverseEntity="MWUnitToUnit" syncable="YES"/>
         <relationship name="hasTypeLack" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWUnitToUnit" inverseName="belongTypeB" inverseEntity="MWUnitToUnit" syncable="YES"/>
     </entity>
     <entity name="MWZone" representedClassName="MWZone" syncable="YES" codeGenerationType="class">
-        <attribute name="info_overlay" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="info_terrain" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="ticks_remain" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="ticks_round" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="z_col" attributeType="Integer 16" minValueString="0" maxValueString="999" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="z_row" attributeType="Integer 16" minValueString="0" maxValueString="999" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="zone_id" attributeType="String" indexed="YES" syncable="YES"/>
-        <relationship name="belongForce" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWForce" inverseName="hasZones" inverseEntity="MWForce" syncable="YES"/>
-        <relationship name="hasUnits" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWUnit" inverseName="belongZone" inverseEntity="MWUnit" syncable="YES"/>
+        <attribute name="zone_id" attributeType="String" syncable="YES"/>
+        <attribute name="zone_type" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <relationship name="belongMap" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWMap" inverseName="hasZones" inverseEntity="MWMap" syncable="YES"/>
+        <relationship name="belongMapType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWMapType" inverseName="hasZones" inverseEntity="MWMapType" syncable="YES"/>
+        <relationship name="belongZoneType" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWZoneType" inverseName="hasInstances" inverseEntity="MWZoneType" syncable="YES"/>
+        <relationship name="unitOn" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWUnitInstance" inverseName="atZone" inverseEntity="MWUnitInstance" syncable="YES"/>
+    </entity>
+    <entity name="MWZoneType" representedClassName="MWZoneType" syncable="YES" codeGenerationType="class">
+        <attribute name="overlay_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="terrain_id" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="zone_type_id" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="assignOverlay" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWOverlay" inverseName="hasAssigned" inverseEntity="MWOverlay" syncable="YES"/>
+        <relationship name="assignTerrain" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MWTerrain" inverseName="hasAssigned" inverseEntity="MWTerrain" syncable="YES"/>
+        <relationship name="hasInstances" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MWZone" inverseName="belongZoneType" inverseEntity="MWZone" syncable="YES"/>
     </entity>
     <elements>
-        <element name="MWForce" positionX="0" positionY="0" width="128" height="178"/>
-        <element name="MWMaterial" positionX="200" positionY="60" width="128" height="88"/>
-        <element name="MWOverlay" positionX="800" positionY="14" width="128" height="208"/>
-        <element name="MWTerrain" positionX="800" positionY="288" width="128" height="163"/>
-        <element name="MWUnit" positionX="200" positionY="268" width="128" height="163"/>
-        <element name="MWUnitInOverlay" positionX="600" positionY="59" width="128" height="178"/>
-        <element name="MWUnitInTerrain" positionX="600" positionY="288" width="128" height="178"/>
-        <element name="MWUnitToUnit" positionX="400" positionY="360" width="128" height="148"/>
-        <element name="MWUnitType" positionX="400" positionY="89" width="128" height="193"/>
-        <element name="MWZone" positionX="0" positionY="253" width="128" height="178"/>
+        <element name="MWForce" positionX="648" positionY="159" width="128" height="178"/>
+        <element name="MWGame" positionX="216" positionY="159" width="128" height="148"/>
+        <element name="MWGameSnapView" positionX="432" positionY="144" width="128" height="178"/>
+        <element name="MWMap" positionX="216" positionY="375" width="128" height="118"/>
+        <element name="MWMapType" positionX="0" positionY="216" width="128" height="133"/>
+        <element name="MWMaterial" positionX="648" positionY="0" width="128" height="88"/>
+        <element name="MWOverlay" positionX="216" positionY="605" width="128" height="223"/>
+        <element name="MWRound" positionX="216" positionY="9" width="128" height="88"/>
+        <element name="MWTerrain" positionX="216" positionY="866" width="128" height="178"/>
+        <element name="MWUnit" positionX="648" positionY="450" width="128" height="118"/>
+        <element name="MWUnitInOverlay" positionX="432" positionY="665" width="128" height="178"/>
+        <element name="MWUnitInstance" positionX="432" positionY="390" width="128" height="178"/>
+        <element name="MWUnitInTerrain" positionX="432" positionY="881" width="128" height="178"/>
+        <element name="MWUnitToUnit" positionX="864" positionY="740" width="128" height="148"/>
+        <element name="MWUnitType" positionX="648" positionY="650" width="128" height="238"/>
+        <element name="MWZone" positionX="0" positionY="405" width="128" height="133"/>
+        <element name="MWZoneType" positionX="0" positionY="710" width="128" height="133"/>
     </elements>
 </model>

@@ -13,6 +13,10 @@
 		D05095D31CC805CD0027F45D /* OperationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095D21CC805CD0027F45D /* OperationCell.m */; };
 		D05095D61CC80FC30027F45D /* PaddingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D05095D51CC80FC30027F45D /* PaddingCell.m */; };
 		D0558F1C202406AF009D6F29 /* Operation.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0558F1A202406AF009D6F29 /* Operation.storyboard */; };
+		D0558F212028849D009D6F29 /* init_mapping.plist in Resources */ = {isa = PBXBuildFile; fileRef = D0558F202028849C009D6F29 /* init_mapping.plist */; };
+		D0558F24202943B0009D6F29 /* DataManager+Game.m in Sources */ = {isa = PBXBuildFile; fileRef = D0558F23202943B0009D6F29 /* DataManager+Game.m */; };
+		D0558F29202943CE009D6F29 /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0558F25202943CD009D6F29 /* database.xcdatamodeld */; };
+		D0558F2A202943CE009D6F29 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0558F27202943CD009D6F29 /* DataManager.m */; };
 		D05780C81C5DE41600E9195D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780C71C5DE41600E9195D /* main.m */; };
 		D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D05780CA1C5DE41600E9195D /* AppDelegate.m */; };
 		D05780D11C5DE41600E9195D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D05780CF1C5DE41600E9195D /* Main.storyboard */; };
@@ -28,8 +32,6 @@
 		D0940C011C5DFD6900B9C5C7 /* MapDatasource.m in Sources */ = {isa = PBXBuildFile; fileRef = D0940C001C5DFD6900B9C5C7 /* MapDatasource.m */; };
 		D09E8ECD20200776002B1967 /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D09E8ECB20200776002B1967 /* Map.storyboard */; };
 		D09E8ED020205327002B1967 /* InfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D09E8ECF20205327002B1967 /* InfoCell.m */; };
-		D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */; };
-		D0CB14011C61E7330028D552 /* DataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D0CB14001C61E7330028D552 /* DataManager.m */; };
 		D0D0A9ED1CE08E8E008E4D68 /* Libian.ttc in Resources */ = {isa = PBXBuildFile; fileRef = D0D0A9EC1CE08D47008E4D68 /* Libian.ttc */; };
 		D0E25C4A2022DFF8006D1503 /* ActionLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = D0E25C492022DFF8006D1503 /* ActionLayout.m */; };
 /* End PBXBuildFile section */
@@ -46,6 +48,12 @@
 		D05095D41CC80FC30027F45D /* PaddingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaddingCell.h; sourceTree = "<group>"; };
 		D05095D51CC80FC30027F45D /* PaddingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaddingCell.m; sourceTree = "<group>"; };
 		D0558F1B202406AF009D6F29 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Operation.storyboard; sourceTree = "<group>"; };
+		D0558F202028849C009D6F29 /* init_mapping.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = init_mapping.plist; path = Database/init_mapping.plist; sourceTree = "<group>"; };
+		D0558F22202943B0009D6F29 /* DataManager+Game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "DataManager+Game.h"; path = "Database/DataManager+Game.h"; sourceTree = "<group>"; };
+		D0558F23202943B0009D6F29 /* DataManager+Game.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "DataManager+Game.m"; path = "Database/DataManager+Game.m"; sourceTree = "<group>"; };
+		D0558F26202943CD009D6F29 /* magicworld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = magicworld.xcdatamodel; sourceTree = "<group>"; };
+		D0558F27202943CD009D6F29 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DataManager.m; path = Database/DataManager.m; sourceTree = "<group>"; };
+		D0558F28202943CE009D6F29 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataManager.h; path = Database/DataManager.h; sourceTree = "<group>"; };
 		D05780C31C5DE41600E9195D /* magicworld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = magicworld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05780C71C5DE41600E9195D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D05780C91C5DE41600E9195D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -73,9 +81,6 @@
 		D09E8ECC20200776002B1967 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
 		D09E8ECE20205327002B1967 /* InfoCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfoCell.h; sourceTree = "<group>"; };
 		D09E8ECF20205327002B1967 /* InfoCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfoCell.m; sourceTree = "<group>"; };
-		D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = magicworld.xcdatamodel; sourceTree = "<group>"; };
-		D0CB13FF1C61E7330028D552 /* DataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataManager.h; sourceTree = "<group>"; };
-		D0CB14001C61E7330028D552 /* DataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataManager.m; sourceTree = "<group>"; };
 		D0D0A9EC1CE08D47008E4D68 /* Libian.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = Libian.ttc; sourceTree = "<group>"; };
 		D0E25C482022DFF8006D1503 /* ActionLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionLayout.h; sourceTree = "<group>"; };
 		D0E25C492022DFF8006D1503 /* ActionLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionLayout.m; sourceTree = "<group>"; };
@@ -129,6 +134,13 @@
 			name = Resource;
 			sourceTree = "<group>";
 		};
+		D0558FF920294A13009D6F29 /* objects */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = objects;
+			sourceTree = "<group>";
+		};
 		D05780BA1C5DE41600E9195D = {
 			isa = PBXGroup;
 			children = (
@@ -177,9 +189,13 @@
 		D05780E91C5DEF3B00E9195D /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */,
-				D0CB13FF1C61E7330028D552 /* DataManager.h */,
-				D0CB14001C61E7330028D552 /* DataManager.m */,
+				D0558F25202943CD009D6F29 /* database.xcdatamodeld */,
+				D0558F28202943CE009D6F29 /* DataManager.h */,
+				D0558F27202943CD009D6F29 /* DataManager.m */,
+				D0558F22202943B0009D6F29 /* DataManager+Game.h */,
+				D0558F23202943B0009D6F29 /* DataManager+Game.m */,
+				D0558F202028849C009D6F29 /* init_mapping.plist */,
+				D0558FF920294A13009D6F29 /* objects */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -275,6 +291,7 @@
 				D05780D91C5DE41600E9195D /* LaunchScreen.storyboard in Resources */,
 				D0558F1C202406AF009D6F29 /* Operation.storyboard in Resources */,
 				D05780D61C5DE41600E9195D /* Assets.xcassets in Resources */,
+				D0558F212028849D009D6F29 /* init_mapping.plist in Resources */,
 				D03C86601CDC7A9900337090 /* Media.xcassets in Resources */,
 				D05780D11C5DE41600E9195D /* Main.storyboard in Resources */,
 				D0D0A9ED1CE08E8E008E4D68 /* Libian.ttc in Resources */,
@@ -295,17 +312,18 @@
 				D05780CB1C5DE41600E9195D /* AppDelegate.m in Sources */,
 				D03AEB581CE182FE00CB48DC /* GuideController.m in Sources */,
 				D05780EC1C5DF11F00E9195D /* LoginActionCell.m in Sources */,
-				D0CB13FE1C61DE050028D552 /* database.xcdatamodeld in Sources */,
 				D05780C81C5DE41600E9195D /* main.m in Sources */,
 				D09E8ED020205327002B1967 /* InfoCell.m in Sources */,
 				D05095D61CC80FC30027F45D /* PaddingCell.m in Sources */,
-				D0CB14011C61E7330028D552 /* DataManager.m in Sources */,
 				D05095D01CC804B00027F45D /* OperationController.m in Sources */,
 				D0594CB12021897000AD5E27 /* ActionCell.m in Sources */,
 				D0E25C4A2022DFF8006D1503 /* ActionLayout.m in Sources */,
+				D0558F24202943B0009D6F29 /* DataManager+Game.m in Sources */,
 				D05095D31CC805CD0027F45D /* OperationCell.m in Sources */,
+				D0558F2A202943CE009D6F29 /* DataManager.m in Sources */,
 				D05780E81C5DEEFA00E9195D /* LoginController.m in Sources */,
 				D0940BFE1C5DFD5000B9C5C7 /* MapCell.m in Sources */,
+				D0558F29202943CE009D6F29 /* database.xcdatamodeld in Sources */,
 				D05780EF1C5DF12C00E9195D /* LoginInputCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -502,12 +520,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		D0CB13FC1C61DE050028D552 /* database.xcdatamodeld */ = {
+		D0558F25202943CD009D6F29 /* database.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */,
+				D0558F26202943CD009D6F29 /* magicworld.xcdatamodel */,
 			);
-			currentVersion = D0CB13FD1C61DE050028D552 /* magicworld.xcdatamodel */;
+			currentVersion = D0558F26202943CD009D6F29 /* magicworld.xcdatamodel */;
 			name = database.xcdatamodeld;
 			path = Database/database.xcdatamodeld;
 			sourceTree = "<group>";

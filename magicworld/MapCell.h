@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) IBOutlet UIView *cellBackground;
 @property (strong, nonatomic) IBOutlet UILabel *indexLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *unitAvator;
 
 @property (assign, nonatomic) BOOL highlight;
 
