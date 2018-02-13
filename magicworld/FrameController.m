@@ -403,7 +403,7 @@
 //    [self performSegueWithIdentifier:@"showZone" sender:controller];
 }
 
-#pragma mark - UICollectionView Datasource & Delegate
+#pragma mark - Action collectionView Datasource & Delegate
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -452,7 +452,6 @@
 
 #pragma mark - Navigation
 
-// 导航时处理
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // 行进到区域内部控制器

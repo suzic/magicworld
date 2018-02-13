@@ -110,8 +110,6 @@
 
 - (void)setGuideInShown:(BOOL)guideInShown
 {
-//    if (_guideInShown == guideInShown)
-//        return;
     _guideInShown = guideInShown;
     
     self.guideTalk.transform = _guideInShown ? CGAffineTransformIdentity : CGAffineTransformTranslate(CGAffineTransformIdentity, 0.0f, 320.0f);

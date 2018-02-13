@@ -21,7 +21,6 @@
 - (void)initUnitTypes:(NSUInteger)ver;
 - (void)initOverlays:(NSUInteger)ver;
 - (void)initTerrains:(NSUInteger)ver;
-- (void)initZoneTypes:(NSUInteger)ver;
 - (void)initMapTypes:(NSUInteger)ver;
 
 - (MWZone *)createZoneInstanceByZoneTypeId:(NSString *)zoneTypeId;

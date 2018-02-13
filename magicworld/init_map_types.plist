@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>row_count</key>
+		<integer>9</integer>
+		<key>col_count</key>
+		<integer>9</integer>
+		<key>specified_zones</key>
+		<array>
+			<dict>
+				<key>row</key>
+				<integer>0</integer>
+				<key>col</key>
+				<integer>0</integer>
+				<key>unit_on</key>
+				<true/>
+				<key>overlay_id</key>
+				<integer>0</integer>
+				<key>terrain_id</key>
+				<integer>0</integer>
+			</dict>
+		</array>
+	</dict>
+</array>
+</plist>
